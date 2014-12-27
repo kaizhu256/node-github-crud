@@ -10,7 +10,10 @@
 */
 (function () {
   'use strict';
-  exports.githubUpload = function (options, onError) {
+  var local;
+  // init local object
+  local = {};
+  local.githubUpload = function (options, onError) {
     /*
       this function uploads the data to the github url
     */
@@ -31,7 +34,7 @@
         // init stack trace of this function's caller in case of error
         errorStack = new Error().stack;
         // init request and response
-        request = response = { destroy: exports.nop };
+        request = response = { destroy: local.nop };
         // set timerTimeout
         timerTimeout = setTimeout(function () {
           error = new Error('timeout error - 30000 ms - githubUpload - ' + options.url);
@@ -54,11 +57,15 @@
         options.hostname = 'api.github.com';
         options.path = '/repos/' + urlParsed[1] + '/contents/' +
           urlParsed[3] + '?ref=' + urlParsed[2];
+        // cleanup request socket
+        request.destroy();
         request = require('https').request(options, onIo);
         request.on('error', onIo);
         request.end();
         break;
       case 2:
+        // cleanup response socket
+        response.destroy();
         response = error;
         responseText = '';
         response
@@ -81,10 +88,6 @@
           .on('error', onIo);
         break;
       case 3:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         options.data = JSON.stringify({
           branch: urlParsed[2],
           content: new Buffer(options.data || '').toString('base64'),
@@ -94,11 +97,15 @@
         });
         options.method = 'PUT';
         options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3];
+        // cleanup request socket
+        request.destroy();
         request = require('https').request(options, onIo);
         request.on('error', onIo);
         request.end(options.data);
         break;
       case 4:
+        // cleanup response socket
+        response.destroy();
         response = error;
         responseText = '';
         response
@@ -140,12 +147,15 @@
     onIo();
   };
 
-  exports.nop = function () {
+  local.nop = function () {
     /*
       this function performs no operation - nop
     */
     return;
   };
+
+  // init export object
+  exports.githubUpload = local.githubUpload;
 
   // upload to the github url process.argv[2], the file/url process.argv[3]
   (function () {
@@ -192,7 +202,7 @@
         break;
       case 3:
         // upload data to the github url process.argv[2]
-        exports.githubUpload({ data: data, url: process.argv[2] }, onIo);
+        local.githubUpload({ data: data, url: process.argv[2] }, onIo);
         break;
       default:
         if (error) {

@@ -22,8 +22,21 @@ lightweight nodejs script to upload binary file to github repo
 
 ## usage example
 ```
-# install
+# npm install github-upload
 npm install github-upload
+
+# set $GITHUB_TOKEN env variable for the github repo you wish to upload to
+export GITHUB_TOKEN=xxxxxxxx
+
+# upload a file to github
+node_modules/.bin/github-upload\
+  https://github.com/kaizhu256/node-github-upload/blob/sandbox/test-file\
+  /tmp/test.png
+# upload a url resource to github
+node_modules/.bin/github-upload\
+  https://github.com/kaizhu256/node-github-upload/blob/sandbox/test-file\
+  https://raw.githubusercontent.com/kaizhu256/node-github-upload/master/README.md
+
 # run server and browser tests on self with code-coverage
 cd node_modules/github-upload && npm install && npm test
 # start example test server on port 8080
@@ -57,10 +70,11 @@ npm start --server-port=8080
 
 
 ## todo
-- add shell command
+- add example.js
 
 
 
 ## changelog
 #### 2014.12.21
+- add shell command
 - initial commit
