@@ -1,0 +1,5 @@
+*decrypted*
+.DS_Store
+.build/
+.tmp/
+node_modules
