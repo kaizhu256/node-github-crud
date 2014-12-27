@@ -76,5 +76,6 @@ npm start --server-port=8080
 
 ## changelog
 #### 2014.12.21
+- add modeData option in githubUpload
 - add shell command
 - initial commit

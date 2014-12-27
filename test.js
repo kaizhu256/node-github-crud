@@ -189,10 +189,11 @@
       var onParallel;
       onParallel = mainApp.onParallel(onError);
       onParallel.counter += 1;
-      // test dataFile handling behavior
+      // test data-file handling behavior
       onParallel.counter += 1;
       mainApp.github_upload.githubUpload({
-        dataFile: 'package.json',
+        data: 'package.json',
+        modeData: 'file',
         modeTestData: true
       }, function (error, data) {
         mainApp.testTryCatch(function () {
@@ -204,10 +205,11 @@
           onParallel();
         }, onParallel);
       });
-      // test dataUrl handling behavior
+      // test data-url handling behavior
       onParallel.counter += 1;
       mainApp.github_upload.githubUpload({
-        dataUrl: 'http://localhost:' + process.env.npm_config_server_port + '/test/hello',
+        data: 'http://localhost:' + process.env.npm_config_server_port + '/test/hello',
+        modeData: 'url',
         modeTestData: true
       }, function (error, data) {
         mainApp.testTryCatch(function () {

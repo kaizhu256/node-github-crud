@@ -36,41 +36,40 @@
       timerTimeout,
       urlParsed;
     modeIo = 0;
+    // init request and response
+    request = response = { destroy: local.nop };
     onIo = function (error, data) {
       modeIo = error instanceof Error ? -1 : modeIo + 1;
+      // cleanup request socket
+      request.destroy();
+      // cleanup response socket
+      response.destroy();
       switch (modeIo) {
       case 1:
-        // init request and response
-        request = response = { destroy: local.nop };
         // set timerTimeout
         timerTimeout = setTimeout(function () {
           error = new Error('timeout error - 30000 ms - githubUpload - ' + options.url);
           onIo(error);
         }, Number(options.timeout) || 30000);
-        // get data from dataUrl
-        if (options.dataUrl) {
-          urlParsed = local.url.parse(String(options.dataUrl));
+        switch (options.modeData) {
+        // get data from file
+        case 'file':
+          modeIo += 1;
+          local.fs.readFile(local.path.resolve(process.cwd(), options.data), onIo);
+          break;
+        // get data from url
+        case 'url':
+          urlParsed = local.url.parse(String(options.data));
           request = (urlParsed.protocol === 'https:' ? local.https : local.http)
             .request(urlParsed, onIo);
           request.on('error', onIo).end();
-          return;
+          break;
+        default:
+          modeIo += 1;
+          onIo(null, options.data);
         }
-        // skip reading from http response step
-        modeIo += 1;
-        // get data from dataFile
-        if (options.dataFile) {
-          // get data from dataFile
-          local.fs.readFile(local.path.resolve(process.cwd(), options.dataFile), onIo);
-          return;
-        }
-        // get data from data
-        onIo(null, options.data);
         break;
       case 2:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         chunkList = [];
         response = error;
         response
@@ -86,10 +85,6 @@
           .on('error', onIo);
         break;
       case 3:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         if (options.modeTestData) {
           modeIo = -1;
           onIo(null, data);
@@ -103,10 +98,8 @@
           .exec(options.url) || {};
         // init options
         options.headers = {
-          // github basic authentication
-          authorization: process.env.GITHUB_BASIC ? 'basic ' + process.env.GITHUB_BASIC
-            // github oauth authentication
-            : 'token ' + process.env.GITHUB_TOKEN,
+          // github oauth authentication
+          authorization: 'token ' + process.env.GITHUB_TOKEN,
           // bug - github api requires user-agent header
           'user-agent': 'undefined'
         };
@@ -118,10 +111,6 @@
         request.end();
         break;
       case 4:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         response = error;
         responseText = '';
         response
@@ -144,10 +133,6 @@
           .on('error', onIo);
         break;
       case 5:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         options.data = JSON.stringify({
           branch: urlParsed[2],
           content: new Buffer(options.data || '').toString('base64'),
@@ -162,10 +147,6 @@
         request.end(options.data);
         break;
       case 6:
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         response = error;
         responseText = '';
         response
@@ -183,10 +164,6 @@
         finished = true;
         // cleanup timerTimeout
         clearTimeout(timerTimeout);
-        // cleanup request socket
-        request.destroy();
-        // cleanup response socket
-        response.destroy();
         if (response.statusCode > 201) {
           error = error || new Error(responseText);
         }
@@ -223,15 +200,9 @@
     // init options
     options = {
       data: process.argv[3],
+      modeData: local.url.parse(options.data).protocol ? 'url' : 'file',
       url: process.argv[2]
     };
-    // init dataUrl
-    if (local.url.parse(options.data).protocol) {
-      options.dataUrl = options.data;
-    // init dataFile
-    } else {
-      options.dataFile = options.data;
-    }
     // upload file/url to github
     local.githubUpload(options, function (error) {
       if (error) {
