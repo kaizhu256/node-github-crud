@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*jslint
   bitwise: true, browser: true,
   indent: 2,
@@ -145,4 +146,60 @@
     */
     return;
   };
+
+  // upload to the github url process.argv[2], the file/url process.argv[3]
+  (function () {
+    var chunkList, modeIo, onIo;
+    modeIo = 0;
+    onIo = function (error, data) {
+      modeIo = error instanceof Error ? -1 : modeIo + 1;
+      switch (modeIo) {
+      case 1:
+        // if this module is not the main app, then return
+        if (module !== require.main) {
+          return;
+        }
+        // set timerTimeout
+        setTimeout(function () {
+          throw new Error('timeout error - 30000 ms - githubUpload - ' + process.argv[2]);
+        }, 30000).unref();
+        // get data from url process.argv[3]
+        data = require('url').parse(process.argv[3]);
+        if (data.protocol) {
+          require(data.protocol === 'https:' ? 'https' : 'http').request(data, onIo)
+            .on('error', onIo)
+            .end();
+          return;
+        }
+        // skip reading from http response step
+        modeIo += 1;
+        // get data from file process.argv[3]
+        require('fs').readFile(require('path').resolve(process.cwd(), process.argv[3]), onIo);
+        break;
+      case 2:
+        chunkList = [];
+        error
+          // on data event, push the buffer chunk to chunkList
+          .on('data', function (chunk) {
+            chunkList.push(chunk);
+          })
+          // on end event, pass concatenated read buffer to onIo
+          .on('end', function () {
+            onIo(null, Buffer.concat(chunkList));
+          })
+          // on error event, pass error to onIo
+          .on('error', onIo);
+        break;
+      case 3:
+        // upload data to the github url process.argv[2]
+        exports.githubUpload({ data: data, url: process.argv[2] }, onIo);
+        break;
+      default:
+        if (error) {
+          throw error;
+        }
+      }
+    };
+    onIo();
+  }());
 }());

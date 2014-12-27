@@ -26,6 +26,32 @@
     mainApp.localExport({
       _name: 'github-upload.test.browser',
 
+      _ajax_default_test: function (onError) {
+        /*
+          this function tests ajax's default handling behavior
+        */
+        var onParallel;
+        onParallel = mainApp.onParallel(onError);
+        onParallel.counter += 1;
+        [{
+          // test 404 error handling behavior
+          url: '/test/undefined?modeErrorIgnore=1'
+        }, {
+          // test 500 internal server error handling behavior
+          url: '/test/error?modeErrorIgnore=1'
+        }].forEach(function (options) {
+          onParallel.counter += 1;
+          mainApp.ajax(options, function (error) {
+            mainApp.testTryCatch(function () {
+              // validate error occurred
+              mainApp.assert(error instanceof Error, error);
+              onParallel();
+            }, onParallel);
+          });
+        });
+        onParallel();
+      },
+
       githubUploadFile: function (options, onError) {
         /*
           this function uploads the data to the github url
@@ -231,6 +257,10 @@
           mainApp.serverRespondDefault(request, response, error ? 500 : 404, error);
         };
         switch (request.urlPathNormalized) {
+        // test internal server error handling behavior
+        case '/test/error':
+          next(mainApp.utility2._errorDefault);
+          break;
         // test github upload handling behavior
         case '/test/github-upload':
           modeIo = 0;
