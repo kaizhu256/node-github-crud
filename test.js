@@ -12,144 +12,143 @@
     this function tests this module
   */
   'use strict';
-  var global, mainApp;
+  var global, local, mainApp;
   $$options.githubUploadTestFileUrl =
     'https://github.com/kaizhu256/node-github-upload/blob/sandbox/test-file';
   // init global object
   global = $$options.global;
+  // init local shared object
+  local = {};
+  local._ajax_default_test = function (onError) {
+    /*
+      this function tests ajax's default handling behavior
+    */
+    var onParallel;
+    onParallel = mainApp.onParallel(onError);
+    onParallel.counter += 1;
+    [{
+      // test 404 error handling behavior
+      url: '/test/undefined?modeErrorIgnore=1'
+    }, {
+      // test 500 internal server error handling behavior
+      url: '/test/error?modeErrorIgnore=1'
+    }].forEach(function (options) {
+      onParallel.counter += 1;
+      mainApp.ajax(options, function (error) {
+        mainApp.testTryCatch(function () {
+          // validate error occurred
+          mainApp.assert(error instanceof Error, error);
+          onParallel();
+        }, onParallel);
+      });
+    });
+    onParallel();
+  };
   switch ($$options.modeJs) {
   // init browser js env
   case 'browser':
     // init mainApp
     mainApp = global.mainApp = global.$$mainApp;
-    // init local object
-    mainApp.localExport({
-      _name: 'github-upload.test.browser',
-
-      _ajax_default_test: function (onError) {
-        /*
-          this function tests ajax's default handling behavior
-        */
-        var onParallel;
-        onParallel = mainApp.onParallel(onError);
-        onParallel.counter += 1;
-        [{
-          // test 404 error handling behavior
-          url: '/test/undefined?modeErrorIgnore=1'
-        }, {
-          // test 500 internal server error handling behavior
-          url: '/test/error?modeErrorIgnore=1'
-        }].forEach(function (options) {
-          onParallel.counter += 1;
-          mainApp.ajax(options, function (error) {
-            mainApp.testTryCatch(function () {
-              // validate error occurred
-              mainApp.assert(error instanceof Error, error);
-              onParallel();
-            }, onParallel);
-          });
-        });
-        onParallel();
-      },
-
-      githubUploadFile: function (options, onError) {
-        /*
-          this function uploads the data to the github url
-        */
-        var elementLi, modeIo, onIo;
-        modeIo = 0;
-        onIo = function (error, data) {
-          modeIo += 1;
-          switch (modeIo) {
-          case 1:
-            // wait for dom to sync
-            setTimeout(onIo);
-            break;
-          case 2:
-            onError = onError || mainApp.nop;
-            // init options
-            options.file = options.file || mainApp.githubUploadFileInput.files[0];
-            options.data = options.data || options.file;
-            options.method = 'PUT';
-            options.url = '/test/github-upload?' + options.query;
-            // if no file was selected, then return
-            if (!options.file) {
-              onError();
-              return;
-            }
-            // upload file to github
-            mainApp.ajax(options, onIo);
-            break;
-          default:
-            // update upload status
-            elementLi = document.createElement('li');
-            elementLi.setAttribute('style', 'background-color: ' + (error ? '#fbb' : '#bfb') +
-              ';' +
-              'border-radius: 5px;' +
-              'margin-top: 10px;' +
-              'padding: 5px;');
-            if (error) {
-              elementLi.innerText = 'failure - ' +
-                options.file.name + ' not uploaded - ' +
-                (data || mainApp.errorStack(error));
-            } else {
-              elementLi.innerText = 'success - ' + options.file.name + ' uploaded to ';
-              elementLi.innerHTML += '<a href="' + $$options.githubUploadTestFileUrl + '">' +
-                $$options.githubUploadTestFileUrl + '</a>';
-            }
-            document.querySelector('ol').insertAdjacentHTML('afterBegin', elementLi.outerHTML);
-            onError(error);
+    // init local browser object
+    local._name = 'github-upload.test.browser';
+    local.githubUploadFile = function (options, onError) {
+      /*
+        this function uploads the data to the github url
+      */
+      var elementLi, modeIo, onIo;
+      modeIo = 0;
+      onIo = function (error, data) {
+        modeIo += 1;
+        switch (modeIo) {
+        case 1:
+          // wait for dom to sync
+          setTimeout(onIo);
+          break;
+        case 2:
+          onError = onError || mainApp.nop;
+          // init options
+          options.file = options.file || mainApp.githubUploadFileInput.files[0];
+          options.data = options.data || options.file;
+          options.method = 'PUT';
+          options.url = '/test/github-upload?' + options.query;
+          // if no file was selected, then return
+          if (!options.file) {
+            onError();
+            return;
           }
-        };
-        onIo();
-      },
-
-      _githubUploadFile_default_test: function (onError) {
-        /*
-          this function tests githubUploadFile's default handling behavior
-        */
-        var onParallel;
-        onParallel = mainApp.onParallel(onError);
-        onParallel.counter += 1;
-        // test no file and no callback handling behavior
-        mainApp.githubUploadFile({});
-        // test default handling behavior
-        onParallel.counter += 1;
-        mainApp.githubUploadFile({
-          data: 'hello',
-          file: { name: 'hello.txt'},
-          query: 'modeErrorIgnore=1&_testSecret=' + mainApp._testSecret
+          // upload file to github
+          mainApp.ajax(options, onIo);
+          break;
+        default:
+          // update upload status
+          elementLi = document.createElement('li');
+          elementLi.setAttribute('style', 'background-color: ' + (error ? '#fbb' : '#bfb') +
+            ';' +
+            'border-radius: 5px;' +
+            'margin-top: 10px;' +
+            'padding: 5px;');
+          if (error) {
+            elementLi.innerText = 'failure - ' +
+              options.file.name + ' not uploaded - ' +
+              (data || mainApp.errorStack(error));
+          } else {
+            elementLi.innerText = 'success - ' + options.file.name + ' uploaded to ';
+            elementLi.innerHTML += '<a href="' + $$options.githubUploadTestFileUrl + '">' +
+              $$options.githubUploadTestFileUrl + '</a>';
+          }
+          document.querySelector('ol').insertAdjacentHTML('afterBegin', elementLi.outerHTML);
+          onError(error);
+        }
+      };
+      onIo();
+    };
+    local._githubUploadFile_default_test = function (onError) {
+      /*
+        this function tests githubUploadFile's default handling behavior
+      */
+      var onParallel;
+      onParallel = mainApp.onParallel(onError);
+      onParallel.counter += 1;
+      // test no file and no callback handling behavior
+      mainApp.githubUploadFile({});
+      // test default handling behavior
+      onParallel.counter += 1;
+      mainApp.githubUploadFile({
+        data: 'hello',
+        file: { name: 'test.default.txt'},
+        query: 'modeErrorIgnore=1&_testSecret=' + mainApp._testSecret
+      }, onParallel);
+      // test rate-limit handling behavior
+      onParallel.counter += 1;
+      mainApp.githubUploadFile({
+        data: 'hello',
+        file: { name: 'test.rate-limit.txt'},
+        query: 'modeErrorIgnore=1',
+        // test timeout handling behavior
+        timeout: 1
+      }, function (error) {
+        mainApp.testTryCatch(function () {
+          // validate error occurred
+          mainApp.assert(error instanceof Error, error);
+          onParallel();
         }, onParallel);
-        // test  rate-limit handling behavior
-        onParallel.counter += 1;
-        mainApp.githubUploadFile({
-          data: 'hello',
-          file: { name: 'hello.txt'},
-          query: 'modeErrorIgnore=1',
-          // test timeout handling behavior
-          timeout: 1
-        }, function (error) {
-          mainApp.testTryCatch(function () {
-            // validate error occurred
-            mainApp.assert(error instanceof Error, error);
-            onParallel();
-          }, onParallel);
-        });
-        // test data-limit handling behavior
-        onParallel.counter += 1;
-        mainApp.githubUploadFile({
-          file: new Array(8192).join(' '),
-          query: 'modeErrorIgnore=1&_testSecret=' + mainApp._testSecret
-        }, function (error) {
-          mainApp.testTryCatch(function () {
-            // validate error occurred
-            mainApp.assert(error instanceof Error, error);
-            onParallel();
-          }, onParallel);
-        });
-        onParallel();
-      }
-    }, mainApp);
+      });
+      // test data-limit handling behavior
+      onParallel.counter += 1;
+      mainApp.githubUploadFile({
+        data: new Array(8192).join(' '),
+        file: { name: 'test.data-limit.txt' },
+        query: 'modeErrorIgnore=1&_testSecret=' + mainApp._testSecret
+      }, function (error) {
+        mainApp.testTryCatch(function () {
+          // validate error occurred
+          mainApp.assert(error instanceof Error, error);
+          onParallel();
+        }, onParallel);
+      });
+      onParallel();
+    };
+    mainApp.localExport(local, mainApp);
     // init html
     document.querySelector('.mainAppDiv').innerHTML += '<div style="' +
         'display: inline-block;' +
@@ -181,49 +180,84 @@
     // require modules
     mainApp.github_upload = require('./index.js');
     mainApp.utility2 = require('utility2');
-    // init local object
-    mainApp.utility2.localExport({
-      _name: 'github-upload.test.node',
-
-      _githubUpload_error_test: function (onError) {
-        /*
-          this function tests githubUpload's error handling behavior
-        */
-        var onParallel;
-        onParallel = mainApp.onParallel(onError);
+    // init local node object
+    local._name = 'github-upload.test.node';
+    local._githubUpload_data_test = function (onError) {
+      /*
+        this function tests githubUpload's data handling behavior
+      */
+      var onParallel;
+      onParallel = mainApp.onParallel(onError);
+      onParallel.counter += 1;
+      // test dataFile handling behavior
+      onParallel.counter += 1;
+      mainApp.github_upload.githubUpload({
+        dataFile: 'package.json',
+        modeTestData: true
+      }, function (error, data) {
+        mainApp.testTryCatch(function () {
+          // validate no error occurred
+          mainApp.assert(!error, error);
+          // validate data
+          data = JSON.parse(String(data));
+          mainApp.assert(data.name === 'github-upload', data.name);
+          onParallel();
+        }, onParallel);
+      });
+      // test dataUrl handling behavior
+      onParallel.counter += 1;
+      mainApp.github_upload.githubUpload({
+        dataUrl: 'http://localhost:' + process.env.npm_config_server_port + '/test/hello',
+        modeTestData: true
+      }, function (error, data) {
+        mainApp.testTryCatch(function () {
+          // validate no error occurred
+          mainApp.assert(!error, error);
+          // validate data
+          data = String(data);
+          mainApp.assert(data === 'hello', data);
+          onParallel();
+        }, onParallel);
+      });
+      onParallel();
+    };
+    local._githubUpload_error_test = function (onError) {
+      /*
+        this function tests githubUpload's error handling behavior
+      */
+      var onParallel;
+      onParallel = mainApp.onParallel(onError);
+      onParallel.counter += 1;
+      [{
+        // test invalid url handling behavior
+      }, {
+        // test 404 handling behavior
+        url: 'https://raw.githubusercontent.com/owner/branch/file'
+      }, {
+        // test timeout handling behavior
+        timeout: 1,
+        url: 'https://raw.githubusercontent.com/owner/branch/file'
+      }].forEach(function (options) {
         onParallel.counter += 1;
-        [{
-          // test invalid url handling behavior
-          url: null
-        }, {
-          // test 404 handling behavior
-          url: 'https://raw.githubusercontent.com/owner/branch/file'
-        }, {
-          // test timeout handling behavior
-          timeout: 1,
-          url: 'https://raw.githubusercontent.com/owner/branch/file'
-        }].forEach(function (options) {
-          onParallel.counter += 1;
-          mainApp.github_upload.githubUpload(options, function (error) {
-            mainApp.testTryCatch(function () {
-              // validate error occurred
-              mainApp.assert(error instanceof Error, error);
-              onParallel();
-            }, onParallel);
-          });
+        mainApp.github_upload.githubUpload(options, function (error) {
+          mainApp.testTryCatch(function () {
+            // validate error occurred
+            mainApp.assert(error instanceof Error, error);
+            onParallel();
+          }, onParallel);
         });
-        onParallel();
-      },
-
-      _testPhantom_default_test: function (onError) {
-        /*
-          this function tests testPhantom' default handling behavior
-        */
-        mainApp.testPhantom('http://localhost:' + process.env.npm_config_server_port +
-          '/?modeTest=phantom&_testSecret={{_testSecret}}&_timeoutDefault=' +
-          mainApp.utility2._timeoutDefault, onError);
-      }
-    }, mainApp);
+      });
+      onParallel();
+    };
+    local._testPhantom_default_test = function (onError) {
+      /*
+        this function tests testPhantom' default handling behavior
+      */
+      mainApp.testPhantom('http://localhost:' + process.env.npm_config_server_port +
+        '/?modeTest=phantom&_testSecret={{_testSecret}}&_timeoutDefault=' +
+        mainApp.utility2._timeoutDefault, onError);
+    };
+    mainApp.utility2.localExport(local, mainApp);
     // cache test.* files
     [{
       cache: '/assets/test.js',
@@ -257,10 +291,6 @@
           mainApp.serverRespondDefault(request, response, error ? 500 : 404, error);
         };
         switch (request.urlPathNormalized) {
-        // test internal server error handling behavior
-        case '/test/error':
-          next(mainApp.utility2._errorDefault);
-          break;
         // test github upload handling behavior
         case '/test/github-upload':
           modeIo = 0;
@@ -276,7 +306,7 @@
               mainApp.githubUploadRateLimit = true;
               setTimeout(function () {
                 mainApp.githubUploadRateLimit = null;
-              }, 10000);
+              }, 10000).unref();
               // uploads data-limited to 4096 bytes per request
               request.on('data', function (chunk) {
                 request.bytesRead = request.bytesRead || 0;

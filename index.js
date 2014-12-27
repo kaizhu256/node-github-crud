@@ -11,13 +11,22 @@
 (function () {
   'use strict';
   var local;
-  // init local object
+
+  // init local shared object
   local = {};
-  local.githubUpload = function (options, onError) {
+
+  // require modules
+  local.fs = require('fs');
+  local.http = require('http');
+  local.https = require('https');
+  local.path = require('path');
+  local.url = require('url');
+
+  exports.githubUpload = local.githubUpload = function (options, onError) {
     /*
       this function uploads the data to the github url
     */
-    var errorStack,
+    var chunkList,
       finished,
       modeIo,
       onIo,
@@ -27,12 +36,10 @@
       timerTimeout,
       urlParsed;
     modeIo = 0;
-    onIo = function (error) {
+    onIo = function (error, data) {
       modeIo = error instanceof Error ? -1 : modeIo + 1;
       switch (modeIo) {
       case 1:
-        // init stack trace of this function's caller in case of error
-        errorStack = new Error().stack;
         // init request and response
         request = response = { destroy: local.nop };
         // set timerTimeout
@@ -40,6 +47,55 @@
           error = new Error('timeout error - 30000 ms - githubUpload - ' + options.url);
           onIo(error);
         }, Number(options.timeout) || 30000);
+        // get data from dataUrl
+        if (options.dataUrl) {
+          urlParsed = local.url.parse(String(options.dataUrl));
+          request = (urlParsed.protocol === 'https:' ? local.https : local.http)
+            .request(urlParsed, onIo);
+          request.on('error', onIo).end();
+          return;
+        }
+        // skip reading from http response step
+        modeIo += 1;
+        // get data from dataFile
+        if (options.dataFile) {
+          // get data from dataFile
+          local.fs.readFile(local.path.resolve(process.cwd(), options.dataFile), onIo);
+          return;
+        }
+        // get data from data
+        onIo(null, options.data);
+        break;
+      case 2:
+        // cleanup request socket
+        request.destroy();
+        // cleanup response socket
+        response.destroy();
+        chunkList = [];
+        response = error;
+        response
+          // on data event, push the buffer chunk to chunkList
+          .on('data', function (chunk) {
+            chunkList.push(chunk);
+          })
+          // on end event, pass concatenated read buffer to onIo
+          .on('end', function () {
+            onIo(null, Buffer.concat(chunkList));
+          })
+          // on error event, pass error to onIo
+          .on('error', onIo);
+        break;
+      case 3:
+        // cleanup request socket
+        request.destroy();
+        // cleanup response socket
+        response.destroy();
+        if (options.modeTestData) {
+          modeIo = -1;
+          onIo(null, data);
+          return;
+        }
+        options.data = data;
         // parse url
         urlParsed = (/^https:\/\/github.com\/([^\/]+\/[^\/]+)\/blob\/([^\/]+)\/(.+)/)
           .exec(options.url) ||
@@ -55,15 +111,15 @@
           'user-agent': 'undefined'
         };
         options.hostname = 'api.github.com';
-        options.path = '/repos/' + urlParsed[1] + '/contents/' +
-          urlParsed[3] + '?ref=' + urlParsed[2];
-        // cleanup request socket
-        request.destroy();
-        request = require('https').request(options, onIo);
+        options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3] +
+          '?ref=' + urlParsed[2];
+        request = local.https.request(options, onIo);
         request.on('error', onIo);
         request.end();
         break;
-      case 2:
+      case 4:
+        // cleanup request socket
+        request.destroy();
         // cleanup response socket
         response.destroy();
         response = error;
@@ -87,7 +143,11 @@
           })
           .on('error', onIo);
         break;
-      case 3:
+      case 5:
+        // cleanup request socket
+        request.destroy();
+        // cleanup response socket
+        response.destroy();
         options.data = JSON.stringify({
           branch: urlParsed[2],
           content: new Buffer(options.data || '').toString('base64'),
@@ -97,13 +157,13 @@
         });
         options.method = 'PUT';
         options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3];
-        // cleanup request socket
-        request.destroy();
-        request = require('https').request(options, onIo);
+        request = local.https.request(options, onIo);
         request.on('error', onIo);
         request.end(options.data);
         break;
-      case 4:
+      case 6:
+        // cleanup request socket
+        request.destroy();
         // cleanup response socket
         response.destroy();
         response = error;
@@ -133,15 +193,11 @@
         if (error) {
           // add http method / statusCode / url debug info to error.message
           error.message = options.method + ' ' + (response && response.statusCode) +
-            ' - https://api.github.com' + options.path + '\n' +
-            // trim potentially very long http response
-            error.message.slice(0, 4096);
-          // debug stack
-          error.stack += '\n' + errorStack;
+            ' - https://api.github.com' + options.path + '\n' + error.message;
           // debug status code
           error.statusCode = response && response.statusCode;
         }
-        onError(error);
+        onError(error, data);
       }
     };
     onIo();
@@ -154,62 +210,33 @@
     return;
   };
 
-  // init export object
-  exports.githubUpload = local.githubUpload;
-
   // upload to the github url process.argv[2], the file/url process.argv[3]
-  (function () {
-    var chunkList, modeIo, onIo;
-    modeIo = 0;
-    onIo = function (error, data) {
-      modeIo = error instanceof Error ? -1 : modeIo + 1;
-      switch (modeIo) {
-      case 1:
-        // if this module is not the main app, then return
-        if (module !== require.main) {
-          return;
-        }
-        // set timerTimeout
-        setTimeout(function () {
-          throw new Error('timeout error - 30000 ms - githubUpload - ' + process.argv[2]);
-        }, 30000).unref();
-        // get data from url process.argv[3]
-        data = require('url').parse(process.argv[3]);
-        if (data.protocol) {
-          require(data.protocol === 'https:' ? 'https' : 'http').request(data, onIo)
-            .on('error', onIo)
-            .end();
-          return;
-        }
-        // skip reading from http response step
-        modeIo += 1;
-        // get data from file process.argv[3]
-        require('fs').readFile(require('path').resolve(process.cwd(), process.argv[3]), onIo);
-        break;
-      case 2:
-        chunkList = [];
-        error
-          // on data event, push the buffer chunk to chunkList
-          .on('data', function (chunk) {
-            chunkList.push(chunk);
-          })
-          // on end event, pass concatenated read buffer to onIo
-          .on('end', function () {
-            onIo(null, Buffer.concat(chunkList));
-          })
-          // on error event, pass error to onIo
-          .on('error', onIo);
-        break;
-      case 3:
-        // upload data to the github url process.argv[2]
-        local.githubUpload({ data: data, url: process.argv[2] }, onIo);
-        break;
-      default:
-        if (error) {
-          throw error;
-        }
-      }
+  (function initModule() {
+    /*
+      this function inits this module
+    */
+    var options;
+    // if this module is not the main app, then return
+    if (module !== require.main) {
+      return;
+    }
+    // init options
+    options = {
+      data: process.argv[3],
+      url: process.argv[2]
     };
-    onIo();
+    // init dataUrl
+    if (local.url.parse(options.data).protocol) {
+      options.dataUrl = options.data;
+    // init dataFile
+    } else {
+      options.dataFile = options.data;
+    }
+    // upload file/url to github
+    local.githubUpload(options, function (error) {
+      if (error) {
+        throw error;
+      }
+    });
   }());
 }());
