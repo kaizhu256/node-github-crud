@@ -40,21 +40,22 @@
             setTimeout(onIo);
             break;
           case 2:
-            // init file
+            onError = onError || mainApp.nop;
+            // init options
             options.file = options.file || mainApp.githubUploadFileInput.files[0];
-            // if no file was chosen, then return
+            options.data = options.data || options.file;
+            options.method = 'PUT';
+            options.url = '/test/github-upload?' + options.query;
+            // if no file was selected, then return
             if (!options.file) {
+              onError();
               return;
             }
             // upload file to github
-            mainApp.ajax({
-              data: options.file,
-              method: 'PUT',
-              url: '/test/github-upload?' + options.query
-            }, onIo);
+            mainApp.ajax(options, onIo);
             break;
           default:
-            // update status
+            // update upload status
             elementLi = document.createElement('li');
             elementLi.setAttribute('style', 'background-color: ' + (error ? '#fbb' : '#bfb') +
               ';' +
@@ -66,12 +67,12 @@
                 options.file.name + ' not uploaded - ' +
                 (data || mainApp.errorStack(error));
             } else {
-              elementLi.innerText = 'success - ' +
-                options.file.name + ' uploaded to ' +
-                $$options.githubUploadTestFileUrl;
+              elementLi.innerText = 'success - ' + options.file.name + ' uploaded to ';
+              elementLi.innerHTML += '<a href="' + $$options.githubUploadTestFileUrl + '">' +
+                $$options.githubUploadTestFileUrl + '</a>';
             }
-            document.querySelector('ol').appendChild(elementLi);
-            (onError || mainApp.nop)(error);
+            document.querySelector('ol').insertAdjacentHTML('afterBegin', elementLi.outerHTML);
+            onError(error);
           }
         };
         onIo();
@@ -84,17 +85,23 @@
         var onParallel;
         onParallel = mainApp.onParallel(onError);
         onParallel.counter += 1;
-        onParallel.counter += 1;
+        // test no file and no callback handling behavior
+        mainApp.githubUploadFile({});
         // test default handling behavior
+        onParallel.counter += 1;
         mainApp.githubUploadFile({
-          file: 'hello',
+          data: 'hello',
+          file: { name: 'hello.txt'},
           query: 'modeErrorIgnore=1&_testSecret=' + mainApp._testSecret
         }, onParallel);
         // test  rate-limit handling behavior
         onParallel.counter += 1;
         mainApp.githubUploadFile({
-          file: 'hello',
-          query: 'modeErrorIgnore=1'
+          data: 'hello',
+          file: { name: 'hello.txt'},
+          query: 'modeErrorIgnore=1',
+          // test timeout handling behavior
+          timeout: 1
         }, function (error) {
           mainApp.testTryCatch(function () {
             // validate error occurred
@@ -281,40 +288,29 @@
           mainApp.testRun();
         }
       });
-    // watch and auto-cache the following files when modified
+    // watch the following files, and if they are modified, then cache and parse them
     [{
       cache: '/assets/test.js',
       coverage: 'github-upload',
       file: __dirname + '/test.js'
     }].forEach(function (options) {
-      console.log('auto-cache ' + options.file);
-      mainApp.fs.watchFile(options.file, {
-        interval: 1000,
-        persistent: false
-      }, function (stat2, stat1) {
-        if (stat2.mtime > stat1.mtime) {
-          mainApp.fileCacheAndParse(options);
-        }
-      });
+      console.log('auto-cache and auto-parse ' + options.file);
+      // cache and parse the file
+      mainApp.fileCacheAndParse(options);
+      // if the file is modified, then cache and parse it
+      mainApp.onFileModifiedCacheAndParse(options);
     });
-    // watch and auto-jslint the files in __dirname when modified
+    // watch the following files, and if they are modified, then jslint them
     mainApp.fs.readdirSync(__dirname).forEach(function (file) {
       switch (mainApp.path.extname(file)) {
       case '.js':
       case '.json':
         file = __dirname + '/' + file;
         console.log('auto-jslint ' + file);
-        // jslint file
+        // jslint the file
         mainApp.jslint_lite.jslintPrint(mainApp.fs.readFileSync(file, 'utf8'), file);
-        // if the file is modified, then auto-jslint it
-        mainApp.fs.watchFile(file, {
-          interval: 1000,
-          persistent: false
-        }, function (stat2, stat1) {
-          if (stat2.mtime > stat1.mtime) {
-            mainApp.jslint_lite.jslintPrint(mainApp.fs.readFileSync(file, 'utf8'), file);
-          }
-        });
+        // if the file is modified, then jslint it
+        mainApp.onFileModifiedJslint(file);
         break;
       }
     });

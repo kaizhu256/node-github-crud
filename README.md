@@ -34,8 +34,6 @@ npm start --server-port=8080
 
 
 ## package content
-- .build/
-  - auto-created directory where tests and coverages are stored
 - .gitignore
   - git ignore file
 - .travis.yml
@@ -53,8 +51,13 @@ npm start --server-port=8080
 
 
 
-## todo
+## package dependencies
 - none
+
+
+
+## todo
+- add shell command
 
 
 
