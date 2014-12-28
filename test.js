@@ -227,7 +227,7 @@
           null,
           null,
           null,
-          'https://raw.githubusercontent.com/kaizhu256/node-github-upload/beta/package.json'
+          'https://raw.githubusercontent.com/kaizhu256/node-github-upload/master/package.json'
         ],
         modeCli: true,
         modeTestData: true
