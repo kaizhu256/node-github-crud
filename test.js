@@ -169,9 +169,7 @@
     // init event-handling
     mainApp.githubUploadFileInput.addEventListener('change', mainApp.githubUploadFile);
     // init browser test
-    if (mainApp.modeTest) {
-      mainApp.testRun();
-    }
+    mainApp.testRun();
     break;
   // init node js env
   case 'node':
@@ -191,9 +189,9 @@
       onParallel.counter += 1;
       // test data-file handling behavior
       onParallel.counter += 1;
-      mainApp.github_upload.githubUpload({
-        data: 'package.json',
-        modeData: 'file',
+      mainApp.github_upload.initCli({
+        argv: [null, null, null, 'package.json'],
+        modeCli: true,
         modeTestData: true
       }, function (error, data) {
         mainApp.testTryCatch(function () {
@@ -205,11 +203,12 @@
           onParallel();
         }, onParallel);
       });
-      // test data-url handling behavior
+      // test http data-url handling behavior
       onParallel.counter += 1;
-      mainApp.github_upload.githubUpload({
-        data: 'http://localhost:' + process.env.npm_config_server_port + '/test/hello',
-        modeData: 'url',
+      mainApp.github_upload.initCli({
+        argv: [null, null, null, 'http://localhost:' + process.env.npm_config_server_port +
+          '/test/hello'],
+        modeCli: true,
         modeTestData: true
       }, function (error, data) {
         mainApp.testTryCatch(function () {
@@ -218,6 +217,27 @@
           // validate data
           data = String(data);
           mainApp.assert(data === 'hello', data);
+          onParallel();
+        }, onParallel);
+      });
+      // test https data-url handling behavior
+      onParallel.counter += 1;
+      mainApp.github_upload.initCli({
+        argv: [
+          null,
+          null,
+          null,
+          'https://raw.githubusercontent.com/kaizhu256/node-github-upload/beta/package.json'
+        ],
+        modeCli: true,
+        modeTestData: true
+      }, function (error, data) {
+        mainApp.testTryCatch(function () {
+          // validate no error occurred
+          mainApp.assert(!error, error);
+          // validate data
+          data = JSON.parse(String(data));
+          mainApp.assert(data.name === 'github-upload', data.name);
           onParallel();
         }, onParallel);
       });
@@ -251,46 +271,48 @@
       });
       onParallel();
     };
+    local._onErrorThrow_default_test = function (onError) {
+      /*
+        this function tests onErrorThrow's default handling behavior
+      */
+      var onParallel;
+      onParallel = mainApp.onParallel(onError);
+      onParallel.counter += 1;
+      // test no error occurred handling behavior
+      onParallel.counter += 1;
+      mainApp.github_upload.onErrorThrow();
+      onParallel();
+      // test error occurred handling behavior
+      onParallel.counter += 1;
+      try {
+        mainApp.github_upload.onErrorThrow(mainApp.utility2._errorDefault);
+      } catch (error) {
+        // validate error occurred
+        mainApp.assert(error instanceof Error, error);
+        onParallel();
+      }
+      onParallel();
+    };
     local._testPhantom_default_test = function (onError) {
       /*
-        this function tests testPhantom' default handling behavior
+        this function tests testPhantom's default handling behavior
       */
       mainApp.testPhantom('http://localhost:' + process.env.npm_config_server_port +
         '/?modeTest=phantom&_testSecret={{_testSecret}}&_timeoutDefault=' +
         mainApp.utility2._timeoutDefault, onError);
     };
     mainApp.utility2.localExport(local, mainApp);
-    // cache test.* files
-    [{
-      cache: '/assets/test.js',
-      coverage: 'github-upload',
-      file: __dirname + '/test.js'
-    }].forEach(function (options) {
-      mainApp.fileCacheAndParse(options);
-    });
-    // if process.env.npm_config_server_port is undefined,
-    // then assign it a random port in inclusive range 0x1000 to 0xffff
-    process.env.npm_config_server_port = process.env.npm_config_server_port ||
-      ((Math.random() * 0x10000) | 0x8000).toString();
-    // validate process.env.npm_config_server_port
-    // is a positive-definite integer less then 0x10000
-    (function () {
-      var serverPort;
-      serverPort = Number(process.env.npm_config_server_port);
-      mainApp.assert(
-        (serverPort | 0) === serverPort && 0 < serverPort && serverPort < 0x10000,
-        'invalid server-port ' + serverPort
-      );
-    }());
+    // init process.env.npm_config_server_port
+    mainApp.serverPortInit();
     // init server
     mainApp.http.createServer(function (request, response) {
-      mainApp.testMiddleware(request, response, function () {
+      mainApp.middlewareTest(request, response, function () {
         /*
           this function is the main test middleware
         */
         var modeIo, next, onIo;
         next = function (error) {
-          mainApp.serverRespondDefault(request, response, error ? 500 : 404, error);
+          mainApp.middlewareError(error, request, response);
         };
         switch (request.urlPathNormalized) {
         // test github upload handling behavior
@@ -346,9 +368,7 @@
       .listen(process.env.npm_config_server_port, function () {
         console.log('server listening on port ' + process.env.npm_config_server_port);
         // init node test
-        if (process.env.npm_config_mode_npm_test) {
-          mainApp.testRun();
-        }
+        mainApp.testRun();
       });
     // watch the following files, and if they are modified, then cache and parse them
     [{

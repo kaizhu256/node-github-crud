@@ -22,7 +22,21 @@
   local.path = require('path');
   local.url = require('url');
 
-  exports.githubUpload = local.githubUpload = function (options, onError) {
+  local.initCli = exports.initCli = function (options, onError) {
+    /*
+      this function uploads the file/url to github from cli
+    */
+    if (!options.modeCli) {
+      onError();
+      return;
+    }
+    options.data = options.argv[3];
+    options.modeData = local.url.parse(options.data).protocol ? 'url' : 'file';
+    options.url = options.argv[2];
+    local.githubUpload(options, onError);
+  };
+
+  local.githubUpload = exports.githubUpload = function (options, onError) {
     /*
       this function uploads the data to the github url
     */
@@ -187,27 +201,21 @@
     return;
   };
 
+  local.onErrorThrow = exports.onErrorThrow = function (error) {
+    /*
+      this function throws the error if it exists
+    */
+    if (error) {
+      throw error;
+    }
+  };
+
   // upload to the github url process.argv[2], the file/url process.argv[3]
   (function initModule() {
     /*
       this function inits this module
     */
-    var options;
-    // if this module is not the main app, then return
-    if (module !== require.main) {
-      return;
-    }
-    // init options
-    options = {
-      data: process.argv[3],
-      modeData: local.url.parse(options.data).protocol ? 'url' : 'file',
-      url: process.argv[2]
-    };
-    // upload file/url to github
-    local.githubUpload(options, function (error) {
-      if (error) {
-        throw error;
-      }
-    });
+    // upload file/url to github from cli
+    local.initCli({ argv: process.argv, modeCli: module === require.main }, local.onErrorThrow);
   }());
 }());

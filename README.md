@@ -69,6 +69,12 @@ npm start --server-port=8080
 
 
 
+## faq
+- i can't upload to the private github repo with the given $GITHUB_TOKEN
+  - in https://github.com/settings/applications, verify the $GITHUB_TOKEN is defined and has the 'repo' scope
+
+
+
 ## todo
 - add example.js
 
