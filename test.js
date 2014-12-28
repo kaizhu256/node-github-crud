@@ -273,21 +273,9 @@
     };
     local._githubUploadRateLimitClear = function () {
       /*
-        this function clears the rate-limit
+        this function clears the github-upload rate-limit
       */
       mainApp.githubUploadRateLimit = null;
-    };
-    local.__githubUploadRateLimitClear_default_test = function (onError) {
-      /*
-        this function tests _githubUploadRateLimitClear's default handling behavior
-      */
-      mainApp.testMock([
-        // mock console.error
-        [mainApp, { githubUploadRateLimit: null }]
-      ], onError, function (onError) {
-        local._githubUploadRateLimitClear();
-        onError();
-      });
     };
     local._onErrorThrow_default_test = function (onError) {
       /*
@@ -322,6 +310,8 @@
     mainApp.utility2.localExport(local, mainApp);
     // init process.env.npm_config_server_port
     mainApp.serverPortInit();
+    // clear github-upload rate-limit
+    local._githubUploadRateLimitClear();
     // init server
     mainApp.http.createServer(function (request, response) {
       mainApp.middlewareTest(request, response, function () {
