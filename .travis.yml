@@ -21,11 +21,11 @@ script:
   # init env
   - if [ "$TRAVIS" ]; then export GITHUB_REPO=kaizhu256/node-github-upload; fi
   - if [ "$TRAVIS" ]; then export HEROKU_REPO=hrku01-github-upload-$TRAVIS_BRANCH; fi
-  - if [ "$TRAVIS" ]; then export TEST_URL="https://hrku01-github-upload-$TRAVIS_BRANCH.herokuapp.com/?modeTest=phantom"; fi
+  - if [ "$TRAVIS" ]; then export TEST_URL="https://hrku01-github-upload-$TRAVIS_BRANCH.herokuapp.com/?modeTest=phantom&_testSecret={{_testSecret}}"; fi
   - . node_modules/utility2/index.sh && shInit
-  # test published package
-  #!! - shRun shNpmTestPublished
-  # test package
+  # test demo.sh
+  - shRun shDemoTest demo.sh
+  # npm test
   - npm test
   # deploy to heroku
   - shRun shHerokuDeploy
