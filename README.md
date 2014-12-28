@@ -20,7 +20,7 @@ lightweight nodejs script to upload binary file to github repo
 
 
 
-## usage example
+## installation and quickstart
 ```
 # npm install github-upload
 npm install github-upload
@@ -70,8 +70,8 @@ npm start --server-port=8080
 
 
 ## faq
-- i can't upload to the private github repo with the given $GITHUB_TOKEN
-  - in https://github.com/settings/applications, verify the $GITHUB_TOKEN is defined and has the 'repo' scope
+#### i can't upload to the private github repo with the given $GITHUB_TOKEN
+- in https://github.com/settings/applications, verify the $GITHUB_TOKEN is defined and has the 'repo' scope
 
 
 

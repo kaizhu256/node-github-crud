@@ -271,6 +271,24 @@
       });
       onParallel();
     };
+    local._githubUploadRateLimitClear = function () {
+      /*
+        this function clears the rate-limit
+      */
+      mainApp.githubUploadRateLimit = null;
+    };
+    local.__githubUploadRateLimitClear_default_test = function (onError) {
+      /*
+        this function tests _githubUploadRateLimitClear's default handling behavior
+      */
+      mainApp.testMock([
+        // mock console.error
+        [mainApp, { githubUploadRateLimit: null }]
+      ], onError, function (onError) {
+        local._githubUploadRateLimitClear();
+        onError();
+      });
+    };
     local._onErrorThrow_default_test = function (onError) {
       /*
         this function tests onErrorThrow's default handling behavior
@@ -328,9 +346,7 @@
                 return;
               }
               mainApp.githubUploadRateLimit = true;
-              setTimeout(function () {
-                mainApp.githubUploadRateLimit = null;
-              }, 10000).unref();
+              setTimeout(local._githubUploadRateLimitClear, 10000).unref();
               // uploads data-limited to 4096 bytes per request
               request.on('data', function (chunk) {
                 request.bytesRead = request.bytesRead || 0;

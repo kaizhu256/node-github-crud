@@ -18,5 +18,5 @@
     "start": "node_modules/utility2/index.sh shRun node test.js",
     "test": "npm_config_mode_no_slimerjs=1 node_modules/utility2/index.sh shRun shNpmTest test.js"
   },
-  "version": "2014.12.21-100"
+  "version": "2014.12.21-101"
 }

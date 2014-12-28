@@ -50,14 +50,8 @@
       timerTimeout,
       urlParsed;
     modeIo = 0;
-    // init request and response
-    request = response = { destroy: local.nop };
     onIo = function (error, data) {
       modeIo = error instanceof Error ? -1 : modeIo + 1;
-      // cleanup request socket
-      request.destroy();
-      // cleanup response socket
-      response.destroy();
       switch (modeIo) {
       case 1:
         // set timerTimeout
@@ -65,6 +59,8 @@
           error = new Error('timeout error - 30000 ms - githubUpload - ' + options.url);
           onIo(error);
         }, Number(options.timeout) || 30000);
+        // init request and response
+        request = response = { destroy: local.nop };
         switch (options.modeData) {
         // get data from file
         case 'file':
@@ -74,6 +70,8 @@
         // get data from url
         case 'url':
           urlParsed = local.url.parse(String(options.data));
+          // cleanup request
+          request.destroy();
           request = (urlParsed.protocol === 'https:' ? local.https : local.http)
             .request(urlParsed, onIo);
           request.on('error', onIo).end();
@@ -85,6 +83,8 @@
         break;
       case 2:
         chunkList = [];
+        // cleanup response
+        response.destroy();
         response = error;
         response
           // on data event, push the buffer chunk to chunkList
@@ -120,11 +120,15 @@
         options.hostname = 'api.github.com';
         options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3] +
           '?ref=' + urlParsed[2];
+        // cleanup request
+        request.destroy();
         request = local.https.request(options, onIo);
         request.on('error', onIo);
         request.end();
         break;
       case 4:
+        // cleanup response
+        response.destroy();
         response = error;
         responseText = '';
         response
@@ -156,11 +160,15 @@
         });
         options.method = 'PUT';
         options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3];
+        // cleanup request
+        request.destroy();
         request = local.https.request(options, onIo);
         request.on('error', onIo);
         request.end(options.data);
         break;
       case 6:
+        // cleanup response
+        response.destroy();
         response = error;
         responseText = '';
         response
@@ -178,6 +186,10 @@
         finished = true;
         // cleanup timerTimeout
         clearTimeout(timerTimeout);
+        // cleanup request
+        request.destroy();
+        // cleanup response
+        response.destroy();
         if (response.statusCode > 201) {
           error = error || new Error(responseText);
         }
@@ -210,12 +222,6 @@
     }
   };
 
-  // upload to the github url process.argv[2], the file/url process.argv[3]
-  (function initModule() {
-    /*
-      this function inits this module
-    */
-    // upload file/url to github from cli
-    local.initCli({ argv: process.argv, modeCli: module === require.main }, local.onErrorThrow);
-  }());
+  // upload file/url to github from cli
+  local.initCli({ argv: process.argv, modeCli: module === require.main }, local.onErrorThrow);
 }());
