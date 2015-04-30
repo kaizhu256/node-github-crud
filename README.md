@@ -33,7 +33,7 @@ lightweight cli tool to PUT / GET / DELETE github files
     # http GET $GITHUB_CRUD_FILE and print to stdout
     # validate $GITHUB_CRUD_FILE data is "hello"
     # http DELETE $GITHUB_CRUD_FILE
-    # validate $GITHUB_CRUD_FILE is deleted
+    # validate deleted $GITHUB_CRUD_FILE does not exist
 
 # instruction
     # 1. set env var $GITHUB_CRUD_FILE to test crud operations
@@ -54,28 +54,26 @@ lightweight cli tool to PUT / GET / DELETE github files
 shExampleSh() {
     # npm install github-crud
     npm install github-crud || return $?
+    alias github-crud=node_modules/.bin/github-crud || return $?
 
     # create local test file hello.txt with data "hello"
     printf "hello" > hello.txt || return $?
 
     # http PUT hello.txt to $GITHUB_CRUD_FILE
-    node_modules/.bin/github-crud contentPutFile $GITHUB_CRUD_FILE hello.txt \
-        || return $?
+    github-crud contentPutFile $GITHUB_CRUD_FILE hello.txt || return $?
 
     # http GET $GITHUB_CRUD_FILE and print to stdout
-    DATA=$(node_modules/.bin/github-crud contentGet $GITHUB_CRUD_FILE) || \
-        return $?
+    DATA=$(github-crud contentGet $GITHUB_CRUD_FILE) || return $?
     printf "$DATA\n" || return $?
 
     # validate $GITHUB_CRUD_FILE data is "hello"
     [ "$DATA" = hello ] || return $?
 
     # http DELETE $GITHUB_CRUD_FILE
-    node_modules/.bin/github-crud contentDelete $GITHUB_CRUD_FILE || return $?
+    github-crud contentDelete $GITHUB_CRUD_FILE || return $?
 
-    # validate $GITHUB_CRUD_FILE is deleted
-    [ "$(node_modules/.bin/github-crud contentGet $GITHUB_CRUD_FILE)" = "" ] \
-        || return $?
+    # validate deleted $GITHUB_CRUD_FILE does not exist
+    [ "$(github-crud contentGet $GITHUB_CRUD_FILE)" = "" ] || return $?
 }
 shExampleSh
 ```
@@ -198,7 +196,7 @@ instruction
 
 
 # npm dependencies
-- none
+- [utility2](https://www.npmjs.com/package/utility2)
 
 
 
@@ -238,7 +236,7 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.30-c"
+    "version": "2015.4.30-e"
 }
 ```
 
@@ -250,10 +248,8 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since f11765e9
-- npm publish 2015.4.30-c
-- add quickstart node example
-- add quickstart cli example
+# change since 52de66ce
+- npm publish 2015.4.30-e
 - none
 
 
