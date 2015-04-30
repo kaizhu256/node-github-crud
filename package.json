@@ -2,7 +2,7 @@
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "github-crud": "index.js" },
-    "description": "lightweight cli tool to get / set / delete github files",
+    "description": "lightweight cli tool to PUT / GET / DELETE github files",
     "dependencies": {
         "utility2": "2015.4.30-a"
     },
@@ -25,5 +25,5 @@
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.30-a"
+    "version": "2015.4.30-c"
 }

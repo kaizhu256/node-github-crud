@@ -44,6 +44,9 @@
                     }
                     switch (modeNext) {
                     case 1:
+                        console.error(
+                            'github-crud ' + (options.method || 'GET') + ' ' + options.url
+                        );
                         // init options
                         local.utility2.objectSetDefault(options, { headers: {
                             // github oauth authentication
@@ -178,9 +181,10 @@
         local.https = require('https');
         local.path = require('path');
         local.url = require('url');
+        // run the cli
         local.cliRun = function (options) {
             /*
-                this function will run the main cli program
+                this function will run the cli
             */
             if (!(module === require.main || (options && options.run))) {
                 return;
@@ -196,11 +200,15 @@
                 break;
             case 'contentGet':
                 local.github_crud.contentGet({
+                    responseType: 'blob',
                     url: process.argv[3]
-                }, function (error, xhr) {
-                    // jslint-hack
-                    local.utility2.nop(error);
-                    process.stdout.write((xhr && xhr.responseData) || '');
+                }, function (error, data) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                    try {
+                        process.stdout.write(data);
+                    } catch (ignore) {
+                    }
                 });
                 break;
             case 'contentPut':
@@ -224,7 +232,6 @@
                 break;
             }
         };
-        // run main cli program
         local.cliRun();
         break;
     }

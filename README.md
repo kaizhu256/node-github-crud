@@ -1,11 +1,11 @@
 github-crud [![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
 ===========
-lightweight cli tool to get / set / delete github files
+lightweight cli tool to PUT / GET / DELETE github files
 
 
 
 # screen-capture
-![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.slimerjs.png)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
@@ -28,31 +28,172 @@ lightweight cli tool to get / set / delete github files
 
 # this shell script will
     # npm install github-crud
-    # create foo.js
-    # create bar.css
-    # jslint foo.js and bar.css
+    # create local test file hello.txt with data "hello"
+    # http PUT hello.txt to $GITHUB_CRUD_FILE
+    # http GET $GITHUB_CRUD_FILE and print to stdout
+    # validate $GITHUB_CRUD_FILE data is "hello"
+    # http DELETE $GITHUB_CRUD_FILE
+    # validate $GITHUB_CRUD_FILE is deleted
 
 # instruction
-    # 1. copy and paste this entire shell script into a console and press enter
-    # 2. view jslint in console
+    # 1. set env var $GITHUB_CRUD_FILE to test crud operations
+
+        # uncomment line below, and set env var $GITHUB_CRUD_FILE
+        # GITHUB_CRUD_FILE=https://github.com/john/my-repo/blob/master/hello.txt
+
+    # 2. goto https://github.com/settings/tokens,
+    #    and create env var $GITHUB_TOKEN with access to $GITHUB_CRUD_FILE
+
+        # uncomment line below, and set env var $GITHUB_TOKEN
+        # GITHUB_TOKEN=ffffffffffffffffffffffffffffffffffffffff
+
+    # 3. after editing above lines,
+    #    copy and paste this entire shell script into a console and press enter
+    # 4. watch this script PUT / GET / DELETE $GITHUB_CRUD_FILE
 
 shExampleSh() {
     # npm install github-crud
     npm install github-crud || return $?
 
-    # create foo.js
-    printf "console.log('hello');" > foo.js || return $?
+    # create local test file hello.txt with data "hello"
+    printf "hello" > hello.txt || return $?
 
-    # create bar.css
-    printf "body { margin: 0px; }" > bar.css || return $?
+    # http PUT hello.txt to $GITHUB_CRUD_FILE
+    node_modules/.bin/github-crud contentPutFile $GITHUB_CRUD_FILE hello.txt \
+        || return $?
 
-    # jslint foo.js and bar.css
-    node_modules/.bin/github-crud foo.js bar.css || :
+    # http GET $GITHUB_CRUD_FILE and print to stdout
+    DATA=$(node_modules/.bin/github-crud contentGet $GITHUB_CRUD_FILE) || \
+        return $?
+    printf "$DATA\n" || return $?
+
+    # validate $GITHUB_CRUD_FILE data is "hello"
+    [ "$DATA" = hello ] || return $?
+
+    # http DELETE $GITHUB_CRUD_FILE
+    node_modules/.bin/github-crud contentDelete $GITHUB_CRUD_FILE || return $?
+
+    # validate $GITHUB_CRUD_FILE is deleted
+    [ "$(node_modules/.bin/github-crud contentGet $GITHUB_CRUD_FILE)" = "" ] \
+        || return $?
 }
 shExampleSh
 ```
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-github-crud)
+
+
+
+# quickstart node example
+#### to run this example, follow the instruction in the script below
+```
+/*
+example.js
+
+this node script will
+- http PUT 'hello' to $GITHUB_CRUD_FILE
+- http GET $GITHUB_CRUD_FILE
+- validate $GITHUB_CRUD_FILE data is 'hello'
+- http DELETE $GITHUB_CRUD_FILE
+- validate deleted $GITHUB_CRUD_FILE does not exist
+
+instruction
+    1. set env var $GITHUB_CRUD_FILE to test crud operations,
+
+        - e.g.
+        - GITHUB_CRUD_FILE=https://github.com/john/my-repo/blob/master/hello.txt
+
+    2. goto https://github.com/settings/tokens,
+       and create env var $GITHUB_TOKEN with access to $GITHUB_CRUD_FILE
+
+        - e.g.
+        - GITHUB_TOKEN=ffffffffffffffffffffffffffffffffffffffff
+
+    3. save this js script as example.js
+    4. run the shell command:
+        $ npm install github-crud && node example.js
+    5. watch this script PUT / GET / DELETE $GITHUB_CRUD_FILE
+*/
+
+/*jslint
+    maxerr: 8,
+    maxlen: 80,
+    node: true,
+    nomen: true,
+    stupid: true
+*/
+
+(function () {
+    'use strict';
+    // run node js-env code
+    (function () {
+        var github_crud, modeNext, onNext;
+        // require modules
+        github_crud = require('github-crud');
+        // sequentially run crud operations
+        modeNext = 0;
+        onNext = function (error, data) {
+            modeNext += 1;
+            console.log('case ' + modeNext);
+            switch (modeNext) {
+            // http PUT 'hello' to $GITHUB_CRUD_FILE
+            case 1:
+                github_crud.contentPut({
+                    data: 'hello',
+                    url: process.env.GITHUB_CRUD_FILE
+                }, onNext);
+                break;
+            case 2:
+                // validate no error occurred
+                console.assert(!error, error);
+                onNext();
+                break;
+            // http GET $GITHUB_CRUD_FILE
+            case 3:
+                github_crud.contentGet({
+                    url: process.env.GITHUB_CRUD_FILE
+                }, onNext);
+                break;
+            // validate $GITHUB_CRUD_FILE data is 'hello'
+            case 4:
+                // validate no error occurred
+                console.assert(!error, error);
+                // validate http GET data
+                console.assert(data === 'hello', data);
+                console.log(data);
+                onNext();
+                break;
+            // http DELETE $GITHUB_CRUD_FILE
+            case 5:
+                github_crud.contentDelete({
+                    url: process.env.GITHUB_CRUD_FILE
+                }, onNext);
+                break;
+            case 6:
+                // validate no error occurred
+                console.assert(!error, error);
+                onNext();
+                break;
+            // validate deleted $GITHUB_CRUD_FILE does not exist
+            case 7:
+                github_crud.contentGet({
+                    url: process.env.GITHUB_CRUD_FILE
+                }, onNext);
+                break;
+            case 8:
+                // validate no error occurred
+                console.assert(!error, error);
+                // validate deleted data does not exist
+                console.assert(!data, data);
+                break;
+            }
+        };
+        onNext();
+    }());
+}());
+```
+#### output from shell
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
@@ -72,7 +213,7 @@ shExampleSh
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "github-crud": "index.js" },
-    "description": "lightweight cli tool to get / set / delete github files",
+    "description": "lightweight cli tool to PUT / GET / DELETE github files",
     "dependencies": {
         "utility2": "2015.4.30-a"
     },
@@ -97,27 +238,22 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.30-a"
+    "version": "2015.4.30-c"
 }
 ```
 
 
 
 # todo
-- add quickstart cli example
-- add quickstart node example
 - add recursive delete
 - none
 
 
 
-# change since 854516ec
-- npm publish 2015.4.30-a
-- improve test-coverage
-- add ajaxContentDelete, ajaxContentGet, ajaxContentPut
-- add testCase_contentGet_default
-- update README.md
-- migrate from github-upload to github-crud
+# change since f11765e9
+- npm publish 2015.4.30-c
+- add quickstart node example
+- add quickstart cli example
 - none
 
 
@@ -133,22 +269,22 @@ node_modules/.bin/utility2 test test.js"
 # this shell script will run the build for this package
 shBuild() {
     # init env
+export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
+/blob/gh-pages\
+/test/hello.build.$CI_BRANCH.$(node --version).txt || return $?
     export npm_config_mode_slimerjs=1 || return $?
     . node_modules/.bin/utility2 && shInit || return $?
 
-    #!! # run npm-test on published package
-    #!! shRun shNpmTestPublished || return $?
+    # run npm-test on published package
+    shRun shNpmTestPublished || return $?
 
-    #!! # test example js script
-    #!! MODE_BUILD=testExampleJs \
-        #!! shRunScreenCapture shReadmeTestJs example.js || return $?
-    #!! # copy phantomjs screen-capture to $npm_config_dir_build
-    #!! cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || \
-        #!! return $?
+    # test example js script
+    MODE_BUILD=testExampleJs \
+        shRunScreenCapture shReadmeTestJs example.js || return $?
 
-    #!! # test example shell script
-    #!! MODE_BUILD=testExampleSh \
-        #!! shRunScreenCapture shReadmeTestSh example.sh || return $?
+    # test example shell script
+    MODE_BUILD=testExampleSh \
+        shRunScreenCapture shReadmeTestSh example.sh || return $?
 
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
@@ -183,8 +319,8 @@ shBuildGithubUploadCleanup() {
 }
 
 # upload build-artifacts to github,
-# and if number of commits > 64, then squash older commits
-COMMIT_LIMIT=64 shRun shBuildGithubUpload || exit $?
+# and if number of commits > 256, then squash older commits
+COMMIT_LIMIT=256 shRun shBuildGithubUpload || exit $?
 
 # exit with $EXIT_CODE
 exit $EXIT_CODE

@@ -15,37 +15,6 @@
     switch (local.modeJs) {
     case 'node':
         // init tests
-        local.testCase_cliRun_default = function (onError) {
-            /*
-                this function will test cliRun's default handling behavior
-            */
-            var callCallback;
-            callCallback = function (options, onError) {
-                // jslint-hack
-                local.utility2.nop(options);
-                onError(null, {});
-            };
-            local.utility2.testMock([
-                [local.github_crud, {
-                    contentDelete: callCallback,
-                    contentGet: callCallback,
-                    contentPut: callCallback
-                }],
-                [process, { argv: ['', '', '', '', __filename] }]
-            ], function (onError) {
-                [
-                    'contentDelete',
-                    'contentGet',
-                    'contentPut',
-                    'contentPutFile'
-                ].forEach(function (key) {
-                    process.argv[2] = key;
-                    local.github_crud.local.cliRun({ run: true });
-                });
-                onError();
-            }, onError);
-        };
-
         local._testCase_contentDelete_default = function (options, onError) {
             /*
                 this function will test contentDelete's default handling behavior
@@ -133,6 +102,37 @@
             onNext();
         };
 
+        local.testCase_cliRun_default = function (onError) {
+            /*
+                this function will test cliRun's default handling behavior
+            */
+            var callCallback;
+            callCallback = function (options, onError) {
+                // jslint-hack
+                local.utility2.nop(options);
+                onError(null, '');
+            };
+            local.utility2.testMock([
+                [local.github_crud, {
+                    contentDelete: callCallback,
+                    contentGet: callCallback,
+                    contentPut: callCallback
+                }],
+                [process, { argv: ['', '', '', '', __filename] }]
+            ], function (onError) {
+                [
+                    'contentDelete',
+                    'contentGet',
+                    'contentPut',
+                    'contentPutFile'
+                ].forEach(function (key) {
+                    process.argv[2] = key;
+                    local.github_crud.local.cliRun({ run: true });
+                });
+                onError();
+            }, onError);
+        };
+
         local.testCase_contentGet_default = function (onError) {
             /*
                 this function will test contentGet's default handling behavior
@@ -174,9 +174,9 @@
             onTaskEnd();
         };
 
-        local.testCase_contentXxx_error = function (onError) {
+        local.testCase_contentCrud_error = function (onError) {
             /*
-                this function will test contentXxx's error handling behavior
+                this function will test contentCrud's error handling behavior
             */
             var onTaskEnd, url;
             // test error handling behavior
@@ -225,21 +225,21 @@
             onTaskEnd();
         };
 
-        local.testCase_contentXxx_default = function (onError) {
+        local.testCase_contentCrud_default = function (onError) {
             /*
-                this function will test contentXxx's default handling behavior
+                this function will test contentCrud's default handling behavior
             */
             var modeNext, onNext, url;
             modeNext = 0;
             onNext = function (error) {
                 local.utility2.testTryCatch(function () {
                     modeNext += 1;
-                    console.log('testCase_contentXxx_default - modeNext ' + modeNext);
                     switch (modeNext) {
                     case 1:
                         // init url
                         url = 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages' +
-                            '/test/' + process.env.CI_BRANCH;
+                            '/test/random.' + process.env.CI_BRANCH + '.' + process.version +
+                            '.txt';
                         onNext();
                         break;
                     case 2:
