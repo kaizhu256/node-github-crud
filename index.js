@@ -1,227 +1,259 @@
 #!/usr/bin/env node
 /*jslint
-  bitwise: true, browser: true,
-  indent: 2,
-  maxerr: 8,
-  node: true, nomen: true,
-  regexp: true,
-  stupid: true,
-  todo: true
+    maxerr: 8,
+    maxlen: 96,
+    node: true,
+    nomen: true,
+    regexp: true,
+    stupid: true
 */
-(function () {
-  'use strict';
-  var local;
+(function (local) {
+    'use strict';
+    switch (local.modeJs) {
 
-  // init local shared object
-  local = {};
 
-  // require modules
-  local.fs = require('fs');
-  local.http = require('http');
-  local.https = require('https');
-  local.path = require('path');
-  local.url = require('url');
 
-  local.initCli = exports.initCli = function (options, onError) {
-    /*
-      this function uploads the file/url to github from cli
-    */
-    if (!options.modeCli) {
-      onError();
-      return;
-    }
-    options.data = options.argv[3];
-    options.modeData = local.url.parse(options.data).protocol ? 'url' : 'file';
-    options.url = options.argv[2];
-    local.githubUpload(options, onError);
-  };
-
-  local.githubUpload = exports.githubUpload = function (options, onError) {
-    /*
-      this function uploads the data to the github url
-    */
-    var chunkList,
-      finished,
-      modeIo,
-      onIo,
-      request,
-      response,
-      responseText,
-      timerTimeout,
-      urlParsed;
-    modeIo = 0;
-    onIo = function (error, data) {
-      modeIo = error instanceof Error ? -1 : modeIo + 1;
-      switch (modeIo) {
-      case 1:
-        // set timerTimeout
-        timerTimeout = setTimeout(function () {
-          error = new Error('timeout error - 30000 ms - githubUpload - ' + options.url);
-          onIo(error);
-        }, Number(options.timeout) || 30000);
-        // init request and response
-        request = response = { destroy: local.nop };
-        switch (options.modeData) {
-        // get data from file
-        case 'file':
-          modeIo += 1;
-          local.fs.readFile(local.path.resolve(process.cwd(), options.data), onIo);
-          break;
-        // get data from url
-        case 'url':
-          urlParsed = local.url.parse(String(options.data));
-          // cleanup request
-          request.destroy();
-          request = (urlParsed.protocol === 'https:' ? local.https : local.http)
-            .request(urlParsed, onIo);
-          request.on('error', onIo).end();
-          break;
-        default:
-          modeIo += 1;
-          onIo(null, options.data);
-        }
-        break;
-      case 2:
-        chunkList = [];
-        // cleanup response
-        response.destroy();
-        response = error;
-        response
-          // on data event, push the buffer chunk to chunkList
-          .on('data', function (chunk) {
-            chunkList.push(chunk);
-          })
-          // on end event, pass concatenated read buffer to onIo
-          .on('end', function () {
-            onIo(null, Buffer.concat(chunkList));
-          })
-          // on error event, pass error to onIo
-          .on('error', onIo);
-        break;
-      case 3:
-        if (options.modeTestData) {
-          modeIo = -1;
-          onIo(null, data);
-          return;
-        }
-        options.data = data;
-        // parse url
-        urlParsed = (/^https:\/\/github.com\/([^\/]+\/[^\/]+)\/blob\/([^\/]+)\/(.+)/)
-          .exec(options.url) ||
-          (/^https:\/\/raw.githubusercontent.com\/([^\/]+\/[^\/]+)\/([^\/]+)\/(.+)/)
-          .exec(options.url) || {};
-        // init options
-        options.headers = {
-          // github oauth authentication
-          authorization: 'token ' + process.env.GITHUB_TOKEN,
-          // bug - github api requires user-agent header
-          'user-agent': 'undefined'
+    // run node js-env code
+    case 'node':
+        local.github_crud.contentDelete = function (options, onError) {
+            /*
+                this function will delete the github file
+                https://developer.github.com/v3/repos/contents/#delete-a-file
+            */
+            options.method = 'DELETE';
+            local.github_crud.contentGet(options, onError);
         };
-        options.hostname = 'api.github.com';
-        options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3] +
-          '?ref=' + urlParsed[2];
-        // cleanup request
-        request.destroy();
-        request = local.https.request(options, onIo);
-        request.on('error', onIo);
-        request.end();
-        break;
-      case 4:
-        // cleanup response
-        response.destroy();
-        response = error;
-        responseText = '';
-        response
-          .on('data', function (chunk) {
-            responseText += chunk.toString();
-            options.sha = (/"sha":"([^"]+)"/).exec(responseText);
-            // read response stream until we get the sha hash,
-            // then close the response stream
-            if (options.sha) {
-              options.sha = options.sha[1];
-              onIo();
-            }
-          })
-          .on('end', function () {
-            // handle case where sha hash does not exist
-            if (!options.sha) {
-              onIo();
-            }
-          })
-          .on('error', onIo);
-        break;
-      case 5:
-        options.data = JSON.stringify({
-          branch: urlParsed[2],
-          content: new Buffer(options.data || '').toString('base64'),
-          message: '[skip ci] update file ' + options.url,
-          // update-file-mode - update old file specified by the sha
-          sha: options.sha || undefined
-        });
-        options.method = 'PUT';
-        options.path = '/repos/' + urlParsed[1] + '/contents/' + urlParsed[3];
-        // cleanup request
-        request.destroy();
-        request = local.https.request(options, onIo);
-        request.on('error', onIo);
-        request.end(options.data);
-        break;
-      case 6:
-        // cleanup response
-        response.destroy();
-        response = error;
-        responseText = '';
-        response
-          .on('data', function (chunk) {
-            responseText += chunk.toString();
-          })
-          .on('end', onIo)
-          .on('error', onIo);
-        break;
-      default:
-        // if already finished, then ignore error / data
-        if (finished) {
-          return;
-        }
-        finished = true;
-        // cleanup timerTimeout
-        clearTimeout(timerTimeout);
-        // cleanup request
-        request.destroy();
-        // cleanup response
-        response.destroy();
-        if (response.statusCode > 201) {
-          error = error || new Error(responseText);
-        }
-        if (error) {
-          // add http method / statusCode / url debug info to error.message
-          error.message = options.method + ' ' + (response && response.statusCode) +
-            ' - https://api.github.com' + options.path + '\n' + error.message;
-          // debug status code
-          error.statusCode = response && response.statusCode;
-        }
-        onError(error, data);
-      }
-    };
-    onIo();
-  };
 
-  local.nop = function () {
-    /*
-      this function performs no operation - nop
-    */
-    return;
-  };
+        local.github_crud.contentGet = function (options, onError) {
+            /*
+                this function will get the github file
+                https://developer.github.com/v3/repos/contents/#get-contents
+            */
+            var modeNext, onNext, xhr;
+            modeNext = 0;
+            onNext = function (error, data) {
+                local.utility2.testTryCatch(function () {
+                    modeNext = error instanceof Error && modeNext !== 1
+                        ? Infinity
+                        : modeNext + 1;
+                    // cleanup response
+                    if (modeNext > 2 && xhr.response && xhr.response.removeListener) {
+                        xhr.response.removeListener('error', onNext);
+                        xhr.response.removeListener('end', onNext);
+                        local.utility2.requestResponseCleanup(null, xhr.response);
+                    }
+                    switch (modeNext) {
+                    case 1:
+                        // init options
+                        local.utility2.objectSetDefault(options, { headers: {
+                            // github oauth authentication
+                            Authorization: 'token ' + process.env.GITHUB_TOKEN,
+                            // bug - github api requires user-agent header
+                            'User-Agent': 'undefined'
+                        } }, -1);
+                        options.method = options.method || 'GET';
+                        options.url = options.url
+/* jslint-ignore-begin */
+// parse https://github.com/:owner/:repo/blob/:branch/:path
+.replace(
+    (/^https:\/\/github.com\/([^\/]+?\/[^\/]+?)\/blob\/([^\/]+?)\/(.+)/),
+    'https://api.github.com/repos/$1/contents/$3?branch=$2'
+)
+// parse https://raw.githubusercontent.com/:owner/:repo/:branch/:path
+.replace(
+(/^https:\/\/raw.githubusercontent.com\/([^\/]+?\/[^\/]+?)\/([^\/]+?)\/(.+)/),
+    'https://api.github.com/repos/$1/contents/$3?branch=$2'
+)
+// parse https://:owner.github.io/:repo/:path
+.replace(
+    (/^https:\/\/([^\.]+?)\.github\.io\/([^\/]+?)\/(.+)/),
+    'https://api.github.com/repos/$1/$2/contents/$3?branch=gh-pages'
+)
+/* jslint-ignore-end */
+                            .replace((/\?branch=(.*)/), function (match0, match1) {
+                                // jslint-hack
+                                local.utility2.nop(match0);
+                                options.branch = match1;
+                                return '';
+                            });
+                        // make ajax request
+                        local.utility2.ajax({
+                            agent: options.agent,
+                            debug: options.debug,
+                            headers: local.utility2.jsonCopy(options.headers),
+                            method: 'GET',
+                            responseType: options.method === 'GET'
+                                ? 'text'
+                                : 'response',
+                            timeout: options.timeout,
+                            url: options.url + '?ref=' + encodeURIComponent(options.branch)
+                        }, onNext);
+                        break;
+                    case 2:
+                        xhr = data;
+                        if (error) {
+                            if (error.statusCode === 404) {
+                                switch (options.method) {
+                                case 'DELETE':
+                                case 'GET':
+                                    modeNext = Infinity;
+                                    onNext();
+                                    return;
+                                case 'PUT':
+                                    onNext();
+                                    return;
+                                }
+                            }
+                            onNext(error, data);
+                            return;
+                        }
+                        switch (options.method) {
+                        // get sha hash from response-stream
+                        case 'DELETE':
+                        case 'PUT':
+                            xhr.responseText = '';
+                            xhr.response
+                                .on('data', function (chunk) {
+                                    xhr.responseText += chunk.toString();
+                                    xhr.sha = (/"sha":"([^"]+)"/).exec(xhr.responseText);
+                                    if (xhr.responseText[0] === '[') {
+                                        xhr.sha = {};
+                                    }
+                                    if (xhr.sha) {
+                                        xhr.sha = xhr.sha[1];
+                                        onNext();
+                                    }
+                                })
+                                .on('end', onNext)
+                                .on('error', onNext);
+                            break;
+                        case 'GET':
+                            data = new Buffer(JSON.parse(data.responseText).content, 'base64');
+                            modeNext = Infinity;
+                            onNext(null, options.responseType === 'blob'
+                                ? data
+                                : data.toString());
+                            break;
+                        }
+                        break;
+                    case 3:
+                        // make ajax request
+                        local.utility2.ajax({
+                            data: JSON.stringify({
+                                branch: options.branch,
+                                content: options.method === 'DELETE'
+                                    ? undefined
+                                    : new Buffer(options.data).toString('base64'),
+                                message: '[skip ci] ' + options.method + ' file ' + options.url,
+                                sha: xhr.sha || undefined
+                            }),
+                            debug: options.debug,
+                            headers: local.utility2.jsonCopy(options.headers),
+                            method: options.method,
+                            url: options.url
+                        }, onNext);
+                        break;
+                    default:
+                        onError(error, data);
+                    }
+                }, onError);
+            };
+            onNext();
+        };
 
-  local.onErrorThrow = exports.onErrorThrow = function (error) {
-    /*
-      this function throws the error if it exists
-    */
-    if (error) {
-      throw error;
+        local.github_crud.contentPut = function (options, onError) {
+            /*
+                this function will put the github file
+                https://developer.github.com/v3/repos/contents/#update-a-file
+            */
+            options.method = 'PUT';
+            local.github_crud.contentGet(options, onError);
+        };
+
+        // export github_crud
+        module.exports = local.github_crud;
+        // require modules
+        local.fs = require('fs');
+        local.http = require('http');
+        local.https = require('https');
+        local.path = require('path');
+        local.url = require('url');
+        local.cliRun = function (options) {
+            /*
+                this function will run the main cli program
+            */
+            if (!(module === require.main || (options && options.run))) {
+                return;
+            }
+            switch (process.argv[2]) {
+            case 'contentDelete':
+                local.github_crud.contentDelete({
+                    url: process.argv[3]
+                }, function (error) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                });
+                break;
+            case 'contentGet':
+                local.github_crud.contentGet({
+                    url: process.argv[3]
+                }, function (error, xhr) {
+                    // jslint-hack
+                    local.utility2.nop(error);
+                    process.stdout.write((xhr && xhr.responseData) || '');
+                });
+                break;
+            case 'contentPut':
+                local.github_crud.contentPut({
+                    data: process.argv[4],
+                    url: process.argv[3]
+                }, function (error) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                });
+                break;
+            case 'contentPutFile':
+                local.github_crud.contentPut({
+                    data: local.fs
+                        .readFileSync(local.path.resolve(process.cwd(), process.argv[4])),
+                    url: process.argv[3]
+                }, function (error) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                });
+                break;
+            }
+        };
+        // run main cli program
+        local.cliRun();
+        break;
     }
-  };
+}((function () {
+    'use strict';
+    var local;
 
-  // upload file/url to github from cli
-  local.initCli({ argv: process.argv, modeCli: module === require.main }, local.onErrorThrow);
-}());
+
+
+    // run node js-env code
+    (function () {
+        // init local
+        local = {};
+        local.modeJs = (function () {
+            return module.exports &&
+                typeof process.versions.node === 'string' &&
+                typeof require('http').createServer === 'function' &&
+                'node';
+        }());
+        // init global
+        local.global = global;
+        // init utility2
+        local.utility2 = require('utility2');
+        // init istanbul_lite
+        local.istanbul_lite = local.utility2.local.istanbul_lite;
+        // init jslint_lite
+        local.jslint_lite = local.utility2.local.jslint_lite;
+        // init github_crud
+        local.github_crud = { local: local };
+    }());
+    return local;
+}())));

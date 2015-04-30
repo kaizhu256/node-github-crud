@@ -1,23 +1,29 @@
 {
-  "author": "kai zhu <kaizhu256@gmail.com>",
-  "bin": { "github-upload" : "index.js" },
-  "description": "lightweight nodejs script to upload binary file to github repo",
-  "devDependencies": {
-    "github-upload": "^2014.12.21-100",
-    "istanbul": "^0.3.5",
-    "utility2": "^2014.10.31-29"
-  },
-  "engines": { "node": "^0.10.x" },
-  "license": "MIT",
-  "name": "github-upload",
-  "os": ["darwin", "linux"],
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/kaizhu256/node-github-upload.git"
-  },
-  "scripts": {
-    "start": "node_modules/utility2/index.sh shRun node test.js",
-    "test": "npm_config_mode_no_slimerjs=1 node_modules/utility2/index.sh shRun shNpmTest test.js"
-  },
-  "version": "2014.12.21-102"
+    "_packageJson": true,
+    "author": "kai zhu <kaizhu256@gmail.com>",
+    "bin": { "github-crud": "index.js" },
+    "description": "lightweight cli tool to get / set / delete github files",
+    "dependencies": {
+        "utility2": "2015.4.30-a"
+    },
+    "engines": { "node": ">=0.10 <=0.12" },
+    "keywords": [
+        "content", "crud",
+        "github",
+        "repo",
+        "upload"
+    ],
+    "license": "MIT",
+    "name": "github-crud",
+    "os": ["darwin", "linux"],
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/kaizhu256/node-github-crud.git"
+    },
+    "scripts": {
+        "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
+        "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
+        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 test test.js"
+    },
+    "version": "2015.4.30-a"
 }
