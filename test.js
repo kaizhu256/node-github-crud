@@ -4,7 +4,7 @@
     maxlen: 96,
     node: true,
     nomen: true,
-    stupid: true,
+    stupid: true
 */
 (function (local) {
     'use strict';
@@ -19,7 +19,7 @@
             /*
                 this function will test contentDelete's default handling behavior
             */
-            var modeNext, onNext, repeated;
+            var modeNext, onNext;
             modeNext = 0;
             onNext = function (error, data) {
                 local.utility2.testTryCatch(function () {
@@ -27,24 +27,27 @@
                     switch (modeNext) {
                     case 1:
                         // test delete handling behavior
-                        local.github_crud.contentDelete({ url: options.url }, onNext);
+                        local.github_crud.contentDelete({
+                            modeDeleteTree: options.modeDeleteTree,
+                            url: options.url
+                        }, onNext);
                         break;
                     case 2:
                         // validate no error occurred
                         local.utility2.assert(!error, error);
-                        // validate data deleted
+                        // validate data is deleted
                         local.github_crud.contentGet({ url: options.url }, onNext);
                         break;
                     case 3:
                         // validate no error occurred
                         local.utility2.assert(!error, error);
-                        // validate data deleted
+                        // validate data is deleted
                         local.utility2.assert(!data, data);
                         onNext();
                         break;
                     case 4:
-                        if (!repeated) {
-                            repeated = true;
+                        if (options.repeat) {
+                            options.repeat = null;
                             modeNext = 0;
                         }
                         onNext();
@@ -115,19 +118,33 @@
             local.utility2.testMock([
                 [local.github_crud, {
                     contentDelete: callCallback,
+                    contentDeleteTree: callCallback,
                     contentGet: callCallback,
                     contentPut: callCallback
+                }],
+                [local.utility2, {
+                    ajax: callCallback
                 }],
                 [process, { argv: ['', '', '', '', __filename] }]
             ], function (onError) {
                 [
                     'contentDelete',
+                    'contentDeleteTree',
                     'contentGet',
-                    'contentPut',
-                    'contentPutFile'
+                    'contentPutFile',
+                    'contentPutString',
+                    'contentPutUrl'
                 ].forEach(function (key) {
-                    process.argv[2] = key;
-                    local.github_crud.local.cliRun({ run: true });
+                    [
+                        // test urlResolve dir handling behavior
+                        '/',
+                        // test urlResolve file handling behavior
+                        __filename
+                    ].forEach(function (url) {
+                        process.argv[2] = key;
+                        process.argv[3] = url;
+                        local.github_crud.local.cliRun({ run: true });
+                    });
                 });
                 onError();
             }, onError);
@@ -183,10 +200,14 @@
             onTaskEnd = local.utility2.onTaskEnd(onError);
             onTaskEnd.counter += 1;
             // init url
-            url = 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages/test/hello.txt';
+            url = 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages/test/error';
             [{
                 headers: { Authorization: 'undefined' },
                 onTask: local.github_crud.contentDelete,
+                url: url
+            }, {
+                headers: { Authorization: 'undefined' },
+                onTask: local.github_crud.contentDeleteTree,
                 url: url
             }, {
                 headers: { Authorization: 'undefined' },
@@ -217,7 +238,7 @@
                 options.onTask(options, function (error) {
                     local.utility2.testTryCatch(function () {
                         // validate error occurred
-                        local.utility2.assert(error instanceof Error, error);
+                        local.utility2.assert(error, error);
                         onTaskEnd();
                     }, onTaskEnd);
                 });
@@ -239,12 +260,15 @@
                         // init url
                         url = 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages' +
                             '/test/random.' + process.env.CI_BRANCH + '.' + process.version +
-                            '.txt';
+                            '/data.txt';
                         onNext();
                         break;
                     case 2:
                         // test delete handling behavior
-                        local._testCase_contentDelete_default({ url: url }, onNext);
+                        local._testCase_contentDelete_default(
+                            { repeat: true, url: url },
+                            onNext
+                        );
                         break;
                     case 3:
                         // validate no error occurred
@@ -264,8 +288,12 @@
                         onNext();
                         break;
                     case 6:
-                        // test delete handling behavior
-                        local._testCase_contentDelete_default({ url: url }, onNext);
+                        // test delete-tree handling behavior
+                        local._testCase_contentDelete_default({
+                            modeDeleteTree: true,
+                            repeat: true,
+                            url: local.path.dirname(url)
+                        }, onNext);
                         break;
                     default:
                         onError(error);
@@ -275,11 +303,6 @@
             onNext();
         };
 
-        // export local
-        global.local = local;
-        // require modules
-        local.fs = require('fs');
-        local.path = require('path');
         // init middleware
         local.middleware = local.utility2.middlewareGroupCreate([
             local.utility2.middlewareInit,
@@ -299,18 +322,23 @@
         local.onMiddlewareError = local.utility2.onMiddlewareError;
         // run server-test
         local.utility2.testRunServer(local);
-        // init dir
-        local.fs.readdirSync(__dirname).forEach(function (file) {
-            file = __dirname + '/' + file;
-            switch (local.path.extname(file)) {
-            case '.js':
-            case '.json':
-                // jslint the file
-                local.jslint_lite.jslintAndPrint(local.fs.readFileSync(file, 'utf8'), file);
-                break;
-            }
-            // if the file is modified, then restart the process
-            local.utility2.onFileModifiedRestart(file);
+        // jslint dir
+        [
+            __dirname
+        ].forEach(function (dir) {
+            local.fs.readdirSync(dir).forEach(function (file) {
+                file = dir + '/' + file;
+                // if the file is modified, then restart the process
+                local.utility2.onFileModifiedRestart(file);
+                switch (local.path.extname(file)) {
+                case '.js':
+                case '.json':
+                    // jslint file
+                    local.utility2.jslint_lite
+                        .jslintAndPrint(local.fs.readFileSync(file, 'utf8'), file);
+                    break;
+                }
+            });
         });
         // init repl debugger
         local.utility2.replStart({});
@@ -334,14 +362,18 @@
         }());
         // init global
         local.global = global;
+        // export local
+        local.global.local = local;
         // init utility2
         local.utility2 = require('utility2');
-        // init istanbul_lite
-        local.istanbul_lite = local.utility2.local.istanbul_lite;
-        // init jslint_lite
-        local.jslint_lite = local.utility2.local.jslint_lite;
+        // init onReady
+        local.utility2.onReadyInit();
         // init github_crud
         local.github_crud = require('./index.js');
+        // import github_crud.local
+        Object.keys(local.github_crud.local).forEach(function (key) {
+            local[key] = local[key] || local.github_crud.local[key];
+        });
     }());
     return local;
 }())));

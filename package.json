@@ -2,15 +2,17 @@
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "github-crud": "index.js" },
-    "description": "lightweight cli tool to PUT / GET / DELETE github files",
+    "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "2015.4.30-a"
+        "utility2": "2015.5.15-f"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
-        "content", "crud",
-        "github",
-        "repo",
+        "api",
+        "cli", "content", "crud",
+        "delete",
+        "get", "git", "github",
+        "put",
         "upload"
     ],
     "license": "MIT",
@@ -23,7 +25,7 @@
     "scripts": {
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 test test.js"
+        "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && npm_config_mode_timeout_default=60000 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.30-e"
+    "version": "2015.5.28-a"
 }

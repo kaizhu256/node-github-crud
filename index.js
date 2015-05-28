@@ -21,7 +21,88 @@
                 https://developer.github.com/v3/repos/contents/#delete-a-file
             */
             options.method = 'DELETE';
+            if (options.modeDeleteTree) {
+                local.github_crud.contentDeleteTree(options, onError);
+                return;
+            }
             local.github_crud.contentGet(options, onError);
+        };
+
+        local.github_crud.contentDeleteTree = function (options, onError) {
+            /*
+                this function will recursively delete the github tree
+                https://developer.github.com/v3/git/trees/#get-a-tree-recursively
+            */
+            var modeNext, onNext, tree, xhr;
+            modeNext = 0;
+            onNext = function (error) {
+                local.utility2.testTryCatch(function () {
+                    modeNext = error
+                        ? Infinity
+                        : modeNext + 1;
+                    switch (modeNext) {
+                    case 1:
+                        options.method = 'DELETE';
+                        options.modeDeleteTree = true;
+                        local.github_crud.contentGet(options);
+                        // make ajax request
+                        xhr = local.utility2.ajax({
+                            agent: options.agent,
+                            debug: options.debug,
+                            headers: local.utility2.jsonCopy(options.headers),
+                            method: 'GET',
+                            timeout: options.timeout,
+                            url: local.path.dirname(options.url) +
+                                '?ref=' + encodeURIComponent(options.branch)
+                        }, onNext);
+                        break;
+                    case 2:
+                        // get tree-items
+                        // https://developer.github.com/v3/git/trees/#get-a-tree-recursively
+                        options.dirname = options.url.split('/').slice(0, 6).join('/');
+                        options.basename =
+                            options.url.replace(options.dirname + '/contents/', '');
+                        JSON.parse(xhr.responseText).forEach(function (element) {
+                            if (element.path === options.basename) {
+                                xhr.sha = element.sha;
+                            }
+                        });
+                        if (!xhr.sha) {
+                            modeNext = Infinity;
+                            onNext();
+                            return;
+                        }
+                        // make ajax request
+                        xhr = local.utility2.ajax({
+                            agent: options.agent,
+                            debug: options.debug,
+                            headers: local.utility2.jsonCopy(options.headers),
+                            method: 'GET',
+                            url: options.dirname + '/git/trees/' + xhr.sha + '?recursive=1'
+                        }, onNext);
+                        break;
+                    case 3:
+                        // serially delete tree-items
+                        tree = tree || JSON.parse(xhr.responseText).tree
+                            .filter(function (element) {
+                                return element.type === 'blob';
+                            });
+                        if (tree.length === 0) {
+                            onNext();
+                            return;
+                        }
+                        modeNext -= 1;
+                        local.github_crud.contentDelete({
+                            branch: options.branch,
+                            url: options.url + '/' + tree.shift().path
+                        }, onNext);
+                        break;
+                    default:
+                        onError(error);
+                    }
+                }, onError);
+            };
+            onNext();
         };
 
         local.github_crud.contentGet = function (options, onError) {
@@ -33,7 +114,7 @@
             modeNext = 0;
             onNext = function (error, data) {
                 local.utility2.testTryCatch(function () {
-                    modeNext = error instanceof Error && modeNext !== 1
+                    modeNext = error && modeNext !== 1
                         ? Infinity
                         : modeNext + 1;
                     // cleanup response
@@ -53,13 +134,18 @@
                             Authorization: 'token ' + process.env.GITHUB_TOKEN,
                             // bug - github api requires user-agent header
                             'User-Agent': 'undefined'
-                        } }, -1);
+                        } }, 8);
                         options.method = options.method || 'GET';
                         options.url = options.url
 /* jslint-ignore-begin */
 // parse https://github.com/:owner/:repo/blob/:branch/:path
 .replace(
     (/^https:\/\/github.com\/([^\/]+?\/[^\/]+?)\/blob\/([^\/]+?)\/(.+)/),
+    'https://api.github.com/repos/$1/contents/$3?branch=$2'
+)
+// parse https://github.com/:owner/:repo/tree/:branch/:path
+.replace(
+    (/^https:\/\/github.com\/([^\/]+?\/[^\/]+?)\/tree\/([^\/]+?)\/(.+)/),
     'https://api.github.com/repos/$1/contents/$3?branch=$2'
 )
 // parse https://raw.githubusercontent.com/:owner/:repo/:branch/:path
@@ -79,8 +165,12 @@
                                 options.branch = match1;
                                 return '';
                             });
+                        // handle delete-tree case
+                        if (options.modeDeleteTree) {
+                            return;
+                        }
                         // make ajax request
-                        local.utility2.ajax({
+                        xhr = local.utility2.ajax({
                             agent: options.agent,
                             debug: options.debug,
                             headers: local.utility2.jsonCopy(options.headers),
@@ -93,7 +183,6 @@
                         }, onNext);
                         break;
                     case 2:
-                        xhr = data;
                         if (error) {
                             if (error.statusCode === 404) {
                                 switch (options.method) {
@@ -131,7 +220,7 @@
                                 .on('error', onNext);
                             break;
                         case 'GET':
-                            data = new Buffer(JSON.parse(data.responseText).content, 'base64');
+                            data = new Buffer(JSON.parse(xhr.responseText).content, 'base64');
                             modeNext = Infinity;
                             onNext(null, options.responseType === 'blob'
                                 ? data
@@ -142,6 +231,7 @@
                     case 3:
                         // make ajax request
                         local.utility2.ajax({
+                            agent: options.agent,
                             data: JSON.stringify({
                                 branch: options.branch,
                                 content: options.method === 'DELETE'
@@ -173,6 +263,15 @@
             local.github_crud.contentGet(options, onError);
         };
 
+        local.github_crud.urlResolve = function (url, file) {
+            /*
+                this function will resolve the url with the file
+            */
+            return (/\/$/).test(url)
+                ? url + local.path.basename(file)
+                : url;
+        };
+
         // export github_crud
         module.exports = local.github_crud;
         // require modules
@@ -190,6 +289,7 @@
                 return;
             }
             switch (process.argv[2]) {
+            // delete file
             case 'contentDelete':
                 local.github_crud.contentDelete({
                     url: process.argv[3]
@@ -198,6 +298,16 @@
                     local.utility2.assert(!error, error);
                 });
                 break;
+            // delete tree
+            case 'contentDeleteTree':
+                local.github_crud.contentDeleteTree({
+                    url: process.argv[3]
+                }, function (error) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                });
+                break;
+            // get file
             case 'contentGet':
                 local.github_crud.contentGet({
                     responseType: 'blob',
@@ -211,7 +321,19 @@
                     }
                 });
                 break;
-            case 'contentPut':
+            // put file to file
+            case 'contentPutFile':
+                local.github_crud.contentPut({
+                    data: local.fs
+                        .readFileSync(local.path.resolve(process.cwd(), process.argv[4])),
+                    url: local.github_crud.urlResolve(process.argv[3], process.argv[4])
+                }, function (error) {
+                    // validate no error occurred
+                    local.utility2.assert(!error, error);
+                });
+                break;
+            // put string to file
+            case 'contentPutString':
                 local.github_crud.contentPut({
                     data: process.argv[4],
                     url: process.argv[3]
@@ -220,14 +342,18 @@
                     local.utility2.assert(!error, error);
                 });
                 break;
-            case 'contentPutFile':
-                local.github_crud.contentPut({
-                    data: local.fs
-                        .readFileSync(local.path.resolve(process.cwd(), process.argv[4])),
-                    url: process.argv[3]
-                }, function (error) {
+            // put url to file
+            case 'contentPutUrl':
+                local.utility2.ajax({ url: process.argv[4] }, function (error, xhr) {
                     // validate no error occurred
                     local.utility2.assert(!error, error);
+                    local.github_crud.contentPut({
+                        data: xhr.response,
+                        url: local.github_crud.urlResolve(process.argv[3], process.argv[4])
+                    }, function (error) {
+                        // validate no error occurred
+                        local.utility2.assert(!error, error);
+                    });
                 });
                 break;
             }
@@ -255,10 +381,6 @@
         local.global = global;
         // init utility2
         local.utility2 = require('utility2');
-        // init istanbul_lite
-        local.istanbul_lite = local.utility2.local.istanbul_lite;
-        // init jslint_lite
-        local.jslint_lite = local.utility2.local.jslint_lite;
         // init github_crud
         local.github_crud = { local: local };
     }());

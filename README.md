@@ -1,6 +1,8 @@
-github-crud [![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
+github-crud
 ===========
-lightweight cli tool to PUT / GET / DELETE github files
+simple cli tool to PUT / GET / DELETE github files
+
+[![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
 
 
 
@@ -13,16 +15,32 @@ lightweight cli tool to PUT / GET / DELETE github files
 
 [![build commit status](https://kaizhu256.github.io/node-github-crud/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
-| git-branch | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
-|:--|:--|:--|:--|
-| test-report | [![test-report](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.html)|
-| coverage | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/node-github-crud/index.html)|
-| build-artifacts | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
+| git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
+|--:|:--|:--|:--|
+| test-report : | [![test-report](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.html)|
+| coverage : | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/node-github-crud/index.html)|
+| build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
+
+#### master branch
+- stable branch
+- HEAD should be tagged, npm-published package
+
+#### beta branch
+- stable branch
+- HEAD should be latest, npm-published package
+
+#### alpha branch
+- unstable branch
+- HEAD is arbitrary
+- commit history may be rewritten
 
 
 
 # quickstart cli example
+
 #### to run this example, follow the instruction in the script below
+- example.sh
+
 ```
 # example.sh
 
@@ -77,13 +95,17 @@ shExampleSh() {
 }
 shExampleSh
 ```
+
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
 # quickstart node example
+
 #### to run this example, follow the instruction in the script below
+- example.js
+
 ```
 /*
 example.js
@@ -190,6 +212,7 @@ instruction
     }());
 }());
 ```
+
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-github-crud)
 
@@ -211,15 +234,17 @@ instruction
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "github-crud": "index.js" },
-    "description": "lightweight cli tool to PUT / GET / DELETE github files",
+    "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "2015.4.30-a"
+        "utility2": "2015.5.15-f"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
-        "content", "crud",
-        "github",
-        "repo",
+        "api",
+        "cli", "content", "crud",
+        "delete",
+        "get", "git", "github",
+        "put",
         "upload"
     ],
     "license": "MIT",
@@ -233,23 +258,32 @@ instruction
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
         "start": "npm_config_mode_auto_restart=1 \
 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
+        "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
+npm_config_mode_timeout_default=60000 \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.30-e"
+    "version": "2015.5.28-a"
 }
 ```
 
 
 
 # todo
-- add recursive delete
+- extract branch from /repos/:owner/:repo/contents/:path?ref=:branch
 - none
 
 
 
-# change since 52de66ce
-- npm publish 2015.4.30-e
+# change since 7a4a4445
+- npm publish 2015.5.28-a
+- add recursive-delete function contentDeleteTree
+- add shell command contentPutUrl
+- rename shell command contentPut to contentPutString
+- add method urlResolve
+- remove "instanceof Error" check for error validation tests
+- require explicit creation of deferred task utility2.onReady
+- delete unused demo.sh
+- fix multi-build race conditions
 - none
 
 
@@ -260,16 +294,23 @@ node_modules/.bin/utility2 test test.js"
 
 
 # internal build-script
+- build.sh
+
 ```
 # build.sh
+
 # this shell script will run the build for this package
 shBuild() {
+    # this function will run the main build
     # init env
+    export npm_config_mode_slimerjs=1 || return $?
+    . node_modules/.bin/utility2 && shInit || return $?
 export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
 /blob/gh-pages\
 /test/hello.build.$CI_BRANCH.$(node --version).txt || return $?
-    export npm_config_mode_slimerjs=1 || return $?
-    . node_modules/.bin/utility2 && shInit || return $?
+
+    # if running legacy-node, then wait 30 seconds
+    [ "$(node --version)" \< "v0.12" ] && sleep 30
 
     # run npm-test on published package
     shRun shNpmTestPublished || return $?
@@ -285,7 +326,7 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
 
-    # do not continue if running legacy-node
+    # if running legacy-node, then do not continue
     [ "$(node --version)" \< "v0.12" ] && return
 
     # if number of commits > 1024, then squash older commits
@@ -295,9 +336,6 @@ shBuild
 
 # save exit-code
 EXIT_CODE=$?
-
-# do not continue if running legacy-node
-[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
 
 shBuildCleanup() {
     # this function will cleanup build-artifacts in local build dir
@@ -313,6 +351,9 @@ shBuildGithubUploadCleanup() {
     # this function will cleanup build-artifacts in local gh-pages repo
     return
 }
+
+# if running legacy-node, then do not continue
+[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
 
 # upload build-artifacts to github,
 # and if number of commits > 256, then squash older commits
