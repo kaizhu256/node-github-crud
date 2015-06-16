@@ -18,7 +18,7 @@ simple cli tool to PUT / GET / DELETE github files
 | git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
 |--:|:--|:--|:--|
 | test-report : | [![test-report](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.html)|
-| coverage : | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/node-github-crud/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/node-github-crud/index.html)|
+| coverage : | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/index.html)|
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
 
 #### master branch
@@ -41,7 +41,7 @@ simple cli tool to PUT / GET / DELETE github files
 #### to run this example, follow the instruction in the script below
 - example.sh
 
-```
+```shell
 # example.sh
 
 # this shell script will
@@ -106,7 +106,7 @@ shExampleSh
 #### to run this example, follow the instruction in the script below
 - example.js
 
-```
+```javascript
 /*
 example.js
 
@@ -218,7 +218,7 @@ instruction
 
 
 
-# npm dependencies
+# npm-dependencies
 - [utility2](https://www.npmjs.com/package/utility2)
 
 
@@ -229,14 +229,13 @@ instruction
 
 
 # package.json
-```
+```json
 {
-    "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "github-crud": "index.js" },
     "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "2015.5.15-f"
+        "utility2": "2015.6.1-b"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -262,28 +261,20 @@ node_modules/.bin/utility2 shRun node test.js",
 npm_config_mode_timeout_default=60000 \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.5.28-a"
+    "version": "2015.6.1-a"
 }
 ```
 
 
 
 # todo
-- extract branch from /repos/:owner/:repo/contents/:path?ref=:branch
 - none
 
 
 
-# change since 7a4a4445
-- npm publish 2015.5.28-a
-- add recursive-delete function contentDeleteTree
-- add shell command contentPutUrl
-- rename shell command contentPut to contentPutString
-- add method urlResolve
-- remove "instanceof Error" check for error validation tests
-- require explicit creation of deferred task utility2.onReady
-- delete unused demo.sh
-- fix multi-build race conditions
+# change since 4212c058
+- npm publish 2015.6.1-a
+- update README.md with syntax-highlighted code-blocks
 - none
 
 
@@ -296,7 +287,7 @@ node_modules/.bin/utility2 test test.js"
 # internal build-script
 - build.sh
 
-```
+```shell
 # build.sh
 
 # this shell script will run the build for this package
@@ -313,7 +304,7 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
     [ "$(node --version)" \< "v0.12" ] && sleep 30
 
     # run npm-test on published package
-    shRun shNpmTestPublished || return $?
+    shNpmTestPublished || return $?
 
     # test example js script
     MODE_BUILD=testExampleJs \
@@ -330,7 +321,7 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
     [ "$(node --version)" \< "v0.12" ] && return
 
     # if number of commits > 1024, then squash older commits
-    shRun shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
+    shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
 }
 shBuild
 
@@ -357,7 +348,7 @@ shBuildGithubUploadCleanup() {
 
 # upload build-artifacts to github,
 # and if number of commits > 256, then squash older commits
-COMMIT_LIMIT=256 shRun shBuildGithubUpload || exit $?
+COMMIT_LIMIT=256 shBuildGithubUpload || exit $?
 
 # exit with $EXIT_CODE
 exit $EXIT_CODE

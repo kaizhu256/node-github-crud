@@ -154,9 +154,9 @@
             /*
                 this function will test contentGet's default handling behavior
             */
-            var onTaskEnd;
-            onTaskEnd = local.utility2.onTaskEnd(onError);
-            onTaskEnd.counter += 1;
+            var onParallel;
+            onParallel = local.utility2.onParallel(onError);
+            onParallel.counter += 1;
             [{
                 // test url-parse handling behavior
                 url: 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages' +
@@ -177,28 +177,28 @@
                 url: 'https://api.github.com/repos/kaizhu256/node-github-crud/contents/' +
                     '/test/hello.txt'
             }].forEach(function (options) {
-                onTaskEnd.counter += 1;
+                onParallel.counter += 1;
                 local.github_crud.contentGet(options, function (error, data) {
                     local.utility2.testTryCatch(function () {
                         // validate no error occurred
                         local.utility2.assert(!error, error);
                         // validate data
                         local.utility2.assert(data.toString() === 'hello', data);
-                        onTaskEnd();
-                    }, onTaskEnd);
+                        onParallel();
+                    }, onParallel);
                 });
             });
-            onTaskEnd();
+            onParallel();
         };
 
         local.testCase_contentCrud_error = function (onError) {
             /*
                 this function will test contentCrud's error handling behavior
             */
-            var onTaskEnd, url;
+            var onParallel, url;
             // test error handling behavior
-            onTaskEnd = local.utility2.onTaskEnd(onError);
-            onTaskEnd.counter += 1;
+            onParallel = local.utility2.onParallel(onError);
+            onParallel.counter += 1;
             // init url
             url = 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages/test/error';
             [{
@@ -234,16 +234,16 @@
                 onTask: local.github_crud.contentPut,
                 url: '/'
             }].forEach(function (options) {
-                onTaskEnd.counter += 1;
+                onParallel.counter += 1;
                 options.onTask(options, function (error) {
                     local.utility2.testTryCatch(function () {
                         // validate error occurred
                         local.utility2.assert(error, error);
-                        onTaskEnd();
-                    }, onTaskEnd);
+                        onParallel();
+                    }, onParallel);
                 });
             });
-            onTaskEnd();
+            onParallel();
         };
 
         local.testCase_contentCrud_default = function (onError) {
