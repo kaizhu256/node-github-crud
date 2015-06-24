@@ -235,7 +235,7 @@ instruction
     "bin": { "github-crud": "index.js" },
     "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "2015.6.1-b"
+        "utility2": "~2015.6.10-d"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -261,7 +261,7 @@ node_modules/.bin/utility2 shRun node test.js",
 npm_config_mode_timeout_default=60000 \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.1-a"
+    "version": "2015.6.2"
 }
 ```
 
@@ -272,8 +272,8 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 4212c058
-- npm publish 2015.6.1-a
+# change since 6eac2b86
+- npm publish 2015.6.2
 - update README.md with syntax-highlighted code-blocks
 - none
 
@@ -316,12 +316,6 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
 
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
-
-    # if running legacy-node, then do not continue
-    [ "$(node --version)" \< "v0.12" ] && return
-
-    # if number of commits > 1024, then squash older commits
-    shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
 }
 shBuild
 

@@ -17,9 +17,9 @@
     case 'node':
         local.github_crud.contentDelete = function (options, onError) {
             /*
-                this function will delete the github file
-                https://developer.github.com/v3/repos/contents/#delete-a-file
-            */
+             * this function will delete the github file
+             * https://developer.github.com/v3/repos/contents/#delete-a-file
+             */
             options.method = 'DELETE';
             if (options.modeDeleteTree) {
                 local.github_crud.contentDeleteTree(options, onError);
@@ -30,9 +30,9 @@
 
         local.github_crud.contentDeleteTree = function (options, onError) {
             /*
-                this function will recursively delete the github tree
-                https://developer.github.com/v3/git/trees/#get-a-tree-recursively
-            */
+             * this function will recursively delete the github tree
+             * https://developer.github.com/v3/git/trees/#get-a-tree-recursively
+             */
             var modeNext, onNext, tree, xhr;
             modeNext = 0;
             onNext = function (error) {
@@ -107,9 +107,9 @@
 
         local.github_crud.contentGet = function (options, onError) {
             /*
-                this function will get the github file
-                https://developer.github.com/v3/repos/contents/#get-contents
-            */
+             * this function will get the github file
+             * https://developer.github.com/v3/repos/contents/#get-contents
+             */
             var modeNext, onNext, xhr;
             modeNext = 0;
             onNext = function (error, data) {
@@ -256,17 +256,17 @@
 
         local.github_crud.contentPut = function (options, onError) {
             /*
-                this function will put the github file
-                https://developer.github.com/v3/repos/contents/#update-a-file
-            */
+             * this function will put the github file
+             * https://developer.github.com/v3/repos/contents/#update-a-file
+             */
             options.method = 'PUT';
             local.github_crud.contentGet(options, onError);
         };
 
         local.github_crud.urlResolve = function (url, file) {
             /*
-                this function will resolve the url with the file
-            */
+             * this function will resolve the url with the file
+             */
             return (/\/$/).test(url)
                 ? url + local.path.basename(file)
                 : url;
@@ -283,8 +283,8 @@
         // run the cli
         local.cliRun = function (options) {
             /*
-                this function will run the cli
-            */
+             * this function will run the cli
+             */
             if (!(module === require.main || (options && options.run))) {
                 return;
             }

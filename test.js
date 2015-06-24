@@ -17,8 +17,8 @@
         // init tests
         local._testCase_contentDelete_default = function (options, onError) {
             /*
-                this function will test contentDelete's default handling behavior
-            */
+             * this function will test contentDelete's default handling behavior
+             */
             var modeNext, onNext;
             modeNext = 0;
             onNext = function (error, data) {
@@ -62,8 +62,8 @@
 
         local._testCase_contentPut_default = function (options, onError) {
             /*
-                this function will test contentPut's default handling behavior
-            */
+             * this function will test contentPut's default handling behavior
+             */
             var modeNext, onNext, repeated;
             modeNext = 0;
             onNext = function (error, data) {
@@ -107,8 +107,8 @@
 
         local.testCase_cliRun_default = function (onError) {
             /*
-                this function will test cliRun's default handling behavior
-            */
+             * this function will test cliRun's default handling behavior
+             */
             var callCallback;
             callCallback = function (options, onError) {
                 // jslint-hack
@@ -152,8 +152,8 @@
 
         local.testCase_contentGet_default = function (onError) {
             /*
-                this function will test contentGet's default handling behavior
-            */
+             * this function will test contentGet's default handling behavior
+             */
             var onParallel;
             onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
@@ -193,8 +193,8 @@
 
         local.testCase_contentCrud_error = function (onError) {
             /*
-                this function will test contentCrud's error handling behavior
-            */
+             * this function will test contentCrud's error handling behavior
+             */
             var onParallel, url;
             // test error handling behavior
             onParallel = local.utility2.onParallel(onError);
@@ -248,8 +248,8 @@
 
         local.testCase_contentCrud_default = function (onError) {
             /*
-                this function will test contentCrud's default handling behavior
-            */
+             * this function will test contentCrud's default handling behavior
+             */
             var modeNext, onNext, url;
             modeNext = 0;
             onNext = function (error) {
@@ -308,8 +308,8 @@
             local.utility2.middlewareInit,
             function (request, response, nextMiddleware) {
                 /*
-                    this function will run the main test-middleware
-                */
+                 * this function will run the main test-middleware
+                 */
                 if (request.method === 'GET') {
                     response.end('hello');
                     return;
