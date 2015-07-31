@@ -17,16 +17,18 @@
         // init tests
         local._testCase_contentDelete_default = function (options, onError) {
             /*
-             * this function will test contentDelete's default handling behavior
+             * this function will test contentDelete's default handling-behavior
              */
             var modeNext, onNext;
+            // jslint-hack
+            local.utility2.nop(options);
             modeNext = 0;
             onNext = function (error, data) {
                 local.utility2.testTryCatch(function () {
                     modeNext += 1;
                     switch (modeNext) {
                     case 1:
-                        // test delete handling behavior
+                        // test delete handling-behavior
                         local.github_crud.contentDelete({
                             modeDeleteTree: options.modeDeleteTree,
                             url: options.url
@@ -62,16 +64,18 @@
 
         local._testCase_contentPut_default = function (options, onError) {
             /*
-             * this function will test contentPut's default handling behavior
+             * this function will test contentPut's default handling-behavior
              */
             var modeNext, onNext, repeated;
+            // jslint-hack
+            local.utility2.nop(options);
             modeNext = 0;
             onNext = function (error, data) {
                 local.utility2.testTryCatch(function () {
                     modeNext += 1;
                     switch (modeNext) {
                     case 1:
-                        // test put handling behavior
+                        // test put handling-behavior
                         local.github_crud.contentPut({
                             data: options.data,
                             url: options.url
@@ -105,11 +109,13 @@
             onNext();
         };
 
-        local.testCase_cliRun_default = function (onError) {
+        local.testCase_cliRun_default = function (options, onError) {
             /*
-             * this function will test cliRun's default handling behavior
+             * this function will test cliRun's default handling-behavior
              */
             var callCallback;
+            // jslint-hack
+            local.utility2.nop(options);
             callCallback = function (options, onError) {
                 // jslint-hack
                 local.utility2.nop(options);
@@ -136,9 +142,9 @@
                     'contentPutUrl'
                 ].forEach(function (key) {
                     [
-                        // test urlResolve dir handling behavior
+                        // test urlResolve dir handling-behavior
                         '/',
-                        // test urlResolve file handling behavior
+                        // test urlResolve file handling-behavior
                         __filename
                     ].forEach(function (url) {
                         process.argv[2] = key;
@@ -150,30 +156,32 @@
             }, onError);
         };
 
-        local.testCase_contentGet_default = function (onError) {
+        local.testCase_contentGet_default = function (options, onError) {
             /*
-             * this function will test contentGet's default handling behavior
+             * this function will test contentGet's default handling-behavior
              */
             var onParallel;
+            // jslint-hack
+            local.utility2.nop(options);
             onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
             [{
-                // test url-parse handling behavior
+                // test url-parse handling-behavior
                 url: 'https://github.com/kaizhu256/node-github-crud/blob/gh-pages' +
                     '/test/hello.txt'
             }, {
-                // test url-parse handling behavior
+                // test url-parse handling-behavior
                 url: 'https://raw.githubusercontent.com/kaizhu256/node-github-crud/gh-pages/' +
                     '/test/hello.txt'
             }, {
-                // test url-parse handling behavior
+                // test url-parse handling-behavior
                 url: 'https://kaizhu256.github.io/node-github-crud/' +
                     '/test/hello.txt'
             }, {
                 branch: 'gh-pages',
-                // test blob handling behavior
+                // test blob handling-behavior
                 responseType: 'blob',
-                // test no url-parse handling behavior
+                // test no url-parse handling-behavior
                 url: 'https://api.github.com/repos/kaizhu256/node-github-crud/contents/' +
                     '/test/hello.txt'
             }].forEach(function (options) {
@@ -191,12 +199,14 @@
             onParallel();
         };
 
-        local.testCase_contentCrud_error = function (onError) {
+        local.testCase_contentCrud_error = function (options, onError) {
             /*
-             * this function will test contentCrud's error handling behavior
+             * this function will test contentCrud's error handling-behavior
              */
             var onParallel, url;
-            // test error handling behavior
+            // jslint-hack
+            local.utility2.nop(options);
+            // test error handling-behavior
             onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
             // init url
@@ -246,11 +256,13 @@
             onParallel();
         };
 
-        local.testCase_contentCrud_default = function (onError) {
+        local.testCase_contentCrud_default = function (options, onError) {
             /*
-             * this function will test contentCrud's default handling behavior
+             * this function will test contentCrud's default handling-behavior
              */
             var modeNext, onNext, url;
+            // jslint-hack
+            local.utility2.nop(options);
             modeNext = 0;
             onNext = function (error) {
                 local.utility2.testTryCatch(function () {
@@ -264,7 +276,7 @@
                         onNext();
                         break;
                     case 2:
-                        // test delete handling behavior
+                        // test delete handling-behavior
                         local._testCase_contentDelete_default(
                             { repeat: true, url: url },
                             onNext
@@ -276,7 +288,7 @@
                         onNext();
                         break;
                     case 4:
-                        // test put handling behavior
+                        // test put handling-behavior
                         local._testCase_contentPut_default({
                             data: Math.random().toString(),
                             url: url
@@ -288,7 +300,7 @@
                         onNext();
                         break;
                     case 6:
-                        // test delete-tree handling behavior
+                        // test delete-tree handling-behavior
                         local._testCase_contentDelete_default({
                             modeDeleteTree: true,
                             repeat: true,
@@ -318,8 +330,8 @@
                 nextMiddleware();
             }
         ]);
-        // init middleware error-handler
-        local.onMiddlewareError = local.utility2.onMiddlewareError;
+        // init error-middleware
+        local.middlewareError = local.utility2.middlewareError;
         // run server-test
         local.utility2.testRunServer(local);
         // jslint dir

@@ -26,7 +26,7 @@ simple cli tool to PUT / GET / DELETE github files
 - HEAD should be tagged, npm-published package
 
 #### beta branch
-- stable branch
+- semi-stable branch
 - HEAD should be latest, npm-published package
 
 #### alpha branch
@@ -235,7 +235,7 @@ instruction
     "bin": { "github-crud": "index.js" },
     "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "~2015.6.10-d"
+        "utility2": "~2015.7.10"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -258,10 +258,10 @@ instruction
         "start": "npm_config_mode_auto_restart=1 \
 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
-npm_config_mode_timeout_default=60000 \
+npm_config_timeout_default=60000 \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.2"
+    "version": "2015.6.3"
 }
 ```
 
@@ -272,9 +272,10 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 6eac2b86
-- npm publish 2015.6.2
-- update README.md with syntax-highlighted code-blocks
+# change since 67fa7c59
+- npm publish 2015.6.3
+- update README.md
+- update dependencies
 - none
 
 
@@ -291,6 +292,7 @@ node_modules/.bin/utility2 test test.js"
 # build.sh
 
 # this shell script will run the build for this package
+
 shBuild() {
     # this function will run the main build
     # init env
@@ -304,7 +306,7 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
     [ "$(node --version)" \< "v0.12" ] && sleep 30
 
     # run npm-test on published package
-    shNpmTestPublished || return $?
+    shRun shNpmTestPublished || return $?
 
     # test example js script
     MODE_BUILD=testExampleJs \

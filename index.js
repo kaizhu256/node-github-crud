@@ -48,7 +48,7 @@
                         // make ajax request
                         xhr = local.utility2.ajax({
                             agent: options.agent,
-                            debug: options.debug,
+                            modeDebug: options.modeDebug,
                             headers: local.utility2.jsonCopy(options.headers),
                             method: 'GET',
                             timeout: options.timeout,
@@ -75,7 +75,7 @@
                         // make ajax request
                         xhr = local.utility2.ajax({
                             agent: options.agent,
-                            debug: options.debug,
+                            modeDebug: options.modeDebug,
                             headers: local.utility2.jsonCopy(options.headers),
                             method: 'GET',
                             url: options.dirname + '/git/trees/' + xhr.sha + '?recursive=1'
@@ -172,7 +172,7 @@
                         // make ajax request
                         xhr = local.utility2.ajax({
                             agent: options.agent,
-                            debug: options.debug,
+                            modeDebug: options.modeDebug,
                             headers: local.utility2.jsonCopy(options.headers),
                             method: 'GET',
                             responseType: options.method === 'GET'
@@ -240,7 +240,7 @@
                                 message: '[skip ci] ' + options.method + ' file ' + options.url,
                                 sha: xhr.sha || undefined
                             }),
-                            debug: options.debug,
+                            modeDebug: options.modeDebug,
                             headers: local.utility2.jsonCopy(options.headers),
                             method: options.method,
                             url: options.url
