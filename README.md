@@ -7,7 +7,7 @@ simple cli tool to PUT / GET / DELETE github files
 
 
 # screen-capture
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-github-crud)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
@@ -97,7 +97,7 @@ shExampleSh
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-github-crud)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
@@ -214,7 +214,7 @@ instruction
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-github-crud)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleJs.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 
 
@@ -224,7 +224,7 @@ instruction
 
 
 # package-listing
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLsTree.png)](https://github.com/kaizhu256/node-github-crud)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-github-crud)
 
 
 
@@ -235,7 +235,7 @@ instruction
     "bin": { "github-crud": "index.js" },
     "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "~2015.7.10"
+        "utility2": "~2015.8.3"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -255,13 +255,11 @@ instruction
     },
     "scripts": {
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
-        "start": "npm_config_mode_auto_restart=1 \
-node_modules/.bin/utility2 shRun node test.js",
+        "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
-npm_config_timeout_default=60000 \
-node_modules/.bin/utility2 test test.js"
+npm_config_timeout_default=60000 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.3"
+    "version": "2015.8.1"
 }
 ```
 
@@ -272,16 +270,15 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 67fa7c59
-- npm publish 2015.6.3
-- update README.md
-- update dependencies
+# change since 9919f8a6
+- npm publish 2015.8.1
+- replace some screen-captures with svg
 - none
 
 
 
 # changelog of last 50 commits
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLog.png)](https://github.com/kaizhu256/node-github-crud/commits)
+[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLog.svg)](https://github.com/kaizhu256/node-github-crud/commits)
 
 
 
@@ -298,8 +295,7 @@ shBuild() {
     # init env
     export npm_config_mode_slimerjs=1 || return $?
     . node_modules/.bin/utility2 && shInit || return $?
-export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
-/blob/gh-pages\
+export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud/blob/gh-pages\
 /test/hello.build.$CI_BRANCH.$(node --version).txt || return $?
 
     # if running legacy-node, then wait 30 seconds
@@ -309,12 +305,10 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud\
     shRun shNpmTestPublished || return $?
 
     # test example js script
-    MODE_BUILD=testExampleJs \
-        shRunScreenCapture shReadmeTestJs example.js || return $?
+    MODE_BUILD=testExampleJs shRunScreenCapture shReadmeTestJs example.js || return $?
 
     # test example shell script
-    MODE_BUILD=testExampleSh \
-        shRunScreenCapture shReadmeTestSh example.sh || return $?
+    MODE_BUILD=testExampleSh shRunScreenCapture shReadmeTestSh example.sh || return $?
 
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
@@ -323,29 +317,13 @@ shBuild
 
 # save exit-code
 EXIT_CODE=$?
-
-shBuildCleanup() {
-    # this function will cleanup build-artifacts in local build dir
-    # create package-listing
-    MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || return $?
-    # create recent changelog of last 50 commits
-    MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || \
-        return $?
-}
-shBuildCleanup || exit $?
-
-shBuildGithubUploadCleanup() {
-    # this function will cleanup build-artifacts in local gh-pages repo
-    return
-}
-
+# create package-listing
+MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || exit $?
+# create recent changelog of last 50 commits
+MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || exit $?
 # if running legacy-node, then do not continue
 [ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
-
-# upload build-artifacts to github,
-# and if number of commits > 256, then squash older commits
-COMMIT_LIMIT=256 shBuildGithubUpload || exit $?
-
-# exit with $EXIT_CODE
+# upload build-artifacts to github, and if number of commits > 16, then squash older commits
+COMMIT_LIMIT=16 shBuildGithubUpload || exit $?
 exit $EXIT_CODE
 ```
