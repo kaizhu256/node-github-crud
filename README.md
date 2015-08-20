@@ -2,7 +2,7 @@ github-crud
 ===========
 simple cli tool to PUT / GET / DELETE github files
 
-[![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
+[![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud) [![NPM](https://img.shields.io/npm/dm/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
 
 
 
@@ -12,7 +12,6 @@ simple cli tool to PUT / GET / DELETE github files
 
 
 # build-status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
-
 [![build commit status](https://kaizhu256.github.io/node-github-crud/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
@@ -36,8 +35,16 @@ simple cli tool to PUT / GET / DELETE github files
 
 
 
-# quickstart cli example
+# documentation
+#### this package requires
+- darwin or linux os
 
+#### [api-doc](https://kaizhu256.github.io/node-github-crud/build/doc.api.html)
+[![api-doc](https://kaizhu256.github.io/node-github-crud/build/screen-capture.docApiCreate.slimerjs._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-github-crud_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-github-crud/build/doc.api.html)
+
+
+
+# quickstart cli example
 #### to run this example, follow the instruction in the script below
 - example.sh
 
@@ -102,7 +109,6 @@ shExampleSh
 
 
 # quickstart node example
-
 #### to run this example, follow the instruction in the script below
 - example.js
 
@@ -137,7 +143,7 @@ instruction
 
 /*jslint
     maxerr: 8,
-    maxlen: 80,
+    maxlen: 96,
     node: true,
     nomen: true,
     stupid: true
@@ -235,7 +241,10 @@ instruction
     "bin": { "github-crud": "index.js" },
     "description": "simple cli tool to PUT / GET / DELETE github files",
     "dependencies": {
-        "utility2": "~2015.8.3"
+        "utility2": "~2015.8.5"
+    },
+    "devDependencies": {
+        "phantomjs-lite": "^2015.7.1"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -255,11 +264,16 @@ instruction
     },
     "scripts": {
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
+        "build-doc": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
+node_modules/.bin/utility2 shRun shDocApiCreate \"{ \
+exampleFileList:['test.js','index.js'], \
+moduleDict:{'github-crud':{aliasList:['github_crud'],exports:require('./index.js')}} \
+}\"",
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 npm_config_timeout_default=60000 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.8.1"
+    "version": "2015.8.2"
 }
 ```
 
@@ -270,9 +284,9 @@ npm_config_timeout_default=60000 node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 9919f8a6
-- npm publish 2015.8.1
-- replace some screen-captures with svg
+# change since 00a5da3d
+- npm publish 2015.8.2
+- create api documentation
 - none
 
 
@@ -312,6 +326,9 @@ export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud/blob/gh-pa
 
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
+
+    # create api-doc
+    npm run-script build-doc || return $?
 }
 shBuild
 
@@ -323,7 +340,7 @@ MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || exit $?
 MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || exit $?
 # if running legacy-node, then do not continue
 [ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
-# upload build-artifacts to github, and if number of commits > 16, then squash older commits
-COMMIT_LIMIT=16 shBuildGithubUpload || exit $?
+# upload build-artifacts to github, and if number of commits > 256, then squash older commits
+COMMIT_LIMIT=256 shBuildGithubUpload || exit $?
 exit $EXIT_CODE
 ```
