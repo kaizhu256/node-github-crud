@@ -1,236 +1,252 @@
-github-crud
-===========
+# github-crud
 simple cli tool to PUT / GET / DELETE github files
 
-[![NPM](https://img.shields.io/npm/v/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud) [![NPM](https://img.shields.io/npm/dm/github-crud.svg?style=flat-square)](https://www.npmjs.org/package/github-crud)
+# live demo
+- none
+
+![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.testExampleSh.svg)
 
 
 
-# screen-capture
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
+[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud) [![coverage](https://kaizhu256.github.io/node-github-crud/build/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build/coverage.html/index.html) [![snyk.io vulnerabilities](https://snyk.io/test/github/kaizhu256/node-github-crud/badge.svg)](https://snyk.io/test/github/kaizhu256/node-github-crud)
 
+[![NPM](https://nodei.co/npm/github-crud.png?downloads=true)](https://www.npmjs.com/package/github-crud)
 
-
-# build-status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 [![build commit status](https://kaizhu256.github.io/node-github-crud/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
 |--:|:--|:--|:--|
+| test-server-github : | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/app) | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/app) | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/app)|
 | test-report : | [![test-report](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.html)|
-| coverage : | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/index.html)|
+| coverage : | [![coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/index.html)|
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
 
-#### master branch
-- stable branch
-- HEAD should be tagged, npm-published package
+[![npmPackageListing](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-github-crud)
 
-#### beta branch
-- semi-stable branch
-- HEAD should be latest, npm-published package
+![npmPackageDependencyTree](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageDependencyTree.svg)
 
-#### alpha branch
-- unstable branch
-- HEAD is arbitrary
-- commit history may be rewritten
+
+
+# table of contents
+1. [cdn download](#cdn-download)
+1. [documentation](#documentation)
+1. [quickstart shell example](#quickstart-shell-example)
+1. [quickstart example.js](#quickstart-examplejs)
+1. [extra screenshots](#extra-screenshots)
+1. [package.json](#packagejson)
+1. [changelog of last 50 commits](#changelog-of-last-50-commits)
+1. [internal build script](#internal-build-script)
+1. [misc](#misc)
+
+
+
+# cdn download
+- [https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/app/assets.github_crud.js](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/app/assets.github_crud.js)
 
 
 
 # documentation
+#### cli help
+![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageCliHelp.svg)
+
+#### apidoc
+- [https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
+
+[![apidoc](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
+
+#### todo
+- improve test-coverage
+- none
+
+#### changelog for v2017.9.16
+- npm publish 2017.9.16
+- revamp README.md
+- revamp cli
+- fix stale tests
+- none
+
 #### this package requires
 - darwin or linux os
 
-#### [api-doc](https://kaizhu256.github.io/node-github-crud/build/doc.api.html)
-[![api-doc](https://kaizhu256.github.io/node-github-crud/build/screen-capture.docApiCreate.slimerjs._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-github-crud_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-github-crud/build/doc.api.html)
 
 
-
-# quickstart cli example
+# quickstart shell example
 #### to run this example, follow the instruction in the script below
-- example.sh
-
+- [example.sh](https://kaizhu256.github.io/node-elasticsearch-lite/build..beta..travis-ci.org/example.sh)
 ```shell
 # example.sh
 
-# this shell script will
-    # npm install github-crud
-    # create local test file hello.txt with data "hello"
-    # http PUT hello.txt to $GITHUB_CRUD_FILE
-    # http GET $GITHUB_CRUD_FILE and print to stdout
-    # validate $GITHUB_CRUD_FILE data is "hello"
-    # http DELETE $GITHUB_CRUD_FILE
-    # validate deleted $GITHUB_CRUD_FILE does not exist
+# this shell script will auto-generate documentation for the mysql npm-package with zero-config
 
-# instruction
-    # 1. set env var $GITHUB_CRUD_FILE to test crud operations
+# 1. npm install github-crud
+cd /tmp && npm install github-crud
+# 2. init env vars
+export BRANCH=gh-pages
+export GITHUB_REPO=kaizhu256/node-github-crud
+# get $GITHUB_TOKEN from https://github.com/settings/tokens
+export GITHUB_TOKEN="${GITHUB_TOKEN:-xxxxxxxx}"
 
-        # uncomment line below, and set env var $GITHUB_CRUD_FILE
-        # GITHUB_CRUD_FILE=https://github.com/john/my-repo/blob/master/hello.txt
-
-    # 2. goto https://github.com/settings/tokens,
-    #    and create env var $GITHUB_TOKEN with access to $GITHUB_CRUD_FILE
-
-        # uncomment line below, and set env var $GITHUB_TOKEN
-        # GITHUB_TOKEN=ffffffffffffffffffffffffffffffffffffffff
-
-    # 3. after editing above lines,
-    #    copy and paste this entire shell script into a console and press enter
-    # 4. watch this script PUT / GET / DELETE $GITHUB_CRUD_FILE
-
-shExampleSh() {
-    # npm install github-crud
-    npm install github-crud || return $?
-    alias github-crud=node_modules/.bin/github-crud || return $?
-
-    # create local test file hello.txt with data "hello"
-    printf "hello" > hello.txt || return $?
-
-    # http PUT hello.txt to $GITHUB_CRUD_FILE
-    github-crud contentPutFile $GITHUB_CRUD_FILE hello.txt || return $?
-
-    # http GET $GITHUB_CRUD_FILE and print to stdout
-    DATA=$(github-crud contentGet $GITHUB_CRUD_FILE) || return $?
-    printf "$DATA\n" || return $?
-
-    # validate $GITHUB_CRUD_FILE data is "hello"
-    [ "$DATA" = hello ] || return $?
-
-    # http DELETE $GITHUB_CRUD_FILE
-    github-crud contentDelete $GITHUB_CRUD_FILE || return $?
-
-    # validate deleted $GITHUB_CRUD_FILE does not exist
-    [ "$(github-crud contentGet $GITHUB_CRUD_FILE)" = "" ] || return $?
+# 3. test github-crud put
+shPrintAndEval() {
+    printf "\n\n\n"
+    printf "\$ $*\n\n"
+    eval "$@"
+    return 0
 }
-shExampleSh
+printf "hello world\\n" > /tmp/hello.txt
+shPrintAndEval /tmp/node_modules/.bin/github-crud put "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt /tmp/hello.txt commit-message-1"
+
+# 4. test github-crud get
+shPrintAndEval /tmp/node_modules/.bin/github-crud get "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt"
+
+# 5. test github-crud touch
+shPrintAndEval /tmp/node_modules/.bin/github-crud touch "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-2"
+
+# 6. test github-crud delete
+shPrintAndEval /tmp/node_modules/.bin/github-crud delete "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-3"
+
+# 5. test github-crud get
+shPrintAndEval /tmp/node_modules/.bin/github-crud get "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt"
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleSh.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
+![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.testExampleSh.svg)
 
 
 
-# quickstart node example
+# quickstart example.js
 #### to run this example, follow the instruction in the script below
-- example.js
-
+- [example.js](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/example.js)
 ```javascript
 /*
 example.js
 
-this node script will
-- http PUT 'hello' to $GITHUB_CRUD_FILE
-- http GET $GITHUB_CRUD_FILE
-- validate $GITHUB_CRUD_FILE data is 'hello'
-- http DELETE $GITHUB_CRUD_FILE
-- validate deleted $GITHUB_CRUD_FILE does not exist
+this script will run a web demo of github-crud
 
 instruction
-    1. set env var $GITHUB_CRUD_FILE to test crud operations,
-
-        - e.g.
-        - GITHUB_CRUD_FILE=https://github.com/john/my-repo/blob/master/hello.txt
-
-    2. goto https://github.com/settings/tokens,
-       and create env var $GITHUB_TOKEN with access to $GITHUB_CRUD_FILE
-
-        - e.g.
-        - GITHUB_TOKEN=ffffffffffffffffffffffffffffffffffffffff
-
-    3. save this js script as example.js
-    4. run the shell command:
+    1. save this script as example.js
+    2. edit env vars below
+    3. run the shell command:
         $ npm install github-crud && node example.js
-    5. watch this script PUT / GET / DELETE $GITHUB_CRUD_FILE
+    4. edit this script to suit your needs
 */
 
+
+
+/* istanbul instrument in package github_crud */
 /*jslint
+    bitwise: true,
+    browser: true,
     maxerr: 8,
     maxlen: 96,
     node: true,
     nomen: true,
+    regexp: true,
     stupid: true
 */
-
+/* istanbul ignore next */
 (function () {
     'use strict';
-    // run node js-env code
-    (function () {
-        var github_crud, modeNext, onNext;
-        // require modules
-        github_crud = require('github-crud');
-        // sequentially run crud operations
-        modeNext = 0;
-        onNext = function (error, data) {
-            modeNext += 1;
-            console.log('case ' + modeNext);
-            switch (modeNext) {
-            // http PUT 'hello' to $GITHUB_CRUD_FILE
-            case 1:
-                github_crud.contentPut({
-                    data: 'hello',
-                    url: process.env.GITHUB_CRUD_FILE
-                }, onNext);
-                break;
-            case 2:
-                // validate no error occurred
-                console.assert(!error, error);
-                onNext();
-                break;
-            // http GET $GITHUB_CRUD_FILE
-            case 3:
-                github_crud.contentGet({
-                    url: process.env.GITHUB_CRUD_FILE
-                }, onNext);
-                break;
-            // validate $GITHUB_CRUD_FILE data is 'hello'
-            case 4:
-                // validate no error occurred
-                console.assert(!error, error);
-                // validate http GET data
-                console.assert(data === 'hello', data);
-                console.log(data);
-                onNext();
-                break;
-            // http DELETE $GITHUB_CRUD_FILE
-            case 5:
-                github_crud.contentDelete({
-                    url: process.env.GITHUB_CRUD_FILE
-                }, onNext);
-                break;
-            case 6:
-                // validate no error occurred
-                console.assert(!error, error);
-                onNext();
-                break;
-            // validate deleted $GITHUB_CRUD_FILE does not exist
-            case 7:
-                github_crud.contentGet({
-                    url: process.env.GITHUB_CRUD_FILE
-                }, onNext);
-                break;
-            case 8:
-                // validate no error occurred
-                console.assert(!error, error);
-                // validate deleted data does not exist
-                console.assert(!data, data);
-                break;
+
+
+
+    /*
+     * edit begin
+     * edit env vars below
+     */
+    process.env.BRANCH = 'gh-pages';
+    process.env.GITHUB_REPO = 'kaizhu256/node-github-crud';
+    // get $GITHUB_TOKEN from https://github.com/settings/tokens
+    process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || 'xxxxxxxx';
+    /*
+     * edit end
+     */
+
+
+
+    var github_crud, modeNext, onNext;
+    modeNext = 0;
+    onNext = function (error, data) {
+        if (error) {
+            console.error(error);
+        }
+        modeNext += 1;
+        switch (modeNext) {
+        // init
+        case 1:
+            if (global.utility2_rollup ||
+                    process.env.npm_config_mode_auto_restart ||
+                    process.env.npm_config_mode_test) {
+                return;
             }
-        };
-        onNext();
-    }());
+            github_crud = require('github-crud');
+            onNext();
+            break;
+        // test github-crud put
+        case 2:
+            console.error('\n\n\ngithub-crud put /foo/bar/hello.txt\n');
+            github_crud.contentPut({
+                content: 'hello world\n',
+                message: 'commit message 1',
+                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
+                    process.env.BRANCH + '/foo/bar/hello.txt'
+            }, onNext);
+            break;
+        // test github-crud get
+        case 3:
+            console.error('\n\n\ngithub-crud get /foo/bar/hello.txt\n');
+            github_crud.contentGet({
+                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
+                    process.env.BRANCH + '/foo/bar/hello.txt'
+            }, onNext);
+            break;
+        // test github-crud touch
+        case 4:
+            console.error(String(data));
+            console.error('\n\n\ngithub-crud touch /foo/bar/hello.txt\n');
+            github_crud.contentTouch({
+                message: 'commit message 2',
+                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
+                    process.env.BRANCH + '/foo/bar/hello.txt'
+            }, onNext);
+            break;
+        // test github-crud delete
+        case 5:
+            console.error('\n\n\ngithub-crud delete /foo/bar/hello.txt\n');
+            github_crud.contentDelete({
+                message: 'commit message 3',
+                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
+                    process.env.BRANCH + '/foo/bar/hello.txt'
+            }, onNext);
+            break;
+        // test github-crud get
+        case 6:
+            console.error('\n\n\ngithub-crud get /foo/bar/hello.txt\n');
+            github_crud.contentGet({
+                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
+                    process.env.BRANCH + '/foo/bar/hello.txt'
+            }, onNext);
+            break;
+        }
+    };
+    onNext();
 }());
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.testExampleJs.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
+![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.testExampleJs.svg)
 
 
 
-# npm-dependencies
-- [utility2](https://www.npmjs.com/package/utility2)
+# extra screenshots
+1. [https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)
+[![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)
 
+1. [https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)
+[![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)
 
-
-# package-listing
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-github-crud)
+1. [https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)
+[![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)
 
 
 
@@ -238,109 +254,79 @@ instruction
 ```json
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
-    "bin": { "github-crud": "index.js" },
+    "bin": {
+        "github-crud": "lib.github_crud.js"
+    },
     "description": "simple cli tool to PUT / GET / DELETE github files",
-    "dependencies": {
-        "utility2": "~2015.8.5"
-    },
     "devDependencies": {
-        "phantomjs-lite": "^2015.7.1"
+        "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "engines": { "node": ">=0.10 <=0.12" },
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/kaizhu256/node-github-crud",
     "keywords": [
-        "api",
-        "cli", "content", "crud",
-        "delete",
-        "get", "git", "github",
-        "put",
-        "upload"
+        "github-crud"
     ],
     "license": "MIT",
+    "main": "lib.github_crud.js",
     "name": "github-crud",
-    "os": ["darwin", "linux"],
-    "repository" : {
-        "type" : "git",
-        "url" : "https://github.com/kaizhu256/node-github-crud.git"
+    "nameAlias": "github_crud",
+    "nameOriginal": "github-crud",
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kaizhu256/node-github-crud.git"
     },
     "scripts": {
-        "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
-        "build-doc": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
-node_modules/.bin/utility2 shRun shDocApiCreate \"{ \
-exampleFileList:['test.js','index.js'], \
-moduleDict:{'github-crud':{aliasList:['github_crud'],exports:require('./index.js')}} \
-}\"",
-        "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
-npm_config_timeout_default=60000 node_modules/.bin/utility2 test test.js"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "npm uninstall utility2 2>/dev/null; npm install kaizhu256/node-utility2#alpha && utility2 shDeployHeroku",
+        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh postinstall",
+        "start": "PORT=${PORT:-8080} utility2 start test.js",
+        "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2015.8.2"
+    "version": "2017.9.16"
 }
 ```
-
-
-
-# todo
-- none
-
-
-
-# change since 00a5da3d
-- npm publish 2015.8.2
-- create api documentation
-- none
 
 
 
 # changelog of last 50 commits
-[![screen-capture](https://kaizhu256.github.io/node-github-crud/build/screen-capture.gitLog.svg)](https://github.com/kaizhu256/node-github-crud/commits)
+[![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.gitLog.svg)](https://github.com/kaizhu256/node-github-crud/commits)
 
 
 
-# internal build-script
-- build.sh
-
+# internal build script
+- build_ci.sh
 ```shell
-# build.sh
+# build_ci.sh
 
 # this shell script will run the build for this package
 
-shBuild() {
-    # this function will run the main build
-    # init env
-    export npm_config_mode_slimerjs=1 || return $?
-    . node_modules/.bin/utility2 && shInit || return $?
-export GITHUB_CRUD_FILE=https://github.com/kaizhu256/node-github-crud/blob/gh-pages\
-/test/hello.build.$CI_BRANCH.$(node --version).txt || return $?
+shBuildCiAfter() {(set -e
+    # shDeployCustom
+    shDeployGithub
+    # shDeployHeroku
+    shReadmeTest example.sh
+)}
 
-    # if running legacy-node, then wait 30 seconds
-    [ "$(node --version)" \< "v0.12" ] && sleep 30
+shBuildCiBefore() {(set -e
+shReadmeTest example.sh
+    #!! shNpmTestPublished
+    shReadmeTest example.js
+)}
 
-    # run npm-test on published package
-    shRun shNpmTestPublished || return $?
-
-    # test example js script
-    MODE_BUILD=testExampleJs shRunScreenCapture shReadmeTestJs example.js || return $?
-
-    # test example shell script
-    MODE_BUILD=testExampleSh shRunScreenCapture shReadmeTestSh example.sh || return $?
-
-    # run npm-test
-    MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
-
-    # create api-doc
-    npm run-script build-doc || return $?
-}
-shBuild
-
-# save exit-code
-EXIT_CODE=$?
-# create package-listing
-MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || exit $?
-# create recent changelog of last 50 commits
-MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || exit $?
-# if running legacy-node, then do not continue
-[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
-# upload build-artifacts to github, and if number of commits > 256, then squash older commits
-COMMIT_LIMIT=256 shBuildGithubUpload || exit $?
-exit $EXIT_CODE
+# run shBuildCi
+eval $(utility2 source)
+shBuildCi
 ```
+
+
+
+# misc
+- this package was created with [utility2](https://github.com/kaizhu256/node-utility2)

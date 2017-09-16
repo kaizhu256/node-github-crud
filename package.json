@@ -1,34 +1,40 @@
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
-    "bin": { "github-crud": "index.js" },
+    "bin": {
+        "github-crud": "lib.github_crud.js"
+    },
     "description": "simple cli tool to PUT / GET / DELETE github files",
-    "dependencies": {
-        "utility2": "~2015.8.5"
-    },
     "devDependencies": {
-        "phantomjs-lite": "^2015.7.1"
+        "electron-lite": "kaizhu256/node-electron-lite#alpha",
+        "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "engines": { "node": ">=0.10 <=0.12" },
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/kaizhu256/node-github-crud",
     "keywords": [
-        "api",
-        "cli", "content", "crud",
-        "delete",
-        "get", "git", "github",
-        "put",
-        "upload"
+        "github-crud"
     ],
     "license": "MIT",
+    "main": "lib.github_crud.js",
     "name": "github-crud",
-    "os": ["darwin", "linux"],
-    "repository" : {
-        "type" : "git",
-        "url" : "https://github.com/kaizhu256/node-github-crud.git"
+    "nameAlias": "github_crud",
+    "nameOriginal": "github-crud",
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kaizhu256/node-github-crud.git"
     },
     "scripts": {
-        "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
-        "build-doc": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && node_modules/.bin/utility2 shRun shDocApiCreate \"{ exampleFileList:['test.js','index.js'], moduleDict:{'github-crud':{aliasList:['github_crud'],exports:require('./index.js')}} }\"",
-        "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && npm_config_timeout_default=60000 node_modules/.bin/utility2 test test.js"
+        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "env": "env",
+        "heroku-postbuild": "npm uninstall utility2 2>/dev/null; npm install kaizhu256/node-utility2#alpha && utility2 shDeployHeroku",
+        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh postinstall",
+        "start": "PORT=${PORT:-8080} utility2 start test.js",
+        "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2015.8.2"
+    "version": "2017.9.16"
 }
