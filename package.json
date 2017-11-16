@@ -3,7 +3,7 @@
     "bin": {
         "github-crud": "lib.github_crud.js"
     },
-    "description": "simple cli tool to PUT / GET / DELETE github files",
+    "description": "this zero-dependency package will provide a simple cli tool to PUT / GET / DELETE github files",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -18,7 +18,7 @@
     "license": "MIT",
     "main": "lib.github_crud.js",
     "name": "github-crud",
-    "nameAlias": "github_crud",
+    "nameLib": "github_crud",
     "nameOriginal": "github-crud",
     "os": [
         "darwin",
@@ -36,5 +36,5 @@
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.9.16"
+    "version": "2017.11.15"
 }

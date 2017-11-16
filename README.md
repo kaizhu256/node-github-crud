@@ -1,7 +1,7 @@
 # github-crud
-simple cli tool to PUT / GET / DELETE github files
+this zero-dependency package will provide a simple cli tool to PUT / GET / DELETE github files
 
-# live demo
+# live web demo
 - none
 
 ![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.testExampleSh.svg)
@@ -49,7 +49,7 @@ simple cli tool to PUT / GET / DELETE github files
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageCliHelp.svg)
 
-#### apidoc
+#### api doc
 - [https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
 
 [![apidoc](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
@@ -58,11 +58,9 @@ simple cli tool to PUT / GET / DELETE github files
 - improve test-coverage
 - none
 
-#### changelog for v2017.9.16
-- npm publish 2017.9.16
-- revamp README.md
-- revamp cli
-- fix stale tests
+#### changelog for v2017.11.15
+- npm publish 2017.11.15
+- cleanup test.js
 - none
 
 #### this package requires
@@ -94,19 +92,20 @@ shPrintAndEval() {
     return 0
 }
 printf "hello world\\n" > /tmp/hello.txt
-shPrintAndEval /tmp/node_modules/.bin/github-crud put "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt /tmp/hello.txt commit-message-1"
+shPrintAndEval \
+/tmp/node_modules/.bin/github-crud put "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt /tmp/hello.txt commit-message-1"
 
 # 4. test github-crud get
-shPrintAndEval /tmp/node_modules/.bin/github-crud get "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt"
+shPrintAndEval \
+/tmp/node_modules/.bin/github-crud get "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt"
 
 # 5. test github-crud touch
-shPrintAndEval /tmp/node_modules/.bin/github-crud touch "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-2"
+shPrintAndEval \
+/tmp/node_modules/.bin/github-crud touch "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-2"
 
 # 6. test github-crud delete
-shPrintAndEval /tmp/node_modules/.bin/github-crud delete "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-3"
-
-# 5. test github-crud get
-shPrintAndEval /tmp/node_modules/.bin/github-crud get "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt"
+shPrintAndEval \
+/tmp/node_modules/.bin/github-crud delete "https://github.com/$GITHUB_REPO/blob/$BRANCH/foo/bar/hello.txt commit-message-3"
 ```
 
 #### output from shell
@@ -121,7 +120,7 @@ shPrintAndEval /tmp/node_modules/.bin/github-crud get "https://github.com/$GITHU
 /*
 example.js
 
-this script will run a web demo of github-crud
+this script will run a web-demo of github-crud
 
 instruction
     1. save this script as example.js
@@ -219,14 +218,6 @@ instruction
                     process.env.BRANCH + '/foo/bar/hello.txt'
             }, onNext);
             break;
-        // test github-crud get
-        case 6:
-            console.error('\n\n\ngithub-crud get /foo/bar/hello.txt\n');
-            github_crud.contentGet({
-                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
-                    process.env.BRANCH + '/foo/bar/hello.txt'
-            }, onNext);
-            break;
         }
     };
     onNext();
@@ -257,7 +248,7 @@ instruction
     "bin": {
         "github-crud": "lib.github_crud.js"
     },
-    "description": "simple cli tool to PUT / GET / DELETE github files",
+    "description": "this zero-dependency package will provide a simple cli tool to PUT / GET / DELETE github files",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -272,7 +263,7 @@ instruction
     "license": "MIT",
     "main": "lib.github_crud.js",
     "name": "github-crud",
-    "nameAlias": "github_crud",
+    "nameLib": "github_crud",
     "nameOriginal": "github-crud",
     "os": [
         "darwin",
@@ -290,7 +281,7 @@ instruction
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.9.16"
+    "version": "2017.11.15"
 }
 ```
 
@@ -313,11 +304,11 @@ shBuildCiAfter() {(set -e
     shDeployGithub
     # shDeployHeroku
     shReadmeTest example.sh
+    rm -fr /tmp/node_modules
 )}
 
 shBuildCiBefore() {(set -e
-shReadmeTest example.sh
-    #!! shNpmTestPublished
+    shNpmTestPublished
     shReadmeTest example.js
 )}
 

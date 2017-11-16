@@ -4,7 +4,7 @@
     bitwise: true,
     browser: true,
     maxerr: 8,
-    maxlen: 96,
+    maxlen: 100,
     node: true,
     nomen: true,
     regexp: true,
@@ -698,7 +698,7 @@
         local.cliDict.delete = function () {
         /*
          * fileRemote commitMessage
-         * crud-delete fileRemote from github
+         * delete fileRemote from github
          */
             local.contentDelete({
                 message: process.argv[4],
@@ -711,7 +711,7 @@
         local.cliDict.get = function () {
         /*
          * fileRemote
-         * crud-get fileRemote from github
+         * get fileRemote from github
          */
             local.contentGet({ url: process.argv[3] }, function (error, data) {
                 // validate no error occurred
@@ -725,7 +725,7 @@
         local.cliDict.put = function () {
         /*
          * fileRemote fileLocal commitMessage
-         * crud-put fileLocal as fileRemote on github
+         * put fileLocal as fileRemote on github
          */
             local.contentPutFile({
                 message: process.argv[5],
@@ -739,7 +739,7 @@
         local.cliDict.touch = function () {
         /*
          * fileRemote commitMessage
-         * crud-touch fileRemote on github
+         * touch fileRemote on github
          */
             local.contentTouch({
                 message: process.argv[4],
@@ -749,10 +749,10 @@
                 console.assert(!error, error);
             });
         };
-        local.cliDict.touchlist = function () {
+        local.cliDict.touchList = function () {
         /*
          * fileRemoteList commitMessage
-         * crud-touch comma-separated fileRemoteList on github
+         * touch comma-separated fileRemoteList on github
          */
             local.contentTouchList({
                 message: process.argv[4],
