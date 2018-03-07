@@ -1,4 +1,5 @@
 /* istanbul instrument in package github_crud */
+/* jslint-utility2 */
 /*jslint
     bitwise: true,
     browser: true,

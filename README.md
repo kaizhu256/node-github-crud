@@ -1,5 +1,5 @@
 # github-crud
-this zero-dependency package will provide a simple cli tool to PUT / GET / DELETE github files
+this zero-dependency package will provide a simple cli-tool to PUT / GET / DELETE github files
 
 # live web demo
 - none
@@ -8,7 +8,7 @@ this zero-dependency package will provide a simple cli tool to PUT / GET / DELET
 
 
 
-[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud) [![coverage](https://kaizhu256.github.io/node-github-crud/build/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build/coverage.html/index.html) [![snyk.io vulnerabilities](https://snyk.io/test/github/kaizhu256/node-github-crud/badge.svg)](https://snyk.io/test/github/kaizhu256/node-github-crud)
+[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud) [![coverage](https://kaizhu256.github.io/node-github-crud/build/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build/coverage.html/index.html)
 
 [![NPM](https://nodei.co/npm/github-crud.png?downloads=true)](https://www.npmjs.com/package/github-crud)
 
@@ -16,7 +16,6 @@ this zero-dependency package will provide a simple cli tool to PUT / GET / DELET
 
 | git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
 |--:|:--|:--|:--|
-| test-server-github : | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/app) | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/app) | [![github.com test-server](https://kaizhu256.github.io/node-github-crud/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/app)|
 | test-report : | [![test-report](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/test-report.html)|
 | coverage : | [![coverage](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..master..travis-ci.org/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build..alpha..travis-ci.org/coverage.html/index.html)|
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
@@ -58,9 +57,9 @@ this zero-dependency package will provide a simple cli tool to PUT / GET / DELET
 - improve test-coverage
 - none
 
-#### changelog for v2017.11.15
-- npm publish 2017.11.15
-- cleanup test.js
+#### changelog for v2017.11.16
+- npm publish v2018.3.6
+- update build
 - none
 
 #### this package requires
@@ -248,7 +247,7 @@ instruction
     "bin": {
         "github-crud": "lib.github_crud.js"
     },
-    "description": "this zero-dependency package will provide a simple cli tool to PUT / GET / DELETE github files",
+    "description": "this zero-dependency package will provide a simple cli-tool to PUT / GET / DELETE github files",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -274,14 +273,17 @@ instruction
         "url": "https://github.com/kaizhu256/node-github-crud.git"
     },
     "scripts": {
+        "apidocRawCreate": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawCreate",
+        "apidocRawFetch": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawFetch",
         "build-ci": "utility2 shReadmeTest build_ci.sh",
         "env": "env",
         "heroku-postbuild": "npm uninstall utility2 2>/dev/null; npm install kaizhu256/node-utility2#alpha && utility2 shDeployHeroku",
-        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh postinstall",
+        "nameAliasPublish": "",
+        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptPostinstall",
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.11.15"
+    "version": "2018.3.6"
 }
 ```
 
@@ -300,8 +302,8 @@ instruction
 # this shell script will run the build for this package
 
 shBuildCiAfter() {(set -e
-    # shDeployCustom
-    shDeployGithub
+    shDeployCustom
+    # shDeployGithub
     # shDeployHeroku
     shReadmeTest example.sh
     rm -fr /tmp/node_modules

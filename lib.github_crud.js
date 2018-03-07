@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* istanbul instrument in package github_crud */
+/* jslint-utility2 */
 /*jslint
     bitwise: true,
     browser: true,
@@ -40,22 +41,28 @@
             : global;
         // init utility2_rollup
         local = local.global.utility2_rollup || local;
-        // init lib
-        local.local = local.github_crud = local;
+        /* istanbul ignore next */
+        if (!local) {
+            local = local.global.utility2_rollup ||
+                local.global.utility2_rollup_old ||
+                require('./assets.utility2.rollup.js');
+            local.fs = null;
+        }
         // init exports
         if (local.modeJs === 'browser') {
             local.global.utility2_github_crud = local;
         } else {
             // require builtins
             Object.keys(process.binding('natives')).forEach(function (key) {
-                if (!local[key] && !(/\/|^_|^sys$/).test(key)) {
+                if (!local[key] && !(/\/|^_|^assert|^sys$/).test(key)) {
                     local[key] = require(key);
                 }
             });
             module.exports = local;
             module.exports.__dirname = __dirname;
-            module.exports.module = module;
         }
+        // init lib
+        local.local = local.github_crud = local;
     }());
 
 
@@ -63,7 +70,7 @@
     /* istanbul ignore next */
     // run shared js-env code - function-before
     (function () {
-        local.assert = function (passed, message) {
+        local.assert = function (passed, message, onError) {
         /*
          * this function will throw the error message if passed is falsey
          */
@@ -79,7 +86,12 @@
                     ? message
                     // else JSON.stringify message
                     : JSON.stringify(message));
-            throw error;
+            // debug error
+            local._debugAssertError = error;
+            onError = onError || function (error) {
+                throw error;
+            };
+            onError(error);
         };
 
         local.cliRun = function (fnc) {
@@ -109,6 +121,8 @@
              * print help
              */
                 var element, result, lengthList, sortDict;
+                console.log(require(__dirname + '/package.json').name + ' v' +
+                    require(__dirname + '/package.json').version);
                 sortDict = {};
                 result = [['[command]', '[args]', '[description]', -1]];
                 lengthList = [result[0][0].length, result[0][1].length];
@@ -149,7 +163,7 @@
                         }
                     });
                     element = element.slice(0, 3).join('---- ');
-                    if (ii === 0) {
+                    if (!ii) {
                         element = element.replace((/-/g), ' ');
                     }
                     console.log(element);
@@ -172,6 +186,15 @@
                     local.cliDict._interactive;
                 local.cliDict['-i'] = local.cliDict['-i'] || local.cliDict._interactive;
             }
+            local.cliDict._version = local.cliDict._version || function () {
+            /*
+             * [none]
+             * print version
+             */
+                console.log(require(__dirname + '/package.json').version);
+            };
+            local.cliDict['--version'] = local.cliDict['--version'] || local.cliDict._version;
+            local.cliDict['-v'] = local.cliDict['-v'] || local.cliDict._version;
             // run fnc()
             fnc = fnc || function () {
                 if (local.cliDict[process.argv[2]]) {
