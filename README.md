@@ -54,12 +54,12 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 [![apidoc](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
-- improve test-coverage
 - none
 
-#### changelog for v2017.11.16
-- npm publish v2018.3.6
-- update build
+#### changelog 2018.4.28
+- npm publish 2018.4.28
+- replace function httpRequest -> ajax
+- improve test-coverage
 - none
 
 #### this package requires
@@ -84,7 +84,7 @@ export GITHUB_REPO=kaizhu256/node-github-crud
 export GITHUB_TOKEN="${GITHUB_TOKEN:-xxxxxxxx}"
 
 # 3. test github-crud put
-shPrintAndEval() {
+shPrintAndEval () {
     printf "\n\n\n"
     printf "\$ $*\n\n"
     eval "$@"
@@ -135,16 +135,18 @@ instruction
 /*jslint
     bitwise: true,
     browser: true,
-    maxerr: 8,
-    maxlen: 96,
+    maxerr: 4,
+    maxlen: 100,
     node: true,
     nomen: true,
     regexp: true,
     stupid: true
 */
-/* istanbul ignore next */
 (function () {
     'use strict';
+    if (typeof window === 'object' || global.utility2_rollup) {
+        return;
+    }
 
 
 
@@ -162,8 +164,9 @@ instruction
 
 
 
-    var github_crud, modeNext, onNext;
+    var local, modeNext, onNext;
     modeNext = 0;
+    /* istanbul ignore next */
     onNext = function (error, data) {
         if (error) {
             console.error(error);
@@ -172,18 +175,17 @@ instruction
         switch (modeNext) {
         // init
         case 1:
-            if (global.utility2_rollup ||
-                    process.env.npm_config_mode_auto_restart ||
+            local = module.exports = require('github-crud');
+            if (process.env.npm_config_mode_auto_restart ||
                     process.env.npm_config_mode_test) {
                 return;
             }
-            github_crud = require('github-crud');
             onNext();
             break;
         // test github-crud put
         case 2:
             console.error('\n\n\ngithub-crud put /foo/bar/hello.txt\n');
-            github_crud.contentPut({
+            local.githubContentPut({
                 content: 'hello world\n',
                 message: 'commit message 1',
                 url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
@@ -193,7 +195,7 @@ instruction
         // test github-crud get
         case 3:
             console.error('\n\n\ngithub-crud get /foo/bar/hello.txt\n');
-            github_crud.contentGet({
+            local.githubContentGet({
                 url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
                     process.env.BRANCH + '/foo/bar/hello.txt'
             }, onNext);
@@ -202,7 +204,7 @@ instruction
         case 4:
             console.error(String(data));
             console.error('\n\n\ngithub-crud touch /foo/bar/hello.txt\n');
-            github_crud.contentTouch({
+            local.githubContentTouch({
                 message: 'commit message 2',
                 url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
                     process.env.BRANCH + '/foo/bar/hello.txt'
@@ -211,7 +213,7 @@ instruction
         // test github-crud delete
         case 5:
             console.error('\n\n\ngithub-crud delete /foo/bar/hello.txt\n');
-            github_crud.contentDelete({
+            local.githubContentDelete({
                 message: 'commit message 3',
                 url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
                     process.env.BRANCH + '/foo/bar/hello.txt'
@@ -262,6 +264,7 @@ instruction
     "license": "MIT",
     "main": "lib.github_crud.js",
     "name": "github-crud",
+    "nameAliasPublish": "github-content-api github-content-lite",
     "nameLib": "github_crud",
     "nameOriginal": "github-crud",
     "os": [
@@ -277,13 +280,12 @@ instruction
         "apidocRawFetch": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawFetch",
         "build-ci": "utility2 shReadmeTest build_ci.sh",
         "env": "env",
-        "heroku-postbuild": "npm uninstall utility2 2>/dev/null; npm install kaizhu256/node-utility2#alpha && utility2 shDeployHeroku",
-        "nameAliasPublish": "",
+        "heroku-postbuild": "npm install kaizhu256/node-utility2#alpha --prefix . && utility2 shDeployHeroku",
         "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptPostinstall",
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2018.3.6"
+    "version": "2018.4.28"
 }
 ```
 
@@ -301,7 +303,7 @@ instruction
 
 # this shell script will run the build for this package
 
-shBuildCiAfter() {(set -e
+shBuildCiAfter () {(set -e
     shDeployCustom
     # shDeployGithub
     # shDeployHeroku
@@ -309,7 +311,7 @@ shBuildCiAfter() {(set -e
     rm -fr /tmp/node_modules
 )}
 
-shBuildCiBefore() {(set -e
+shBuildCiBefore () {(set -e
     shNpmTestPublished
     shReadmeTest example.js
 )}
