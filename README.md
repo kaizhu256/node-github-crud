@@ -54,12 +54,14 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 [![apidoc](https://kaizhu256.github.io/node-github-crud/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-github-crud/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- add web-demo
 - none
 
-#### changelog 2018.4.28
-- npm publish 2018.4.28
-- replace function httpRequest -> ajax
-- improve test-coverage
+#### changelog 2018.8.8
+- npm publish 2018.8.8
+- remove browser-restrictions
+- add functions githubBranchCreate and githubBranchDelete
+- migrate from modeJs -> isBrowser
 - none
 
 #### this package requires
@@ -276,16 +278,16 @@ instruction
         "url": "https://github.com/kaizhu256/node-github-crud.git"
     },
     "scripts": {
-        "apidocRawCreate": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawCreate",
-        "apidocRawFetch": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawFetch",
-        "build-ci": "utility2 shReadmeTest build_ci.sh",
+        "build-ci": "./npm_scripts.sh",
         "env": "env",
-        "heroku-postbuild": "npm install kaizhu256/node-utility2#alpha --prefix . && utility2 shDeployHeroku",
-        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptPostinstall",
-        "start": "PORT=${PORT:-8080} utility2 start test.js",
-        "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
+        "eval": "./npm_scripts.sh",
+        "heroku-postbuild": "./npm_scripts.sh",
+        "postinstall": "./npm_scripts.sh",
+        "start": "./npm_scripts.sh",
+        "test": "./npm_scripts.sh",
+        "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.4.28"
+    "version": "2018.8.8"
 }
 ```
 
@@ -317,7 +319,7 @@ shBuildCiBefore () {(set -e
 )}
 
 # run shBuildCi
-eval $(utility2 source)
+eval "$(utility2 source)"
 shBuildCi
 ```
 
