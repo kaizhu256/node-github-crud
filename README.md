@@ -57,11 +57,10 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 - add web-demo
 - none
 
-#### changelog 2018.8.8
-- npm publish 2018.8.8
-- remove browser-restrictions
-- add functions githubBranchCreate and githubBranchDelete
-- migrate from modeJs -> isBrowser
+#### changelog 2019.1.21
+- npm publish 2019.1.21
+- add functions githubRepoCreateList, githubRepoDeleteList
+- rename functions githubBranchCreate -> githubRepoCreate, githubBranchDelete -> githubRepoDelete
 - none
 
 #### this package requires
@@ -134,96 +133,95 @@ instruction
 
 
 /* istanbul instrument in package github_crud */
-/*jslint
-    bitwise: true,
-    browser: true,
-    maxerr: 4,
-    maxlen: 100,
-    node: true,
-    nomen: true,
-    regexp: true,
-    stupid: true
-*/
+/* jslint utility2:true */
 (function () {
-    'use strict';
-    if (typeof window === 'object' || global.utility2_rollup) {
-        return;
+"use strict";
+
+
+
+/*
+ * edit begin
+ * edit env vars below
+ */
+process.env.BRANCH = "gh-pages";
+process.env.GITHUB_REPO = "kaizhu256/node-github-crud";
+// get $GITHUB_TOKEN from https://github.com/settings/tokens
+process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || "xxxxxxxx";
+/*
+ * edit end
+ */
+
+
+
+var local;
+var modeNext;
+var onNext;
+modeNext = 0;
+/* istanbul ignore next */
+onNext = function (error, data) {
+    if (error) {
+        console.error(error);
     }
-
-
-
-    /*
-     * edit begin
-     * edit env vars below
-     */
-    process.env.BRANCH = 'gh-pages';
-    process.env.GITHUB_REPO = 'kaizhu256/node-github-crud';
-    // get $GITHUB_TOKEN from https://github.com/settings/tokens
-    process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || 'xxxxxxxx';
-    /*
-     * edit end
-     */
-
-
-
-    var local, modeNext, onNext;
-    modeNext = 0;
-    /* istanbul ignore next */
-    onNext = function (error, data) {
-        if (error) {
-            console.error(error);
+    modeNext += 1;
+    switch (modeNext) {
+    // init
+    case 1:
+        if (
+            typeof window === "object"
+            || global.utility2_rollup // jslint ignore:line
+        ) {
+            return;
         }
-        modeNext += 1;
-        switch (modeNext) {
-        // init
-        case 1:
-            local = module.exports = require('github-crud');
-            if (process.env.npm_config_mode_auto_restart ||
-                    process.env.npm_config_mode_test) {
-                return;
-            }
-            onNext();
-            break;
-        // test github-crud put
-        case 2:
-            console.error('\n\n\ngithub-crud put /foo/bar/hello.txt\n');
-            local.githubContentPut({
-                content: 'hello world\n',
-                message: 'commit message 1',
-                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
-                    process.env.BRANCH + '/foo/bar/hello.txt'
-            }, onNext);
-            break;
-        // test github-crud get
-        case 3:
-            console.error('\n\n\ngithub-crud get /foo/bar/hello.txt\n');
-            local.githubContentGet({
-                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
-                    process.env.BRANCH + '/foo/bar/hello.txt'
-            }, onNext);
-            break;
-        // test github-crud touch
-        case 4:
-            console.error(String(data));
-            console.error('\n\n\ngithub-crud touch /foo/bar/hello.txt\n');
-            local.githubContentTouch({
-                message: 'commit message 2',
-                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
-                    process.env.BRANCH + '/foo/bar/hello.txt'
-            }, onNext);
-            break;
-        // test github-crud delete
-        case 5:
-            console.error('\n\n\ngithub-crud delete /foo/bar/hello.txt\n');
-            local.githubContentDelete({
-                message: 'commit message 3',
-                url: 'https://github.com/' + process.env.GITHUB_REPO + '/blob/' +
-                    process.env.BRANCH + '/foo/bar/hello.txt'
-            }, onNext);
-            break;
+        local = require("github-crud");
+        module.exports = local;
+        if (
+            process.env.npm_config_mode_auto_restart
+            || process.env.npm_config_mode_test
+        ) {
+            return;
         }
-    };
-    onNext();
+        onNext();
+        break;
+    // test github-crud put
+    case 2:
+        console.error("\n\n\ngithub-crud put /foo/bar/hello.txt\n");
+        local.githubCrudContentPut({
+            content: "hello world\n",
+            message: "commit message 1",
+            url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
+            + process.env.BRANCH + "/foo/bar/hello.txt"
+        }, onNext);
+        break;
+    // test github-crud get
+    case 3:
+        console.error("\n\n\ngithub-crud get /foo/bar/hello.txt\n");
+        local.githubCrudContentGet({
+            url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
+            + process.env.BRANCH + "/foo/bar/hello.txt"
+        }, onNext);
+        break;
+    // test github-crud touch
+    case 4:
+        console.error(String(data));
+        console.error("\n\n\ngithub-crud touch /foo/bar/hello.txt\n");
+        local.githubCrudContentTouch({
+            message: "commit message 2",
+            url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
+            + process.env.BRANCH + "/foo/bar/hello.txt"
+        }, onNext);
+        break;
+    // test github-crud delete
+    case 5:
+        console.error("\n\n\ngithub-crud delete /foo/bar/hello.txt\n");
+        local.githubCrudContentDelete({
+            message: "commit message 3",
+            url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
+            + process.env.BRANCH + "/foo/bar/hello.txt"
+        }, onNext);
+        break;
+    }
+};
+onNext();
 }());
 ```
 
@@ -257,7 +255,7 @@ instruction
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
-        "node": ">=4.0"
+        "node": ">=10.0"
     },
     "homepage": "https://github.com/kaizhu256/node-github-crud",
     "keywords": [
@@ -287,7 +285,7 @@ instruction
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.8.8"
+    "version": "2019.1.21"
 }
 ```
 
