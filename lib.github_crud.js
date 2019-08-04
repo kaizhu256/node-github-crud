@@ -297,7 +297,7 @@ local.ajax = function (opt, onError) {
                 });
             }
             // debug ajaxResponse
-            xhr.responseContentLength = (
+            xhr.resContentLength = (
                 xhr.response
                 && (xhr.response.byteLength || xhr.response.length)
             ) | 0;
@@ -311,7 +311,7 @@ local.ajax = function (opt, onError) {
                     statusCode: xhr.statusCode,
                     timeElapsed: xhr.timeElapsed,
                     // extra
-                    responseContentLength: xhr.responseContentLength
+                    resContentLength: xhr.resContentLength
                 }));
             }
             // init responseType
@@ -1140,8 +1140,8 @@ local.githubCrudContentPutFile = function (opt, onError) {
                 local.ajax({
                     httpReq: opt.httpReq,
                     url: opt.file
-                }, function (err, response) {
-                    opt.onNext(err, response && response.data);
+                }, function (err, res) {
+                    opt.onNext(err, res && res.data);
                 });
                 return;
             }
