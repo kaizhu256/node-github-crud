@@ -56,7 +56,7 @@
     // init function
     local.assertThrow = function (passed, message) {
     /*
-     * this function will throw error-<message> if <passed> is falsy
+     * this function will throw err.<message> if <passed> is falsy
      */
         var err;
         if (passed) {
@@ -69,7 +69,7 @@
                 && typeof message.message === "string"
                 && typeof message.stack === "string"
             )
-            // if message is error-object, then leave as is
+            // if message is errObj, then leave as is
             ? message
             : new Error(
                 typeof message === "string"
@@ -185,7 +185,7 @@ local.ajax = function (opt, onError) {
 /*
  * this function will send an ajax-request
  * with given <opt>.url and callback <onError>
- * with err-handling and timeout-handling
+ * with err and timeout handling
  * example usage:
     local.ajax({
         data: "hello world",
@@ -256,7 +256,7 @@ local.ajax = function (opt, onError) {
                 0
             );
             ajaxProgressUpdate();
-            // handle abort or error event
+            // handle abort or err event
             switch (!xhr.err && evt.type) {
             case "abort":
             case "error":
@@ -709,7 +709,7 @@ local.onErrorWithStack = function (onError) {
         if (
             err
             && typeof err.stack === "string"
-            && err !== local.errorDefault
+            && err !== local.errDefault
             && String(err.stack).indexOf(stack.split("\n")[2]) < 0
         ) {
             // append current-stack to err.stack
@@ -727,7 +727,7 @@ local.onErrorWithStack = function (onError) {
 local.onNext = function (opt, onError) {
 /*
  * this function will wrap onError inside recursive-function <opt>.onNext,
- * and append the current stack to any error
+ * and append the current-stack to any err
  */
     opt.onNext = local.onErrorWithStack(function (err, data, meta) {
         try {
@@ -762,36 +762,36 @@ local.onParallel = function (onError, onEach, onRetry) {
 /*
  * this function will create a function that will
  * 1. run async tasks in parallel
- * 2. if counter === 0 or err occurred, then call onError with error
+ * 2. if counter === 0 or err occurred, then call onError(err)
  */
     var onParallel;
     onError = local.onErrorWithStack(onError);
     onEach = onEach || local.nop;
     onRetry = onRetry || local.nop;
-    onParallel = function (error, data) {
-        if (onRetry(error, data)) {
+    onParallel = function (err, data) {
+        if (onRetry(err, data)) {
             return;
         }
         // decrement counter
         onParallel.counter -= 1;
         // validate counter
-        if (!(onParallel.counter >= 0 || error || onParallel.error)) {
-            error = new Error(
+        if (!(onParallel.counter >= 0 || err || onParallel.err)) {
+            err = new Error(
                 "invalid onParallel.counter = " + onParallel.counter
             );
         // ensure onError is run only once
         } else if (onParallel.counter < 0) {
             return;
         }
-        // handle error
-        if (error) {
-            onParallel.error = error;
+        // handle err
+        if (err) {
+            onParallel.err = err;
             // ensure counter <= 0
             onParallel.counter = -Math.abs(onParallel.counter);
         }
         // call onError when isDone
         if (onParallel.counter <= 0) {
-            onError(error, data);
+            onError(err, data);
             return;
         }
         onEach();
@@ -973,7 +973,7 @@ local.githubCrudAjax = function (opt, onError) {
             });
         }
     }
-    local.ajax(opt, function (error, xhr) {
+    local.ajax(opt, function (err, xhr) {
         console.error("serverLog - " + JSON.stringify({
             time: new Date(xhr.timeStart).toISOString(),
             type: "githubCrudResponse",
@@ -983,8 +983,8 @@ local.githubCrudAjax = function (opt, onError) {
             timeElapsed: xhr.timeElapsed
         }));
         local.onErrorDefault(
-            error
-            && error.statusCode !== 404
+            err
+            && err.statusCode !== 404
             && xhr
             && ("githubCrud - " + xhr.responseText)
         );
@@ -992,7 +992,7 @@ local.githubCrudAjax = function (opt, onError) {
             opt.responseJson = JSON.parse(xhr.responseText);
         } catch (ignore) {}
         onError(
-            !(opt.method === "DELETE" && xhr.statusCode === 404) && error,
+            !(opt.method === "DELETE" && xhr.statusCode === 404) && err,
             opt.responseJson
         );
     });
@@ -1008,7 +1008,7 @@ local.githubCrudContentDelete = function (opt, onError) {
         message: opt.message,
         url: opt.url
     };
-    local.onNext(opt, function (error, data) {
+    local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             // get sha
@@ -1019,7 +1019,7 @@ local.githubCrudContentDelete = function (opt, onError) {
             break;
         case 2:
             // delete file with sha
-            if (!error && data.sha) {
+            if (!err && data.sha) {
                 local.githubCrudAjax({
                     httpRequest: opt.httpRequest,
                     message: opt.message,
@@ -1043,7 +1043,7 @@ local.githubCrudContentDelete = function (opt, onError) {
             }, opt.onNext);
             break;
         default:
-            onError(error, data);
+            onError(err, data);
         }
     });
     opt.modeNext = 0;
@@ -1059,7 +1059,7 @@ local.githubCrudContentGet = function (opt, onError) {
         httpRequest: opt.httpRequest,
         url: opt.url
     };
-    local.onNext(opt, function (error, data) {
+    local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             local.githubCrudAjax({
@@ -1071,7 +1071,7 @@ local.githubCrudContentGet = function (opt, onError) {
             opt.onNext(null, Buffer.from(data.content || "", "base64"));
             break;
         default:
-            onError(error, !error && data);
+            onError(err, !err && data);
         }
     });
     opt.modeNext = 0;
@@ -1091,7 +1091,7 @@ local.githubCrudContentPut = function (opt, onError) {
         modeErrorIgnore: true,
         url: opt.url
     };
-    local.onNext(opt, function (error, data) {
+    local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             // get sha
@@ -1112,7 +1112,7 @@ local.githubCrudContentPut = function (opt, onError) {
             }, opt.onNext);
             break;
         default:
-            onError(error, data);
+            onError(err, data);
         }
     });
     opt.modeNext = 0;
@@ -1130,7 +1130,7 @@ local.githubCrudContentPutFile = function (opt, onError) {
         message: opt.message,
         url: opt.url
     };
-    local.onNext(opt, function (error, data) {
+    local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             // get file from url
@@ -1140,8 +1140,8 @@ local.githubCrudContentPutFile = function (opt, onError) {
                 local.ajax({
                     httpRequest: opt.httpRequest,
                     url: opt.file
-                }, function (error, response) {
-                    opt.onNext(error, response && response.data);
+                }, function (err, response) {
+                    opt.onNext(err, response && response.data);
                 });
                 return;
             }
@@ -1165,7 +1165,7 @@ local.githubCrudContentPutFile = function (opt, onError) {
             }, opt.onNext);
             break;
         default:
-            onError(error, data);
+            onError(err, data);
         }
     });
     opt.modeNext = 0;
@@ -1183,7 +1183,7 @@ local.githubCrudContentTouch = function (opt, onError) {
         modeErrorIgnore: true,
         url: opt.url
     };
-    local.onNext(opt, function (error, data) {
+    local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             // get sha
@@ -1204,7 +1204,7 @@ local.githubCrudContentTouch = function (opt, onError) {
             }, opt.onNext);
             break;
         default:
-            onError(error, data);
+            onError(err, data);
         }
     });
     opt.modeNext = 0;
@@ -1237,9 +1237,9 @@ local.githubCrudRepoCreate = function (opt, onError) {
         httpRequest: opt.httpRequest,
         method: "POST_ORG",
         url: opt.url
-    }, function (error, data) {
-        if (!(error && error.statusCode === 404)) {
-            onError(error, data);
+    }, function (err, data) {
+        if (!(err && err.statusCode === 404)) {
+            onError(err, data);
             return;
         }
         local.githubCrudAjax({
@@ -1315,8 +1315,8 @@ local.cliDict.delete = function () {
     local.github_crud.githubCrudContentDelete({
         message: process.argv[4],
         url: process.argv[3]
-    }, function (error) {
-        process.exit(Boolean(error));
+    }, function (err) {
+        process.exit(Boolean(err));
     });
 };
 
@@ -1327,11 +1327,11 @@ local.cliDict.get = function () {
  */
     local.github_crud.githubCrudContentGet({
         url: process.argv[3]
-    }, function (error, data) {
+    }, function (err, data) {
         try {
             process.stdout.write(data);
         } catch (ignore) {}
-        process.exit(Boolean(error));
+        process.exit(Boolean(err));
     });
 };
 
@@ -1344,8 +1344,8 @@ local.cliDict.put = function () {
         message: process.argv[5],
         url: process.argv[3],
         file: process.argv[4]
-    }, function (error) {
-        process.exit(Boolean(error));
+    }, function (err) {
+        process.exit(Boolean(err));
     });
 };
 
@@ -1358,8 +1358,8 @@ local.cliDict.repo_create = function () {
         urlList: process.argv[3].split(
             /[,\s]/g
         ).filter(local.identity)
-    }, function (error) {
-        process.exit(Boolean(error));
+    }, function (err) {
+        process.exit(Boolean(err));
     });
 };
 
@@ -1372,8 +1372,8 @@ local.cliDict.repo_delete = function () {
         urlList: process.argv[3].split(
             /[,\s]/g
         ).filter(local.identity)
-    }, function (error) {
-        process.exit(Boolean(error));
+    }, function (err) {
+        process.exit(Boolean(err));
     });
 };
 
@@ -1387,8 +1387,8 @@ local.cliDict.touch = function () {
         urlList: process.argv[3].split(
             /[,\s]/g
         ).filter(local.identity)
-    }, function (error) {
-        process.exit(Boolean(error));
+    }, function (err) {
+        process.exit(Boolean(err));
     });
 };
 

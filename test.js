@@ -46,7 +46,7 @@
     // init function
     local.assertThrow = function (passed, message) {
     /*
-     * this function will throw error-<message> if <passed> is falsy
+     * this function will throw err.<message> if <passed> is falsy
      */
         var err;
         if (passed) {
@@ -59,7 +59,7 @@
                 && typeof message.message === "string"
                 && typeof message.stack === "string"
             )
-            // if message is error-object, then leave as is
+            // if message is errObj, then leave as is
             ? message
             : new Error(
                 typeof message === "string"
@@ -246,9 +246,9 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             httpRequest,
             url: "https://github.com/:owner/:repo/blob/:branch/:path",
             urlList: ["https://github.com/:owner/:repo/blob/:branch/:path"]
-        }, function (error) {
+        }, function (err) {
             // validate no err occurred
-            local.assertThrow(!error, error);
+            local.assertThrow(!err, err);
             onParallel(null, options);
         });
     }, onError);
@@ -256,7 +256,7 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
 
 local.testCase_githubCrudContentXxx_err = function (options, onError) {
 /*
- * this function will test githubCrudContentXxx's error handling-behavior
+ * this function will test githubCrudContentXxx's err handling-behavior
  */
     if (local.isBrowser) {
         onError(null, options);
@@ -287,7 +287,7 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
                 setTimeout(onError);
                 break;
             case "error":
-                setTimeout(onError, null, local.errorDefault);
+                setTimeout(onError, null, local.errDefault);
                 break;
             }
             return httpRequest;
@@ -298,9 +298,9 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
             httpRequest,
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
             urlList: ["error"]
-        }, function (error) {
+        }, function (err) {
             // validate err occurred
-            local.assertThrow(error, opt2);
+            local.assertThrow(err, opt2);
             onParallel(null, options);
         });
     }, onError);
@@ -344,9 +344,9 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
         local[opt2.elem]({
             httpRequest,
             urlList: ["aa/bb"]
-        }, function (error) {
+        }, function (err) {
             // validate no err occurred
-            local.assertThrow(!error, error);
+            local.assertThrow(!err, err);
             onParallel(null, options);
         });
     }, onError);
@@ -354,7 +354,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
 
 local.testCase_githubCrudRepoXxx_err = function (options, onError) {
 /*
- * this function will test githubCrudRepoXxx's error handling-behavior
+ * this function will test githubCrudRepoXxx's err handling-behavior
  */
     if (local.isBrowser) {
         onError(null, options);
@@ -369,9 +369,9 @@ local.testCase_githubCrudRepoXxx_err = function (options, onError) {
         onParallel.counter += 1;
         local[opt2.elem]({
             urlList: ["undefined"]
-        }, function (error) {
+        }, function (err) {
             // validate err occurred
-            local.assertThrow(error, error);
+            local.assertThrow(err, err);
             onParallel(null, options);
         });
     }, onError);

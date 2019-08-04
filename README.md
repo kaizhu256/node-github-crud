@@ -158,9 +158,9 @@ var modeNext;
 var onNext;
 modeNext = 0;
 /* istanbul ignore next */
-onNext = function (error, data) {
-    if (error) {
-        console.error(error);
+onNext = function (err, data) {
+    if (err) {
+        console.error(err);
     }
     modeNext += 1;
     switch (modeNext) {
