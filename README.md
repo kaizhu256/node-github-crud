@@ -10,8 +10,6 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 
 [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-github-crud.svg)](https://travis-ci.org/kaizhu256/node-github-crud) [![coverage](https://kaizhu256.github.io/node-github-crud/build/coverage.badge.svg)](https://kaizhu256.github.io/node-github-crud/build/coverage.html/index.html)
 
-[![NPM](https://nodei.co/npm/github-crud.png?downloads=true)](https://www.npmjs.com/package/github-crud)
-
 [![build commit status](https://kaizhu256.github.io/node-github-crud/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-github-crud)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-github-crud/tree/master) | [beta](https://github.com/kaizhu256/node-github-crud/tree/beta) | [alpha](https://github.com/kaizhu256/node-github-crud/tree/alpha)|
@@ -21,8 +19,6 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-github-crud/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-github-crud/tree/gh-pages/build..alpha..travis-ci.org)|
 
 [![npmPackageListing](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-github-crud)
-
-![npmPackageDependencyTree](https://kaizhu256.github.io/node-github-crud/build/screenshot.npmPackageDependencyTree.svg)
 
 
 
@@ -126,7 +122,7 @@ instruction
     1. save this script as example.js
     2. edit env vars below
     3. run the shell command:
-        $ npm install github-crud && node example.js
+        $ npm install kaizhu256/node-github-crud#alpha && node example.js
     4. edit this script to suit your needs
 */
 
@@ -312,7 +308,7 @@ shBuildCiAfter () {(set -e
 )}
 
 shBuildCiBefore () {(set -e
-    shNpmTestPublished
+    #!! shNpmTestPublished
     shReadmeTest example.js
 )}
 
