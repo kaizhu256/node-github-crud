@@ -167,23 +167,23 @@ local.testCase_githubCrudContentDelete_tree = function (options, onError) {
 /*
  * this function will test githubCrudContentDelete's tree handling-behavior
  */
-    var httpRequest;
+    var httpReq;
     if (local.isBrowser) {
         onError(null, options);
         return;
     }
-    httpRequest = function (urlParsed, onResponse) {
-        onResponse(httpRequest, urlParsed);
-        return httpRequest;
+    httpReq = function (urlParsed, onResponse) {
+        onResponse(httpReq, urlParsed);
+        return httpReq;
     };
-    httpRequest.end = local.nop;
-    httpRequest.ii = -1;
-    httpRequest.on = function (type, onError) {
-        httpRequest.ii += 1;
+    httpReq.end = local.nop;
+    httpReq.ii = -1;
+    httpReq.on = function (type, onError) {
+        httpReq.ii += 1;
         switch (type) {
         case "data":
             onError(Buffer.from(
-                httpRequest.ii
+                httpReq.ii
                 ? "{\"sha\":\"aa\"}"
                 : (
                     "[{\"url\":\"https://github.com"
@@ -195,10 +195,10 @@ local.testCase_githubCrudContentDelete_tree = function (options, onError) {
             onError();
             break;
         }
-        return httpRequest;
+        return httpReq;
     };
     local.githubCrudContentDelete({
-        httpRequest,
+        httpReq,
         url: "https://github.com/:owner/:repo/blob/:branch/:path"
     }, onError);
 };
@@ -222,13 +222,13 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             "githubCrudContentTouchList"
         ]
     }, function (opt2, onParallel) {
-        var httpRequest;
-        httpRequest = function (urlParsed, onResponse) {
-            setTimeout(onResponse, 0, httpRequest, urlParsed);
-            return httpRequest;
+        var httpReq;
+        httpReq = function (urlParsed, onResponse) {
+            setTimeout(onResponse, 0, httpReq, urlParsed);
+            return httpReq;
         };
-        httpRequest.end = local.nop;
-        httpRequest.on = function (type, onError) {
+        httpReq.end = local.nop;
+        httpReq.on = function (type, onError) {
             switch (type) {
             case "data":
                 onError(Buffer.from("{\"sha\":\"aa\"}"));
@@ -237,13 +237,13 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
                 setTimeout(onError);
                 break;
             }
-            return httpRequest;
+            return httpReq;
         };
         onParallel.counter += 1;
         local[opt2.elem]({
             content: "aa",
             file: "https://github.com/:owner/:repo/blob/:branch/:path",
-            httpRequest,
+            httpReq,
             url: "https://github.com/:owner/:repo/blob/:branch/:path",
             urlList: ["https://github.com/:owner/:repo/blob/:branch/:path"]
         }, function (err) {
@@ -272,13 +272,13 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
             "githubCrudContentTouchList"
         ]
     }, function (opt2, onParallel) {
-        var httpRequest;
-        httpRequest = function (urlParsed, onResponse) {
-            setTimeout(onResponse, 0, httpRequest, urlParsed);
-            return httpRequest;
+        var httpReq;
+        httpReq = function (urlParsed, onResponse) {
+            setTimeout(onResponse, 0, httpReq, urlParsed);
+            return httpReq;
         };
-        httpRequest.end = local.nop;
-        httpRequest.on = function (type, onError) {
+        httpReq.end = local.nop;
+        httpReq.on = function (type, onError) {
             switch (type) {
             case "data":
                 onError(Buffer.from("{}"));
@@ -290,12 +290,12 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
                 setTimeout(onError, null, local.errDefault);
                 break;
             }
-            return httpRequest;
+            return httpReq;
         };
         onParallel.counter += 1;
         local[opt2.elem]({
             file: "package.json",
-            httpRequest,
+            httpReq,
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
             urlList: ["error"]
         }, function (err) {
@@ -322,9 +322,9 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             "githubCrudRepoDeleteList"
         ]
     }, function (opt2, onParallel) {
-        var httpRequest;
+        var httpReq;
         onParallel.counter += 1;
-        httpRequest = function (urlParsed, onResponse) {
+        httpReq = function (urlParsed, onResponse) {
             var requestObj;
             requestObj = {};
             requestObj.statusCode = options.statusCode;
@@ -342,7 +342,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             return requestObj;
         };
         local[opt2.elem]({
-            httpRequest,
+            httpReq,
             urlList: ["aa/bb"]
         }, function (err) {
             // validate no err occurred
