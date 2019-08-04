@@ -172,8 +172,8 @@ local.testCase_githubCrudContentDelete_tree = function (options, onError) {
         onError(null, options);
         return;
     }
-    httpReq = function (urlParsed, onResponse) {
-        onResponse(httpReq, urlParsed);
+    httpReq = function (urlParsed, onRes) {
+        onRes(httpReq, urlParsed);
         return httpReq;
     };
     httpReq.end = local.nop;
@@ -223,8 +223,8 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
         ]
     }, function (opt2, onParallel) {
         var httpReq;
-        httpReq = function (urlParsed, onResponse) {
-            setTimeout(onResponse, 0, httpReq, urlParsed);
+        httpReq = function (urlParsed, onRes) {
+            setTimeout(onRes, 0, httpReq, urlParsed);
             return httpReq;
         };
         httpReq.end = local.nop;
@@ -273,8 +273,8 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
         ]
     }, function (opt2, onParallel) {
         var httpReq;
-        httpReq = function (urlParsed, onResponse) {
-            setTimeout(onResponse, 0, httpReq, urlParsed);
+        httpReq = function (urlParsed, onRes) {
+            setTimeout(onRes, 0, httpReq, urlParsed);
             return httpReq;
         };
         httpReq.end = local.nop;
@@ -324,7 +324,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
     }, function (opt2, onParallel) {
         var httpReq;
         onParallel.counter += 1;
-        httpReq = function (urlParsed, onResponse) {
+        httpReq = function (urlParsed, onRes) {
             var reqObj;
             reqObj = {};
             reqObj.statusCode = options.statusCode;
@@ -338,7 +338,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
                 }
                 return reqObj;
             };
-            setTimeout(onResponse, 0, reqObj, urlParsed);
+            setTimeout(onRes, 0, reqObj, urlParsed);
             return reqObj;
         };
         local[opt2.elem]({
