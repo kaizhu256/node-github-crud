@@ -46,30 +46,30 @@
     // init function
     local.assertThrow = function (passed, message) {
     /*
-     * this function will throw error <message> if <passed> is falsy
+     * this function will throw error-<message> if <passed> is falsy
      */
-        var error;
+        var err;
         if (passed) {
             return;
         }
-        error = (
-            // ternary-condition
+        err = (
+            // ternary-operator
             (
                 message
                 && typeof message.message === "string"
                 && typeof message.stack === "string"
             )
-            // if message is an error-object, then leave it as is
+            // if message is error-object, then leave as is
             ? message
             : new Error(
                 typeof message === "string"
-                // if message is a string, then leave it as is
+                // if message is a string, then leave as is
                 ? message
                 // else JSON.stringify message
                 : JSON.stringify(message, null, 4)
             )
         );
-        throw error;
+        throw err;
     };
     local.functionOrNop = function (fnc) {
     /*
@@ -97,7 +97,8 @@
      * null, undefined, or empty-string,
      * then overwrite them with items from <source>
      */
-        Object.keys(source).forEach(function (key) {
+        target = target || {};
+        Object.keys(source || {}).forEach(function (key) {
             if (
                 target[key] === null
                 || target[key] === undefined
@@ -150,7 +151,9 @@
 // run shared js-env code - init-before
 (function () {
 // init local
-local = (globalThis.utility2 || require("utility2")).requireReadme();
+local = (
+    globalThis.utility2 || require("utility2")
+).requireReadme();
 globalThis.local = local;
 // init test
 local.testRunDefault(local);
@@ -195,7 +198,7 @@ local.testCase_githubCrudContentDelete_tree = function (options, onError) {
         return httpRequest;
     };
     local.githubCrudContentDelete({
-        httpRequest: httpRequest,
+        httpRequest,
         url: "https://github.com/:owner/:repo/blob/:branch/:path"
     }, onError);
 };
@@ -240,7 +243,7 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
         local[options2.element]({
             content: "aa",
             file: "https://github.com/:owner/:repo/blob/:branch/:path",
-            httpRequest: httpRequest,
+            httpRequest,
             url: "https://github.com/:owner/:repo/blob/:branch/:path",
             urlList: ["https://github.com/:owner/:repo/blob/:branch/:path"]
         }, function (error) {
@@ -292,7 +295,7 @@ local.testCase_githubCrudContentXxx_error = function (options, onError) {
         onParallel.counter += 1;
         local[options2.element]({
             file: "package.json",
-            httpRequest: httpRequest,
+            httpRequest,
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
             urlList: ["error"]
         }, function (error) {
@@ -339,7 +342,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             return requestObj;
         };
         local[options2.element]({
-            httpRequest: httpRequest,
+            httpRequest,
             urlList: ["aa/bb"]
         }, function (error) {
             // validate no error occurred
