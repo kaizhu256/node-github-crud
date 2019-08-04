@@ -183,8 +183,9 @@ local.github_crud = local;
 /* validateLineSortedReset */
 local.ajax = function (opt, onError) {
 /*
- * this function will send an ajax-request with given <opt>.url,
- * with error-handling and timeout
+ * this function will send an ajax-request
+ * with given <opt>.url and callback <onError>
+ * with err-handling and timeout-handling
  * example usage:
     local.ajax({
         data: "hello world",
@@ -371,7 +372,7 @@ local.ajax = function (opt, onError) {
         });
         // init timeout
         timeout = xhr.timeout || local2.timeoutDefault || 30000;
-        // init defaults
+        // init default
         local.objectAssignDefault(xhr, {
             corsForwardProxyHost: local2.corsForwardProxyHost,
             headers: {},
@@ -761,7 +762,7 @@ local.onParallel = function (onError, onEach, onRetry) {
 /*
  * this function will create a function that will
  * 1. run async tasks in parallel
- * 2. if counter === 0 or error occurred, then call onError with error
+ * 2. if counter === 0 or err occurred, then call onError with error
  */
     var onParallel;
     onError = local.onErrorWithStack(onError);

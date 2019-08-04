@@ -247,14 +247,14 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             url: "https://github.com/:owner/:repo/blob/:branch/:path",
             urlList: ["https://github.com/:owner/:repo/blob/:branch/:path"]
         }, function (error) {
-            // validate no error occurred
+            // validate no err occurred
             local.assertThrow(!error, error);
             onParallel(null, options);
         });
     }, onError);
 };
 
-local.testCase_githubCrudContentXxx_error = function (options, onError) {
+local.testCase_githubCrudContentXxx_err = function (options, onError) {
 /*
  * this function will test githubCrudContentXxx's error handling-behavior
  */
@@ -299,7 +299,7 @@ local.testCase_githubCrudContentXxx_error = function (options, onError) {
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
             urlList: ["error"]
         }, function (error) {
-            // validate error occurred
+            // validate err occurred
             local.assertThrow(error, opt2);
             onParallel(null, options);
         });
@@ -345,14 +345,14 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             httpRequest,
             urlList: ["aa/bb"]
         }, function (error) {
-            // validate no error occurred
+            // validate no err occurred
             local.assertThrow(!error, error);
             onParallel(null, options);
         });
     }, onError);
 };
 
-local.testCase_githubCrudRepoXxx_error = function (options, onError) {
+local.testCase_githubCrudRepoXxx_err = function (options, onError) {
 /*
  * this function will test githubCrudRepoXxx's error handling-behavior
  */
@@ -370,7 +370,7 @@ local.testCase_githubCrudRepoXxx_error = function (options, onError) {
         local[opt2.elem]({
             urlList: ["undefined"]
         }, function (error) {
-            // validate error occurred
+            // validate err occurred
             local.assertThrow(error, error);
             onParallel(null, options);
         });
