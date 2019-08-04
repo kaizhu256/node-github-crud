@@ -221,7 +221,7 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             "githubCrudContentTouch",
             "githubCrudContentTouchList"
         ]
-    }, function (options2, onParallel) {
+    }, function (opt2, onParallel) {
         var httpRequest;
         httpRequest = function (urlParsed, onResponse) {
             setTimeout(onResponse, 0, httpRequest, urlParsed);
@@ -240,7 +240,7 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             return httpRequest;
         };
         onParallel.counter += 1;
-        local[options2.element]({
+        local[opt2.elem]({
             content: "aa",
             file: "https://github.com/:owner/:repo/blob/:branch/:path",
             httpRequest,
@@ -271,7 +271,7 @@ local.testCase_githubCrudContentXxx_error = function (options, onError) {
             "githubCrudContentTouch",
             "githubCrudContentTouchList"
         ]
-    }, function (options2, onParallel) {
+    }, function (opt2, onParallel) {
         var httpRequest;
         httpRequest = function (urlParsed, onResponse) {
             setTimeout(onResponse, 0, httpRequest, urlParsed);
@@ -293,14 +293,14 @@ local.testCase_githubCrudContentXxx_error = function (options, onError) {
             return httpRequest;
         };
         onParallel.counter += 1;
-        local[options2.element]({
+        local[opt2.elem]({
             file: "package.json",
             httpRequest,
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
             urlList: ["error"]
         }, function (error) {
             // validate error occurred
-            local.assertThrow(error, options2);
+            local.assertThrow(error, opt2);
             onParallel(null, options);
         });
     }, onError);
@@ -321,7 +321,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             "githubCrudRepoCreateList",
             "githubCrudRepoDeleteList"
         ]
-    }, function (options2, onParallel) {
+    }, function (opt2, onParallel) {
         var httpRequest;
         onParallel.counter += 1;
         httpRequest = function (urlParsed, onResponse) {
@@ -341,7 +341,7 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
             setTimeout(onResponse, 0, requestObj, urlParsed);
             return requestObj;
         };
-        local[options2.element]({
+        local[opt2.elem]({
             httpRequest,
             urlList: ["aa/bb"]
         }, function (error) {
@@ -365,9 +365,9 @@ local.testCase_githubCrudRepoXxx_error = function (options, onError) {
             "githubCrudRepoCreateList",
             "githubCrudRepoDeleteList"
         ]
-    }, function (options2, onParallel) {
+    }, function (opt2, onParallel) {
         onParallel.counter += 1;
-        local[options2.element]({
+        local[opt2.elem]({
             urlList: ["undefined"]
         }, function (error) {
             // validate error occurred
