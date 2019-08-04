@@ -325,21 +325,21 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
         var httpRequest;
         onParallel.counter += 1;
         httpRequest = function (urlParsed, onResponse) {
-            var reqObj;
-            reqObj = {};
-            reqObj.statusCode = options.statusCode;
+            var requestObj;
+            requestObj = {};
+            requestObj.statusCode = options.statusCode;
             options.statusCode = 0;
-            reqObj.end = local.nop;
-            reqObj.on = function (type, onError) {
+            requestObj.end = local.nop;
+            requestObj.on = function (type, onError) {
                 switch (type) {
                 case "end":
                     setTimeout(onError);
                     break;
                 }
-                return reqObj;
+                return requestObj;
             };
-            setTimeout(onResponse, 0, reqObj, urlParsed);
-            return reqObj;
+            setTimeout(onResponse, 0, requestObj, urlParsed);
+            return requestObj;
         };
         local[opt2.elem]({
             httpRequest,
