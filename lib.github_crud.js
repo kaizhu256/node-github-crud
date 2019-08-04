@@ -469,7 +469,7 @@ local.ajax = function (opt, onError) {
     // init timerTimeout
     xhr.timerTimeout = setTimeout(function () {
         xhr.err = xhr.err || new Error(
-            "onTimeout - timeout-error - "
+            "onTimeout - errTimeout - "
             + timeout + " ms - " + "ajax " + xhr.method + " " + xhr.url
         );
         xhr.abort();
