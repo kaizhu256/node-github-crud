@@ -183,7 +183,7 @@ local.github_crud = local;
 /* validateLineSortedReset */
 local.ajax = function (opt, onError) {
 /*
- * this function will send an ajax-request
+ * this function will send an ajax-req
  * with given <opt>.url and callback <onError>
  * with err and timeout handling
  * example usage:
@@ -297,7 +297,7 @@ local.ajax = function (opt, onError) {
                 });
             }
             // debug ajaxResponse
-            xhr.responseContentLength = (
+            xhr.resContentLength = (
                 xhr.response
                 && (xhr.response.byteLength || xhr.response.length)
             ) | 0;
@@ -311,7 +311,7 @@ local.ajax = function (opt, onError) {
                     statusCode: xhr.statusCode,
                     timeElapsed: xhr.timeElapsed,
                     // extra
-                    responseContentLength: xhr.responseContentLength
+                    resContentLength: xhr.resContentLength
                 }));
             }
             // init responseType
@@ -406,7 +406,7 @@ local.ajax = function (opt, onError) {
     // init xhr - XMLHttpRequest
     xhr = (
         local.isBrowser
-        && !opt.httpRequest
+        && !opt.httpReq
         && !(local2.serverLocalUrlTest && local2.serverLocalUrlTest(opt.url))
         && new XMLHttpRequest()
     );
@@ -417,7 +417,7 @@ local.ajax = function (opt, onError) {
         xhrInit();
         // init xhr - http.request
         xhr = local.identity(
-            opt.httpRequest
+            opt.httpReq
             || (local.isBrowser && local2.http.request)
             || require(xhr.protocol.slice(0, -1)).request
         )(xhr, function (resStream) {
@@ -863,7 +863,7 @@ local.onParallelList = function (opt, onEach, onError) {
 (function () {
 local.githubCrudAjax = function (opt, onError) {
 /*
- * this function will make a low-level content-request to github
+ * this function will make a low-level content-req to github
  * https://developer.github.com/v3/repos/contents/
  */
     // init opt
@@ -879,7 +879,7 @@ local.githubCrudAjax = function (opt, onError) {
             // https://developer.github.com/v3/#user-agent-required
             "User-Agent": "undefined"
         }, opt.headers),
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         message: opt.message,
         method: opt.method || "GET",
         responseJson: {},
@@ -1004,7 +1004,7 @@ local.githubCrudContentDelete = function (opt, onError) {
  * https://developer.github.com/v3/repos/contents/#delete-a-file
  */
     opt = {
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         message: opt.message,
         url: opt.url
     };
@@ -1013,7 +1013,7 @@ local.githubCrudContentDelete = function (opt, onError) {
         case 1:
             // get sha
             local.githubCrudAjax({
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 url: opt.url
             }, opt.onNext);
             break;
@@ -1021,7 +1021,7 @@ local.githubCrudContentDelete = function (opt, onError) {
             // delete file with sha
             if (!err && data.sha) {
                 local.githubCrudAjax({
-                    httpRequest: opt.httpRequest,
+                    httpReq: opt.httpReq,
                     message: opt.message,
                     method: "DELETE",
                     sha: data.sha,
@@ -1036,7 +1036,7 @@ local.githubCrudContentDelete = function (opt, onError) {
                 onParallel.counter += 1;
                 // recurse
                 local.githubCrudContentDelete({
-                    httpRequest: opt.httpRequest,
+                    httpReq: opt.httpReq,
                     message: opt.message,
                     url: option2.elem.url
                 }, onParallel);
@@ -1056,14 +1056,14 @@ local.githubCrudContentGet = function (opt, onError) {
  * https://developer.github.com/v3/repos/contents/#get-contents
  */
     opt = {
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         url: opt.url
     };
     local.onNext(opt, function (err, data) {
         switch (opt.modeNext) {
         case 1:
             local.githubCrudAjax({
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 url: opt.url
             }, opt.onNext);
             break;
@@ -1086,7 +1086,7 @@ local.githubCrudContentPut = function (opt, onError) {
  */
     opt = {
         content: opt.content,
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         message: opt.message,
         modeErrorIgnore: true,
         url: opt.url
@@ -1096,7 +1096,7 @@ local.githubCrudContentPut = function (opt, onError) {
         case 1:
             // get sha
             local.githubCrudAjax({
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 url: opt.url
             }, opt.onNext);
             break;
@@ -1104,7 +1104,7 @@ local.githubCrudContentPut = function (opt, onError) {
             // put file with sha
             local.githubCrudAjax({
                 content: opt.content,
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 message: opt.message,
                 method: "PUT",
                 sha: data.sha,
@@ -1126,7 +1126,7 @@ local.githubCrudContentPutFile = function (opt, onError) {
  */
     opt = {
         file: opt.file,
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         message: opt.message,
         url: opt.url
     };
@@ -1138,10 +1138,10 @@ local.githubCrudContentPutFile = function (opt, onError) {
                 /^(?:http|https):\/\//
             ).test(opt.file)) {
                 local.ajax({
-                    httpRequest: opt.httpRequest,
+                    httpReq: opt.httpReq,
                     url: opt.file
-                }, function (err, response) {
-                    opt.onNext(err, response && response.data);
+                }, function (err, res) {
+                    opt.onNext(err, res && res.data);
                 });
                 return;
             }
@@ -1151,7 +1151,7 @@ local.githubCrudContentPutFile = function (opt, onError) {
         case 2:
             local.githubCrudContentPut({
                 content: data,
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 message: opt.message,
                 // resolve file in url
                 url: (
@@ -1178,7 +1178,7 @@ local.githubCrudContentTouch = function (opt, onError) {
  * https://developer.github.com/v3/repos/contents/#update-a-file
  */
     opt = {
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         message: opt.message,
         modeErrorIgnore: true,
         url: opt.url
@@ -1188,7 +1188,7 @@ local.githubCrudContentTouch = function (opt, onError) {
         case 1:
             // get sha
             local.githubCrudAjax({
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 url: opt.url
             }, opt.onNext);
             break;
@@ -1196,7 +1196,7 @@ local.githubCrudContentTouch = function (opt, onError) {
             // put file with sha
             local.githubCrudAjax({
                 content: Buffer.from(data.content || "", "base64"),
-                httpRequest: opt.httpRequest,
+                httpReq: opt.httpReq,
                 message: opt.message,
                 method: "PUT",
                 sha: data.sha,
@@ -1221,7 +1221,7 @@ local.githubCrudContentTouchList = function (opt, onError) {
     }, function (option2, onParallel) {
         onParallel.counter += 1;
         local.githubCrudContentTouch({
-            httpRequest: opt.httpRequest,
+            httpReq: opt.httpReq,
             message: opt.message,
             url: option2.elem
         }, onParallel);
@@ -1234,7 +1234,7 @@ local.githubCrudRepoCreate = function (opt, onError) {
  * https://developer.github.com/v3/repos/#create
  */
     local.githubCrudAjax({
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         method: "POST_ORG",
         url: opt.url
     }, function (err, data) {
@@ -1243,7 +1243,7 @@ local.githubCrudRepoCreate = function (opt, onError) {
             return;
         }
         local.githubCrudAjax({
-            httpRequest: opt.httpRequest,
+            httpReq: opt.httpReq,
             method: "POST_USER",
             url: opt.url
         }, onError);
@@ -1260,7 +1260,7 @@ local.githubCrudRepoCreateList = function (opt, onError) {
     }, function (option2, onParallel) {
         onParallel.counter += 1;
         local.githubCrudRepoCreate({
-            httpRequest: opt.httpRequest,
+            httpReq: opt.httpReq,
             url: option2.elem
         }, onParallel);
     }, onError);
@@ -1272,7 +1272,7 @@ local.githubCrudRepoDelete = function (opt, onError) {
  * https://developer.github.com/v3/repos/#delete-a-repository
  */
     local.githubCrudAjax({
-        httpRequest: opt.httpRequest,
+        httpReq: opt.httpReq,
         method: "DELETE",
         url: opt.url
     }, onError);
@@ -1288,7 +1288,7 @@ local.githubCrudRepoDeleteList = function (opt, onError) {
     }, function (option2, onParallel) {
         onParallel.counter += 1;
         local.githubCrudRepoDelete({
-            httpRequest: opt.httpRequest,
+            httpReq: opt.httpReq,
             url: option2.elem
         }, onParallel);
     }, onError);
