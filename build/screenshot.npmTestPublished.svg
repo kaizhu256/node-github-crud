@@ -1,0 +1,2931 @@
+<svg height="24078" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="24078" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26"></tspan>
+
+<tspan x="10" y="42">[MODE_BUILD=npmTestPublished] - 2019-08-04T06:10:36.221Z - npm-testing /tmp/npmTestPublished/nod\</tspan>
+<tspan x="10" y="58">e_modules/github-crud</tspan>
+
+<tspan x="10" y="74"></tspan>
+
+<tspan x="10" y="90"></tspan>
+
+<tspan x="10" y="106">covering $ /home/travis/.nvm/versions/node/v12.7.0/bin/node /tmp/npmTestPublished/node_modules/g\</tspan>
+<tspan x="10" y="122">ithub-crud/test.js</tspan>
+
+<tspan x="10" y="138">&gt; jslint - 32ms /tmp/npmTestPublished/node_modules/github-crud/README.md</tspan>
+
+<tspan x="10" y="154">http-server listening on port 47339</tspan>
+
+<tspan x="10" y="170">db - dropping database ...</tspan>
+
+<tspan x="10" y="186">--- /tmp/npmTestPublished/node_modules/github-crud/lib.github_crud.js.autofix.old	2019-08-04 06:\</tspan>
+<tspan x="10" y="202">10:37.157967803 +0000</tspan>
+
+<tspan x="10" y="218">+++ /tmp/npmTestPublished/node_modules/github-crud/lib.github_crud.js	2019-08-04 06:10:37.153969\</tspan>
+<tspan x="10" y="234">618 +0000</tspan>
+
+<tspan x="10" y="250">@@ -56,30 +56,30 @@</tspan>
+
+<tspan x="10" y="266">     // init function</tspan>
+
+<tspan x="10" y="282">     local.assertThrow = function (passed, message) {</tspan>
+
+<tspan x="10" y="298">     /*</tspan>
+
+<tspan x="10" y="314">-     * this function will throw error &lt;message&gt; if &lt;passed&gt; is falsy</tspan>
+
+<tspan x="10" y="330">+     * this function will throw error-&lt;message&gt; if &lt;passed&gt; is falsy</tspan>
+
+<tspan x="10" y="346">      */</tspan>
+
+<tspan x="10" y="362">-        var error;</tspan>
+
+<tspan x="10" y="378">+        var err;</tspan>
+
+<tspan x="10" y="394">         if (passed) {</tspan>
+
+<tspan x="10" y="410">             return;</tspan>
+
+<tspan x="10" y="426">         }</tspan>
+
+<tspan x="10" y="442">-        error = (</tspan>
+
+<tspan x="10" y="458">-            // ternary-condition</tspan>
+
+<tspan x="10" y="474">+        err = (</tspan>
+
+<tspan x="10" y="490">+            // ternary-operator</tspan>
+
+<tspan x="10" y="506">             (</tspan>
+
+<tspan x="10" y="522">                 message</tspan>
+
+<tspan x="10" y="538">                 &amp;&amp; typeof message.message === "string"</tspan>
+
+<tspan x="10" y="554">                 &amp;&amp; typeof message.stack === "string"</tspan>
+
+<tspan x="10" y="570">             )</tspan>
+
+<tspan x="10" y="586">-            // if message is an error-object, then leave it as is</tspan>
+
+<tspan x="10" y="602">+            // if message is error-object, then leave as is</tspan>
+
+<tspan x="10" y="618">             ? message</tspan>
+
+<tspan x="10" y="634">             : new Error(</tspan>
+
+<tspan x="10" y="650">                 typeof message === "string"</tspan>
+
+<tspan x="10" y="666">-                // if message is a string, then leave it as is</tspan>
+
+<tspan x="10" y="682">+                // if message is a string, then leave as is</tspan>
+
+<tspan x="10" y="698">                 ? message</tspan>
+
+<tspan x="10" y="714">                 // else JSON.stringify message</tspan>
+
+<tspan x="10" y="730">                 : JSON.stringify(message, null, 4)</tspan>
+
+<tspan x="10" y="746">             )</tspan>
+
+<tspan x="10" y="762">         );</tspan>
+
+<tspan x="10" y="778">-        throw error;</tspan>
+
+<tspan x="10" y="794">+        throw err;</tspan>
+
+<tspan x="10" y="810">     };</tspan>
+
+<tspan x="10" y="826">     local.functionOrNop = function (fnc) {</tspan>
+
+<tspan x="10" y="842">     /*</tspan>
+
+<tspan x="10" y="858">@@ -107,7 +107,8 @@</tspan>
+
+<tspan x="10" y="874">      * null, undefined, or empty-string,</tspan>
+
+<tspan x="10" y="890">      * then overwrite them with items from &lt;source&gt;</tspan>
+
+<tspan x="10" y="906">      */</tspan>
+
+<tspan x="10" y="922">-        Object.keys(source).forEach(function (key) {</tspan>
+
+<tspan x="10" y="938">+        target = target || {};</tspan>
+
+<tspan x="10" y="954">+        Object.keys(source || {}).forEach(function (key) {</tspan>
+
+<tspan x="10" y="970">             if (</tspan>
+
+<tspan x="10" y="986">                 target[key] === null</tspan>
+
+<tspan x="10" y="1002">                 || target[key] === undefined</tspan>
+
+<tspan x="10" y="1018">@@ -180,17 +181,18 @@</tspan>
+
+<tspan x="10" y="1034"> </tspan>
+
+<tspan x="10" y="1050"> </tspan>
+
+<tspan x="10" y="1066"> /* validateLineSortedReset */</tspan>
+
+<tspan x="10" y="1082">-local.ajax = function (option, onError) {</tspan>
+
+<tspan x="10" y="1098">+local.ajax = function (opt, onError) {</tspan>
+
+<tspan x="10" y="1114"> /*</tspan>
+
+<tspan x="10" y="1130">- * this function will send an ajax-request with given &lt;option&gt;.url,</tspan>
+
+<tspan x="10" y="1146">- * with error-handling and timeout</tspan>
+
+<tspan x="10" y="1162">+ * this function will send an ajax-request</tspan>
+
+<tspan x="10" y="1178">+ * with given &lt;opt&gt;.url and callback &lt;onError&gt;</tspan>
+
+<tspan x="10" y="1194">+ * with err-handling and timeout-handling</tspan>
+
+<tspan x="10" y="1210">  * example usage:</tspan>
+
+<tspan x="10" y="1226">     local.ajax({</tspan>
+
+<tspan x="10" y="1242">         data: "hello world",</tspan>
+
+<tspan x="10" y="1258">         header: {"x-header-hello": "world"},</tspan>
+
+<tspan x="10" y="1274">         method: "POST",</tspan>
+
+<tspan x="10" y="1290">         url: "/index.html"</tspan>
+
+<tspan x="10" y="1306">-    }, function (error, xhr) {</tspan>
+
+<tspan x="10" y="1322">+    }, function (err, xhr) {</tspan>
+
+<tspan x="10" y="1338">         console.log(xhr.statusCode);</tspan>
+
+<tspan x="10" y="1354">         console.log(xhr.responseText);</tspan>
+
+<tspan x="10" y="1370">     });</tspan>
+
+<tspan x="10" y="1386">@@ -206,7 +208,7 @@</tspan>
+
+<tspan x="10" y="1402">     var xhr;</tspan>
+
+<tspan x="10" y="1418">     var xhrInit;</tspan>
+
+<tspan x="10" y="1434">     // init local2</tspan>
+
+<tspan x="10" y="1450">-    local2 = local.utility2 || {};</tspan>
+
+<tspan x="10" y="1466">+    local2 = opt.local2 || local.utility2 || {};</tspan>
+
+<tspan x="10" y="1482">     // init function</tspan>
+
+<tspan x="10" y="1498">     ajaxProgressUpdate = local2.ajaxProgressUpdate || local.nop;</tspan>
+
+<tspan x="10" y="1514">     bufferValidateAndCoerce = local2.bufferValidateAndCoerce || function (</tspan>
+
+<tspan x="10" y="1530">@@ -227,12 +229,12 @@</tspan>
+
+<tspan x="10" y="1546">         }</tspan>
+
+<tspan x="10" y="1562">         return bff;</tspan>
+
+<tspan x="10" y="1578">     };</tspan>
+
+<tspan x="10" y="1594">-    onEvent = function (event) {</tspan>
+
+<tspan x="10" y="1610">+    onEvent = function (evt) {</tspan>
+
+<tspan x="10" y="1626">     /*</tspan>
+
+<tspan x="10" y="1642">      * this function will handle events</tspan>
+
+<tspan x="10" y="1658">      */</tspan>
+
+<tspan x="10" y="1674">-        if (Object.prototype.toString.call(event) === "[object Error]") {</tspan>
+
+<tspan x="10" y="1690">-            xhr.error = xhr.error || event;</tspan>
+
+<tspan x="10" y="1706">+        if (Object.prototype.toString.call(evt) === "[object Error]") {</tspan>
+
+<tspan x="10" y="1722">+            xhr.err = xhr.err || evt;</tspan>
+
+<tspan x="10" y="1738">             xhr.onEvent({</tspan>
+
+<tspan x="10" y="1754">                 type: "error"</tspan>
+
+<tspan x="10" y="1770">             });</tspan>
+
+<tspan x="10" y="1786">@@ -240,7 +242,7 @@</tspan>
+
+<tspan x="10" y="1802">         }</tspan>
+
+<tspan x="10" y="1818">         // init statusCode</tspan>
+
+<tspan x="10" y="1834">         xhr.statusCode = (xhr.statusCode || xhr.status) | 0;</tspan>
+
+<tspan x="10" y="1850">-        switch (event.type) {</tspan>
+
+<tspan x="10" y="1866">+        switch (evt.type) {</tspan>
+
+<tspan x="10" y="1882">         case "abort":</tspan>
+
+<tspan x="10" y="1898">         case "error":</tspan>
+
+<tspan x="10" y="1914">         case "load":</tspan>
+
+<tspan x="10" y="1930">@@ -255,25 +257,25 @@</tspan>
+
+<tspan x="10" y="1946">             );</tspan>
+
+<tspan x="10" y="1962">             ajaxProgressUpdate();</tspan>
+
+<tspan x="10" y="1978">             // handle abort or error event</tspan>
+
+<tspan x="10" y="1994">-            switch (!xhr.error &amp;&amp; event.type) {</tspan>
+
+<tspan x="10" y="2010">+            switch (!xhr.err &amp;&amp; evt.type) {</tspan>
+
+<tspan x="10" y="2026">             case "abort":</tspan>
+
+<tspan x="10" y="2042">             case "error":</tspan>
+
+<tspan x="10" y="2058">-                xhr.error = new Error("ajax - event " + event.type);</tspan>
+
+<tspan x="10" y="2074">+                xhr.err = new Error("ajax - event " + evt.type);</tspan>
+
+<tspan x="10" y="2090">                 break;</tspan>
+
+<tspan x="10" y="2106">             case "load":</tspan>
+
+<tspan x="10" y="2122">                 if (xhr.statusCode &gt;= 400) {</tspan>
+
+<tspan x="10" y="2138">-                    xhr.error = new Error(</tspan>
+
+<tspan x="10" y="2154">+                    xhr.err = new Error(</tspan>
+
+<tspan x="10" y="2170">                         "ajax - statusCode " + xhr.statusCode</tspan>
+
+<tspan x="10" y="2186">                     );</tspan>
+
+<tspan x="10" y="2202">                 }</tspan>
+
+<tspan x="10" y="2218">                 break;</tspan>
+
+<tspan x="10" y="2234">             }</tspan>
+
+<tspan x="10" y="2250">             // debug statusCode / method / url</tspan>
+
+<tspan x="10" y="2266">-            if (xhr.error) {</tspan>
+
+<tspan x="10" y="2282">+            if (xhr.err) {</tspan>
+
+<tspan x="10" y="2298">                 xhr.statusCode = xhr.statusCode || 500;</tspan>
+
+<tspan x="10" y="2314">-                xhr.error.statusCode = xhr.statusCode;</tspan>
+
+<tspan x="10" y="2330">+                xhr.err.statusCode = xhr.statusCode;</tspan>
+
+<tspan x="10" y="2346">                 tmp = (</tspan>
+
+<tspan x="10" y="2362">-                    // ternary-condition</tspan>
+
+<tspan x="10" y="2378">+                    // ternary-operator</tspan>
+
+<tspan x="10" y="2394">                     (</tspan>
+
+<tspan x="10" y="2410">                         local.isBrowser</tspan>
+
+<tspan x="10" y="2426">                         ? "browser"</tspan>
+
+<tspan x="10" y="2442">@@ -282,16 +284,16 @@</tspan>
+
+<tspan x="10" y="2458">                     + " - " + xhr.statusCode + " " + xhr.method + " " + xhr.url</tspan>
+
+<tspan x="10" y="2474">                     + "\n"</tspan>
+
+<tspan x="10" y="2490">                 );</tspan>
+
+<tspan x="10" y="2506">-                xhr.error.message = tmp + xhr.error.message;</tspan>
+
+<tspan x="10" y="2522">-                xhr.error.stack = tmp + xhr.error.stack;</tspan>
+
+<tspan x="10" y="2538">+                xhr.err.message = tmp + xhr.err.message;</tspan>
+
+<tspan x="10" y="2554">+                xhr.err.stack = tmp + xhr.err.stack;</tspan>
+
+<tspan x="10" y="2570">             }</tspan>
+
+<tspan x="10" y="2586">-            // update responseHeaders</tspan>
+
+<tspan x="10" y="2602">+            // update resHeaders</tspan>
+
+<tspan x="10" y="2618">             // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHe\</tspan>
+<tspan x="10" y="2634">aders</tspan>
+
+<tspan x="10" y="2650">             if (xhr.getAllResponseHeaders) {</tspan>
+
+<tspan x="10" y="2666">                 xhr.getAllResponseHeaders().replace((</tspan>
+
+<tspan x="10" y="2682">                     /(.*?): *(.*?)\r\n/g</tspan>
+
+<tspan x="10" y="2698">                 ), function (ignore, match1, match2) {</tspan>
+
+<tspan x="10" y="2714">-                    xhr.responseHeaders[match1.toLowerCase()] = match2;</tspan>
+
+<tspan x="10" y="2730">+                    xhr.resHeaders[match1.toLowerCase()] = match2;</tspan>
+
+<tspan x="10" y="2746">                 });</tspan>
+
+<tspan x="10" y="2762">             }</tspan>
+
+<tspan x="10" y="2778">             // debug ajaxResponse</tspan>
+
+<tspan x="10" y="2794">@@ -333,10 +335,10 @@</tspan>
+
+<tspan x="10" y="2810">             }</tspan>
+
+<tspan x="10" y="2826">             // cleanup timerTimeout</tspan>
+
+<tspan x="10" y="2842">             clearTimeout(xhr.timerTimeout);</tspan>
+
+<tspan x="10" y="2858">-            // cleanup requestStream and responseStream</tspan>
+
+<tspan x="10" y="2874">-            streamCleanup(xhr.requestStream);</tspan>
+
+<tspan x="10" y="2890">-            streamCleanup(xhr.responseStream);</tspan>
+
+<tspan x="10" y="2906">-            onError(xhr.error, xhr);</tspan>
+
+<tspan x="10" y="2922">+            // cleanup reqStream and resStream</tspan>
+
+<tspan x="10" y="2938">+            streamCleanup(xhr.reqStream);</tspan>
+
+<tspan x="10" y="2954">+            streamCleanup(xhr.resStream);</tspan>
+
+<tspan x="10" y="2970">+            onError(xhr.err, xhr);</tspan>
+
+<tspan x="10" y="2986">             break;</tspan>
+
+<tspan x="10" y="3002">         }</tspan>
+
+<tspan x="10" y="3018">     };</tspan>
+
+<tspan x="10" y="3034">@@ -344,15 +346,15 @@</tspan>
+
+<tspan x="10" y="3050">     /*</tspan>
+
+<tspan x="10" y="3066">      * this function will try to end or destroy &lt;stream&gt;</tspan>
+
+<tspan x="10" y="3082">      */</tspan>
+
+<tspan x="10" y="3098">-        var error;</tspan>
+
+<tspan x="10" y="3114">+        var err;</tspan>
+
+<tspan x="10" y="3130">         // try to end stream</tspan>
+
+<tspan x="10" y="3146">         try {</tspan>
+
+<tspan x="10" y="3162">             stream.end();</tspan>
+
+<tspan x="10" y="3178">-        } catch (errorCaught) {</tspan>
+
+<tspan x="10" y="3194">-            error = errorCaught;</tspan>
+
+<tspan x="10" y="3210">+        } catch (errCaught) {</tspan>
+
+<tspan x="10" y="3226">+            err = errCaught;</tspan>
+
+<tspan x="10" y="3242">         }</tspan>
+
+<tspan x="10" y="3258">-        // if error, then try to destroy stream</tspan>
+
+<tspan x="10" y="3274">-        if (error) {</tspan>
+
+<tspan x="10" y="3290">+        // if err, then try to destroy stream</tspan>
+
+<tspan x="10" y="3306">+        if (err) {</tspan>
+
+<tspan x="10" y="3322">             try {</tspan>
+
+<tspan x="10" y="3338">                 stream.destroy();</tspan>
+
+<tspan x="10" y="3354">             } catch (ignore) {}</tspan>
+
+<tspan x="10" y="3370">@@ -362,15 +364,15 @@</tspan>
+
+<tspan x="10" y="3386">     /*</tspan>
+
+<tspan x="10" y="3402">      * this function will init xhr</tspan>
+
+<tspan x="10" y="3418">      */</tspan>
+
+<tspan x="10" y="3434">-        // init option</tspan>
+
+<tspan x="10" y="3450">-        Object.keys(option).forEach(function (key) {</tspan>
+
+<tspan x="10" y="3466">+        // init opt</tspan>
+
+<tspan x="10" y="3482">+        Object.keys(opt).forEach(function (key) {</tspan>
+
+<tspan x="10" y="3498">             if (key[0] !== "_") {</tspan>
+
+<tspan x="10" y="3514">-                xhr[key] = option[key];</tspan>
+
+<tspan x="10" y="3530">+                xhr[key] = opt[key];</tspan>
+
+<tspan x="10" y="3546">             }</tspan>
+
+<tspan x="10" y="3562">         });</tspan>
+
+<tspan x="10" y="3578">         // init timeout</tspan>
+
+<tspan x="10" y="3594">         timeout = xhr.timeout || local2.timeoutDefault || 30000;</tspan>
+
+<tspan x="10" y="3610">-        // init defaults</tspan>
+
+<tspan x="10" y="3626">+        // init default</tspan>
+
+<tspan x="10" y="3642">         local.objectAssignDefault(xhr, {</tspan>
+
+<tspan x="10" y="3658">             corsForwardProxyHost: local2.corsForwardProxyHost,</tspan>
+
+<tspan x="10" y="3674">             headers: {},</tspan>
+
+<tspan x="10" y="3690">@@ -394,7 +396,7 @@</tspan>
+
+<tspan x="10" y="3706">         // init misc</tspan>
+
+<tspan x="10" y="3722">         local2._debugXhr = xhr;</tspan>
+
+<tspan x="10" y="3738">         xhr.onEvent = onEvent;</tspan>
+
+<tspan x="10" y="3754">-        xhr.responseHeaders = {};</tspan>
+
+<tspan x="10" y="3770">+        xhr.resHeaders = {};</tspan>
+
+<tspan x="10" y="3786">         xhr.timeStart = xhr.timeStart || Date.now();</tspan>
+
+<tspan x="10" y="3802">     };</tspan>
+
+<tspan x="10" y="3818">     // init onError</tspan>
+
+<tspan x="10" y="3834">@@ -404,57 +406,51 @@</tspan>
+
+<tspan x="10" y="3850">     // init xhr - XMLHttpRequest</tspan>
+
+<tspan x="10" y="3866">     xhr = (</tspan>
+
+<tspan x="10" y="3882">         local.isBrowser</tspan>
+
+<tspan x="10" y="3898">-        &amp;&amp; !option.httpRequest</tspan>
+
+<tspan x="10" y="3914">-        &amp;&amp; !(local2.serverLocalUrlTest &amp;&amp; local2.serverLocalUrlTest(option.url))</tspan>
+
+<tspan x="10" y="3930">+        &amp;&amp; !opt.httpRequest</tspan>
+
+<tspan x="10" y="3946">+        &amp;&amp; !(local2.serverLocalUrlTest &amp;&amp; local2.serverLocalUrlTest(opt.url))</tspan>
+
+<tspan x="10" y="3962">         &amp;&amp; new XMLHttpRequest()</tspan>
+
+<tspan x="10" y="3978">     );</tspan>
+
+<tspan x="10" y="3994">     // init xhr - http.request</tspan>
+
+<tspan x="10" y="4010">     if (!xhr) {</tspan>
+
+<tspan x="10" y="4026">-        xhr = local.identity(local2.urlParse || require("url").parse)(</tspan>
+
+<tspan x="10" y="4042">-            option.url</tspan>
+
+<tspan x="10" y="4058">-        );</tspan>
+
+<tspan x="10" y="4074">+        xhr = local.identity(local2.urlParse || require("url").parse)(opt.url);</tspan>
+
+<tspan x="10" y="4090">         // init xhr</tspan>
+
+<tspan x="10" y="4106">         xhrInit();</tspan>
+
+<tspan x="10" y="4122">         // init xhr - http.request</tspan>
+
+<tspan x="10" y="4138">         xhr = local.identity(</tspan>
+
+<tspan x="10" y="4154">-            option.httpRequest</tspan>
+
+<tspan x="10" y="4170">+            opt.httpRequest</tspan>
+
+<tspan x="10" y="4186">             || (local.isBrowser &amp;&amp; local2.http.request)</tspan>
+
+<tspan x="10" y="4202">             || require(xhr.protocol.slice(0, -1)).request</tspan>
+
+<tspan x="10" y="4218">-        )(xhr, function (responseStream) {</tspan>
+
+<tspan x="10" y="4234">+        )(xhr, function (resStream) {</tspan>
+
+<tspan x="10" y="4250">         /*</tspan>
+
+<tspan x="10" y="4266">-         * this function will read &lt;responseStream&gt;</tspan>
+
+<tspan x="10" y="4282">+         * this function will read &lt;resStream&gt;</tspan>
+
+<tspan x="10" y="4298">          */</tspan>
+
+<tspan x="10" y="4314">             var chunkList;</tspan>
+
+<tspan x="10" y="4330">             chunkList = [];</tspan>
+
+<tspan x="10" y="4346">-            xhr.responseHeaders = (</tspan>
+
+<tspan x="10" y="4362">-                responseStream.responseHeaders</tspan>
+
+<tspan x="10" y="4378">-                || responseStream.headers</tspan>
+
+<tspan x="10" y="4394">-            );</tspan>
+
+<tspan x="10" y="4410">-            xhr.responseStream = responseStream;</tspan>
+
+<tspan x="10" y="4426">-            xhr.statusCode = responseStream.statusCode;</tspan>
+
+<tspan x="10" y="4442">-            responseStream.dataLength = 0;</tspan>
+
+<tspan x="10" y="4458">-            responseStream.on("data", function (chunk) {</tspan>
+
+<tspan x="10" y="4474">+            xhr.resHeaders = resStream.resHeaders || resStream.headers;</tspan>
+
+<tspan x="10" y="4490">+            xhr.resStream = resStream;</tspan>
+
+<tspan x="10" y="4506">+            xhr.statusCode = resStream.statusCode;</tspan>
+
+<tspan x="10" y="4522">+            resStream.dataLength = 0;</tspan>
+
+<tspan x="10" y="4538">+            resStream.on("data", function (chunk) {</tspan>
+
+<tspan x="10" y="4554">                 chunkList.push(chunk);</tspan>
+
+<tspan x="10" y="4570">             });</tspan>
+
+<tspan x="10" y="4586">-            responseStream.on("end", function () {</tspan>
+
+<tspan x="10" y="4602">+            resStream.on("end", function () {</tspan>
+
+<tspan x="10" y="4618">                 xhr.response = (</tspan>
+
+<tspan x="10" y="4634">                     local.isBrowser</tspan>
+
+<tspan x="10" y="4650">                     ? chunkList[0]</tspan>
+
+<tspan x="10" y="4666">                     : Buffer.concat(chunkList)</tspan>
+
+<tspan x="10" y="4682">                 );</tspan>
+
+<tspan x="10" y="4698">-                responseStream.dataLength = (</tspan>
+
+<tspan x="10" y="4714">-                    xhr.response.byteLength</tspan>
+
+<tspan x="10" y="4730">-                    || xhr.response.length</tspan>
+
+<tspan x="10" y="4746">+                resStream.dataLength = (</tspan>
+
+<tspan x="10" y="4762">+                    xhr.response.byteLength || xhr.response.length</tspan>
+
+<tspan x="10" y="4778">                 );</tspan>
+
+<tspan x="10" y="4794">                 xhr.onEvent({</tspan>
+
+<tspan x="10" y="4810">                     type: "load"</tspan>
+
+<tspan x="10" y="4826">                 });</tspan>
+
+<tspan x="10" y="4842">             });</tspan>
+
+<tspan x="10" y="4858">-            responseStream.on("error", xhr.onEvent);</tspan>
+
+<tspan x="10" y="4874">+            resStream.on("error", xhr.onEvent);</tspan>
+
+<tspan x="10" y="4890">         });</tspan>
+
+<tspan x="10" y="4906">         xhr.abort = function () {</tspan>
+
+<tspan x="10" y="4922">         /*</tspan>
+
+<tspan x="10" y="4938">-         * this function will abort xhr-request</tspan>
+
+<tspan x="10" y="4954">+         * this function will abort xhr-req</tspan>
+
+<tspan x="10" y="4970">          * https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/abort</tspan>
+
+<tspan x="10" y="4986">          */</tspan>
+
+<tspan x="10" y="5002">             xhr.onEvent({</tspan>
+
+<tspan x="10" y="5018">@@ -463,7 +459,7 @@</tspan>
+
+<tspan x="10" y="5034">         };</tspan>
+
+<tspan x="10" y="5050">         xhr.addEventListener = local.nop;</tspan>
+
+<tspan x="10" y="5066">         xhr.open = local.nop;</tspan>
+
+<tspan x="10" y="5082">-        xhr.requestStream = xhr;</tspan>
+
+<tspan x="10" y="5098">+        xhr.reqStream = xhr;</tspan>
+
+<tspan x="10" y="5114">         xhr.send = xhr.end;</tspan>
+
+<tspan x="10" y="5130">         xhr.setRequestHeader = local.nop;</tspan>
+
+<tspan x="10" y="5146">         xhr.on("error", onEvent);</tspan>
+
+<tspan x="10" y="5162">@@ -472,14 +468,14 @@</tspan>
+
+<tspan x="10" y="5178">     xhrInit();</tspan>
+
+<tspan x="10" y="5194">     // init timerTimeout</tspan>
+
+<tspan x="10" y="5210">     xhr.timerTimeout = setTimeout(function () {</tspan>
+
+<tspan x="10" y="5226">-        xhr.error = xhr.error || new Error(</tspan>
+
+<tspan x="10" y="5242">+        xhr.err = xhr.err || new Error(</tspan>
+
+<tspan x="10" y="5258">             "onTimeout - timeout-error - "</tspan>
+
+<tspan x="10" y="5274">             + timeout + " ms - " + "ajax " + xhr.method + " " + xhr.url</tspan>
+
+<tspan x="10" y="5290">         );</tspan>
+
+<tspan x="10" y="5306">         xhr.abort();</tspan>
+
+<tspan x="10" y="5322">-        // cleanup requestStream and responseStream</tspan>
+
+<tspan x="10" y="5338">-        streamCleanup(xhr.requestStream);</tspan>
+
+<tspan x="10" y="5354">-        streamCleanup(xhr.responseStream);</tspan>
+
+<tspan x="10" y="5370">+        // cleanup reqStream and resStream</tspan>
+
+<tspan x="10" y="5386">+        streamCleanup(xhr.reqStream);</tspan>
+
+<tspan x="10" y="5402">+        streamCleanup(xhr.resStream);</tspan>
+
+<tspan x="10" y="5418">     }, timeout);</tspan>
+
+<tspan x="10" y="5434">     // increment ajaxProgressCounter</tspan>
+
+<tspan x="10" y="5450">     local2.ajaxProgressCounter = local2.ajaxProgressCounter || 0;</tspan>
+
+<tspan x="10" y="5466">@@ -518,9 +514,9 @@</tspan>
+
+<tspan x="10" y="5482">     // FormData</tspan>
+
+<tspan x="10" y="5498">     // https://developer.mozilla.org/en-US/docs/Web/API/FormData</tspan>
+
+<tspan x="10" y="5514">     case local2.FormData:</tspan>
+
+<tspan x="10" y="5530">-        local2.blobRead(xhr.data, function (error, data) {</tspan>
+
+<tspan x="10" y="5546">-            if (error) {</tspan>
+
+<tspan x="10" y="5562">-                xhr.onEvent(error);</tspan>
+
+<tspan x="10" y="5578">+        local2.blobRead(xhr.data, function (err, data) {</tspan>
+
+<tspan x="10" y="5594">+            if (err) {</tspan>
+
+<tspan x="10" y="5610">+                xhr.onEvent(err);</tspan>
+
+<tspan x="10" y="5626">                 return;</tspan>
+
+<tspan x="10" y="5642">             }</tspan>
+
+<tspan x="10" y="5658">             // send data</tspan>
+
+<tspan x="10" y="5674">@@ -533,9 +529,9 @@</tspan>
+
+<tspan x="10" y="5690">     return xhr;</tspan>
+
+<tspan x="10" y="5706"> };</tspan>
+
+<tspan x="10" y="5722"> </tspan>
+
+<tspan x="10" y="5738">-local.cliRun = function (option) {</tspan>
+
+<tspan x="10" y="5754">+local.cliRun = function (opt) {</tspan>
+
+<tspan x="10" y="5770"> /*</tspan>
+
+<tspan x="10" y="5786">- * this function will run cli</tspan>
+
+<tspan x="10" y="5802">+ * this function will run the cli with given &lt;opt&gt;</tspan>
+
+<tspan x="10" y="5818">  */</tspan>
+
+<tspan x="10" y="5834">     local.cliDict._eval = local.cliDict._eval || function () {</tspan>
+
+<tspan x="10" y="5850">     /*</tspan>
+
+<tspan x="10" y="5866">@@ -569,10 +565,10 @@</tspan>
+
+<tspan x="10" y="5882">         file = __filename.replace((</tspan>
+
+<tspan x="10" y="5898">             /.*\//</tspan>
+
+<tspan x="10" y="5914">         ), "");</tspan>
+
+<tspan x="10" y="5930">-        option = Object.assign({}, option);</tspan>
+
+<tspan x="10" y="5946">+        opt = Object.assign({}, opt);</tspan>
+
+<tspan x="10" y="5962">         packageJson = require("./package.json");</tspan>
+
+<tspan x="10" y="5978">         // validate comment</tspan>
+
+<tspan x="10" y="5994">-        option.rgxComment = option.rgxComment || (</tspan>
+
+<tspan x="10" y="6010">+        opt.rgxComment = opt.rgxComment || (</tspan>
+
+<tspan x="10" y="6026">             /\) \{\n(?:| {4})\/\*\n(?: | {5})\*((?: &lt;[^&gt;]*?&gt;| \.\.\.)*?)\n(?: | {5})\* (will .*\</tspan>
+<tspan x="10" y="6042">?\S)\n(?: | {5})\*\/\n(?: {4}| {8})\S/</tspan>
+
+<tspan x="10" y="6058">         );</tspan>
+
+<tspan x="10" y="6074">         textDict = {};</tspan>
+
+<tspan x="10" y="6090">@@ -591,7 +587,7 @@</tspan>
+
+<tspan x="10" y="6106">                 return;</tspan>
+
+<tspan x="10" y="6122">             }</tspan>
+
+<tspan x="10" y="6138">             try {</tspan>
+
+<tspan x="10" y="6154">-                commandList[ii] = option.rgxComment.exec(text);</tspan>
+
+<tspan x="10" y="6170">+                commandList[ii] = opt.rgxComment.exec(text);</tspan>
+
+<tspan x="10" y="6186">                 commandList[ii] = {</tspan>
+
+<tspan x="10" y="6202">                     argList: (commandList[ii][1] || "").trim(),</tspan>
+
+<tspan x="10" y="6218">                     command: [key],</tspan>
+
+<tspan x="10" y="6234">@@ -600,16 +596,14 @@</tspan>
+
+<tspan x="10" y="6250">             } catch (ignore) {</tspan>
+
+<tspan x="10" y="6266">                 local.assertThrow(null, new Error(</tspan>
+
+<tspan x="10" y="6282">                     "cliRun - cannot parse comment in COMMAND "</tspan>
+
+<tspan x="10" y="6298">-                    + key + ":\nnew RegExp("</tspan>
+
+<tspan x="10" y="6314">-                    + JSON.stringify(option.rgxComment.source)</tspan>
+
+<tspan x="10" y="6330">-                    + ").exec(" + JSON.stringify(text)</tspan>
+
+<tspan x="10" y="6346">-                    .replace((</tspan>
+
+<tspan x="10" y="6362">+                    + key</tspan>
+
+<tspan x="10" y="6378">+                    + ":\nnew RegExp("</tspan>
+
+<tspan x="10" y="6394">+                    + JSON.stringify(opt.rgxComment.source)</tspan>
+
+<tspan x="10" y="6410">+                    + ").exec(" + JSON.stringify(text).replace((</tspan>
+
+<tspan x="10" y="6426">                         /\\\\/g</tspan>
+
+<tspan x="10" y="6442">-                    ), " ")</tspan>
+
+<tspan x="10" y="6458">-                    .replace((</tspan>
+
+<tspan x="10" y="6474">+                    ), " ").replace((</tspan>
+
+<tspan x="10" y="6490">                         /\\n/g</tspan>
+
+<tspan x="10" y="6506">-                    ), "\\n\\\n")</tspan>
+
+<tspan x="10" y="6522">-                    .replace((</tspan>
+
+<tspan x="10" y="6538">+                    ), "\\n\\\n").replace((</tspan>
+
+<tspan x="10" y="6554">                         / /g</tspan>
+
+<tspan x="10" y="6570">                     ), "\\\\") + ");"</tspan>
+
+<tspan x="10" y="6586">                 ));</tspan>
+
+<tspan x="10" y="6602">@@ -617,34 +611,32 @@</tspan>
+
+<tspan x="10" y="6618">         });</tspan>
+
+<tspan x="10" y="6634">         text = "";</tspan>
+
+<tspan x="10" y="6650">         text += packageJson.name + " (" + packageJson.version + ")\n\n";</tspan>
+
+<tspan x="10" y="6666">-        text += commandList</tspan>
+
+<tspan x="10" y="6682">-        .filter(function (element) {</tspan>
+
+<tspan x="10" y="6698">-            return element;</tspan>
+
+<tspan x="10" y="6714">-        })</tspan>
+
+<tspan x="10" y="6730">-        .map(function (element, ii) {</tspan>
+
+<tspan x="10" y="6746">-            element.command = element.command.filter(function (element) {</tspan>
+
+<tspan x="10" y="6762">-                return element;</tspan>
+
+<tspan x="10" y="6778">+        text += commandList.filter(function (elem) {</tspan>
+
+<tspan x="10" y="6794">+            return elem;</tspan>
+
+<tspan x="10" y="6810">+        }).map(function (elem, ii) {</tspan>
+
+<tspan x="10" y="6826">+            elem.command = elem.command.filter(function (elem) {</tspan>
+
+<tspan x="10" y="6842">+                return elem;</tspan>
+
+<tspan x="10" y="6858">             });</tspan>
+
+<tspan x="10" y="6874">             switch (ii) {</tspan>
+
+<tspan x="10" y="6890">             case 0:</tspan>
+
+<tspan x="10" y="6906">             case 1:</tspan>
+
+<tspan x="10" y="6922">-                element.argList = [element.argList];</tspan>
+
+<tspan x="10" y="6938">+                elem.argList = [elem.argList];</tspan>
+
+<tspan x="10" y="6954">                 break;</tspan>
+
+<tspan x="10" y="6970">             default:</tspan>
+
+<tspan x="10" y="6986">-                element.argList = element.argList.split(" ");</tspan>
+
+<tspan x="10" y="7002">-                element.description = (</tspan>
+
+<tspan x="10" y="7018">+                elem.argList = elem.argList.split(" ");</tspan>
+
+<tspan x="10" y="7034">+                elem.description = (</tspan>
+
+<tspan x="10" y="7050">                     "# COMMAND "</tspan>
+
+<tspan x="10" y="7066">-                    + (element.command[0] || "&lt;none&gt;") + "\n# "</tspan>
+
+<tspan x="10" y="7082">-                    + element.description</tspan>
+
+<tspan x="10" y="7098">+                    + (elem.command[0] || "&lt;none&gt;") + "\n# "</tspan>
+
+<tspan x="10" y="7114">+                    + elem.description</tspan>
+
+<tspan x="10" y="7130">                 );</tspan>
+
+<tspan x="10" y="7146">             }</tspan>
+
+<tspan x="10" y="7162">             return (</tspan>
+
+<tspan x="10" y="7178">-                element.description + "\n  " + file</tspan>
+
+<tspan x="10" y="7194">-                + ("  " + element.command.sort().join("|") + "  ")</tspan>
+
+<tspan x="10" y="7210">+                elem.description + "\n  " + file</tspan>
+
+<tspan x="10" y="7226">+                + ("  " + elem.command.sort().join("|") + "  ")</tspan>
+
+<tspan x="10" y="7242">                     .replace((</tspan>
+
+<tspan x="10" y="7258">                     /^ {4}$/</tspan>
+
+<tspan x="10" y="7274">                 ), "  ")</tspan>
+
+<tspan x="10" y="7290">-                + element.argList.join("  ")</tspan>
+
+<tspan x="10" y="7306">+                + elem.argList.join("  ")</tspan>
+
+<tspan x="10" y="7322">             );</tspan>
+
+<tspan x="10" y="7338">         })</tspan>
+
+<tspan x="10" y="7354">         .join("\n\n");</tspan>
+
+<tspan x="10" y="7370">@@ -693,37 +685,37 @@</tspan>
+
+<tspan x="10" y="7386">     local.cliDict._default();</tspan>
+
+<tspan x="10" y="7402"> };</tspan>
+
+<tspan x="10" y="7418"> </tspan>
+
+<tspan x="10" y="7434">-local.onErrorDefault = function (error) {</tspan>
+
+<tspan x="10" y="7450">+local.onErrorDefault = function (err) {</tspan>
+
+<tspan x="10" y="7466"> /*</tspan>
+
+<tspan x="10" y="7482">- * this function will if &lt;error&gt; exists, then print it to stderr</tspan>
+
+<tspan x="10" y="7498">+ * this function will if &lt;err&gt; exists, then print it to stderr</tspan>
+
+<tspan x="10" y="7514">  */</tspan>
+
+<tspan x="10" y="7530">-    if (error) {</tspan>
+
+<tspan x="10" y="7546">-        console.error(error);</tspan>
+
+<tspan x="10" y="7562">+    if (err) {</tspan>
+
+<tspan x="10" y="7578">+        console.error(err);</tspan>
+
+<tspan x="10" y="7594">     }</tspan>
+
+<tspan x="10" y="7610">-    return error;</tspan>
+
+<tspan x="10" y="7626">+    return err;</tspan>
+
+<tspan x="10" y="7642"> };</tspan>
+
+<tspan x="10" y="7658"> </tspan>
+
+<tspan x="10" y="7674"> local.onErrorWithStack = function (onError) {</tspan>
+
+<tspan x="10" y="7690"> /*</tspan>
+
+<tspan x="10" y="7706">- * this function will create a new callback that will call onError,</tspan>
+
+<tspan x="10" y="7722">- * and append the current stack to any error</tspan>
+
+<tspan x="10" y="7738">+ * this function will create wrapper around &lt;onError&gt;</tspan>
+
+<tspan x="10" y="7754">+ * that will append current-stack to err.stack</tspan>
+
+<tspan x="10" y="7770">  */</tspan>
+
+<tspan x="10" y="7786">     var onError2;</tspan>
+
+<tspan x="10" y="7802">     var stack;</tspan>
+
+<tspan x="10" y="7818">     stack = new Error().stack.replace((</tspan>
+
+<tspan x="10" y="7834">         /(.*?)\n.*?$/m</tspan>
+
+<tspan x="10" y="7850">     ), "$1");</tspan>
+
+<tspan x="10" y="7866">-    onError2 = function (error, data, meta) {</tspan>
+
+<tspan x="10" y="7882">+    onError2 = function (err, data, meta) {</tspan>
+
+<tspan x="10" y="7898">         if (</tspan>
+
+<tspan x="10" y="7914">-            error</tspan>
+
+<tspan x="10" y="7930">-            &amp;&amp; typeof error.stack === "string"</tspan>
+
+<tspan x="10" y="7946">-            &amp;&amp; error !== local.errorDefault</tspan>
+
+<tspan x="10" y="7962">-            &amp;&amp; String(error.stack).indexOf(stack.split("\n")[2]) &lt; 0</tspan>
+
+<tspan x="10" y="7978">+            err</tspan>
+
+<tspan x="10" y="7994">+            &amp;&amp; typeof err.stack === "string"</tspan>
+
+<tspan x="10" y="8010">+            &amp;&amp; err !== local.errorDefault</tspan>
+
+<tspan x="10" y="8026">+            &amp;&amp; String(err.stack).indexOf(stack.split("\n")[2]) &lt; 0</tspan>
+
+<tspan x="10" y="8042">         ) {</tspan>
+
+<tspan x="10" y="8058">-            // append the current stack to error.stack</tspan>
+
+<tspan x="10" y="8074">-            error.stack += "\n" + stack;</tspan>
+
+<tspan x="10" y="8090">+            // append current-stack to err.stack</tspan>
+
+<tspan x="10" y="8106">+            err.stack += "\n" + stack;</tspan>
+
+<tspan x="10" y="8122">         }</tspan>
+
+<tspan x="10" y="8138">-        onError(error, data, meta);</tspan>
+
+<tspan x="10" y="8154">+        onError(err, data, meta);</tspan>
+
+<tspan x="10" y="8170">     };</tspan>
+
+<tspan x="10" y="8186">     // debug onError</tspan>
+
+<tspan x="10" y="8202">     onError2.toString = function () {</tspan>
+
+<tspan x="10" y="8218">@@ -732,45 +724,45 @@</tspan>
+
+<tspan x="10" y="8234">     return onError2;</tspan>
+
+<tspan x="10" y="8250"> };</tspan>
+
+<tspan x="10" y="8266"> </tspan>
+
+<tspan x="10" y="8282">-local.onNext = function (option, onError) {</tspan>
+
+<tspan x="10" y="8298">+local.onNext = function (opt, onError) {</tspan>
+
+<tspan x="10" y="8314"> /*</tspan>
+
+<tspan x="10" y="8330">- * this function will wrap onError inside recursive-function &lt;option&gt;.onNext,</tspan>
+
+<tspan x="10" y="8346">+ * this function will wrap onError inside recursive-function &lt;opt&gt;.onNext,</tspan>
+
+<tspan x="10" y="8362">  * and append the current stack to any error</tspan>
+
+<tspan x="10" y="8378">  */</tspan>
+
+<tspan x="10" y="8394">-    option.onNext = local.onErrorWithStack(function (error, data, meta) {</tspan>
+
+<tspan x="10" y="8410">+    opt.onNext = local.onErrorWithStack(function (err, data, meta) {</tspan>
+
+<tspan x="10" y="8426">         try {</tspan>
+
+<tspan x="10" y="8442">-            option.modeNext += (</tspan>
+
+<tspan x="10" y="8458">-                (error &amp;&amp; !option.modeErrorIgnore)</tspan>
+
+<tspan x="10" y="8474">+            opt.modeNext += (</tspan>
+
+<tspan x="10" y="8490">+                (err &amp;&amp; !opt.modeErrorIgnore)</tspan>
+
+<tspan x="10" y="8506">                 ? 1000</tspan>
+
+<tspan x="10" y="8522">                 : 1</tspan>
+
+<tspan x="10" y="8538">             );</tspan>
+
+<tspan x="10" y="8554">-            if (option.modeDebug) {</tspan>
+
+<tspan x="10" y="8570">+            if (opt.modeDebug) {</tspan>
+
+<tspan x="10" y="8586">                 console.error("onNext - " + JSON.stringify({</tspan>
+
+<tspan x="10" y="8602">-                    modeNext: option.modeNext,</tspan>
+
+<tspan x="10" y="8618">-                    errorMessage: error &amp;&amp; error.message</tspan>
+
+<tspan x="10" y="8634">+                    modeNext: opt.modeNext,</tspan>
+
+<tspan x="10" y="8650">+                    errorMessage: err &amp;&amp; err.message</tspan>
+
+<tspan x="10" y="8666">                 }));</tspan>
+
+<tspan x="10" y="8682">-                if (error &amp;&amp; error.stack) {</tspan>
+
+<tspan x="10" y="8698">-                    console.error(error.stack);</tspan>
+
+<tspan x="10" y="8714">+                if (err &amp;&amp; err.stack) {</tspan>
+
+<tspan x="10" y="8730">+                    console.error(err.stack);</tspan>
+
+<tspan x="10" y="8746">                 }</tspan>
+
+<tspan x="10" y="8762">             }</tspan>
+
+<tspan x="10" y="8778">-            onError(error, data, meta);</tspan>
+
+<tspan x="10" y="8794">-        } catch (errorCaught) {</tspan>
+
+<tspan x="10" y="8810">-            // throw errorCaught to break infinite recursion-loop</tspan>
+
+<tspan x="10" y="8826">-            if (option.errorCaught) {</tspan>
+
+<tspan x="10" y="8842">-                local.assertThrow(null, option.errorCaught);</tspan>
+
+<tspan x="10" y="8858">+            onError(err, data, meta);</tspan>
+
+<tspan x="10" y="8874">+        } catch (errCaught) {</tspan>
+
+<tspan x="10" y="8890">+            // throw errCaught to break infinite recursion-loop</tspan>
+
+<tspan x="10" y="8906">+            if (opt.errCaught) {</tspan>
+
+<tspan x="10" y="8922">+                local.assertThrow(null, opt.errCaught);</tspan>
+
+<tspan x="10" y="8938">             }</tspan>
+
+<tspan x="10" y="8954">-            option.errorCaught = errorCaught;</tspan>
+
+<tspan x="10" y="8970">-            option.onNext(errorCaught, data, meta);</tspan>
+
+<tspan x="10" y="8986">+            opt.errCaught = errCaught;</tspan>
+
+<tspan x="10" y="9002">+            opt.onNext(errCaught, data, meta);</tspan>
+
+<tspan x="10" y="9018">         }</tspan>
+
+<tspan x="10" y="9034">     });</tspan>
+
+<tspan x="10" y="9050">-    return option;</tspan>
+
+<tspan x="10" y="9066">+    return opt;</tspan>
+
+<tspan x="10" y="9082"> };</tspan>
+
+<tspan x="10" y="9098"> </tspan>
+
+<tspan x="10" y="9114"> local.onParallel = function (onError, onEach, onRetry) {</tspan>
+
+<tspan x="10" y="9130"> /*</tspan>
+
+<tspan x="10" y="9146">  * this function will create a function that will</tspan>
+
+<tspan x="10" y="9162">  * 1. run async tasks in parallel</tspan>
+
+<tspan x="10" y="9178">- * 2. if counter === 0 or error occurred, then call onError with error</tspan>
+
+<tspan x="10" y="9194">+ * 2. if counter === 0 or err occurred, then call onError with error</tspan>
+
+<tspan x="10" y="9210">  */</tspan>
+
+<tspan x="10" y="9226">     var onParallel;</tspan>
+
+<tspan x="10" y="9242">     onError = local.onErrorWithStack(onError);</tspan>
+
+<tspan x="10" y="9258">@@ -810,38 +802,38 @@</tspan>
+
+<tspan x="10" y="9274">     return onParallel;</tspan>
+
+<tspan x="10" y="9290"> };</tspan>
+
+<tspan x="10" y="9306"> </tspan>
+
+<tspan x="10" y="9322">-local.onParallelList = function (option, onEach, onError) {</tspan>
+
+<tspan x="10" y="9338">+local.onParallelList = function (opt, onEach, onError) {</tspan>
+
+<tspan x="10" y="9354"> /*</tspan>
+
+<tspan x="10" y="9370">  * this function will</tspan>
+
+<tspan x="10" y="9386">  * 1. async-run onEach in parallel,</tspan>
+
+<tspan x="10" y="9402">- *    with given option.rateLimit and option.retryLimit</tspan>
+
+<tspan x="10" y="9418">- * 2. call onError when onParallel.ii + 1 === option.list.length</tspan>
+
+<tspan x="10" y="9434">+ *    with given &lt;opt&gt;.rateLimit and &lt;opt&gt;.retryLimit</tspan>
+
+<tspan x="10" y="9450">+ * 2. call &lt;onError&gt; when onParallel.ii + 1 === &lt;opt&gt;.list.length</tspan>
+
+<tspan x="10" y="9466">  */</tspan>
+
+<tspan x="10" y="9482">     var isListEnd;</tspan>
+
+<tspan x="10" y="9498">     var onEach2;</tspan>
+
+<tspan x="10" y="9514">     var onParallel;</tspan>
+
+<tspan x="10" y="9530">-    option.list = option.list || [];</tspan>
+
+<tspan x="10" y="9546">+    opt.list = opt.list || [];</tspan>
+
+<tspan x="10" y="9562">     onEach2 = function () {</tspan>
+
+<tspan x="10" y="9578">         while (true) {</tspan>
+
+<tspan x="10" y="9594">-            if (!(onParallel.ii + 1 &lt; option.list.length)) {</tspan>
+
+<tspan x="10" y="9610">+            if (!(onParallel.ii + 1 &lt; opt.list.length)) {</tspan>
+
+<tspan x="10" y="9626">                 isListEnd = true;</tspan>
+
+<tspan x="10" y="9642">                 return;</tspan>
+
+<tspan x="10" y="9658">             }</tspan>
+
+<tspan x="10" y="9674">-            if (!(onParallel.counter &lt; option.rateLimit + 1)) {</tspan>
+
+<tspan x="10" y="9690">+            if (!(onParallel.counter &lt; opt.rateLimit + 1)) {</tspan>
+
+<tspan x="10" y="9706">                 return;</tspan>
+
+<tspan x="10" y="9722">             }</tspan>
+
+<tspan x="10" y="9738">             onParallel.ii += 1;</tspan>
+
+<tspan x="10" y="9754">             onEach({</tspan>
+
+<tspan x="10" y="9770">-                element: option.list[onParallel.ii],</tspan>
+
+<tspan x="10" y="9786">+                elem: opt.list[onParallel.ii],</tspan>
+
+<tspan x="10" y="9802">                 ii: onParallel.ii,</tspan>
+
+<tspan x="10" y="9818">-                list: option.list,</tspan>
+
+<tspan x="10" y="9834">+                list: opt.list,</tspan>
+
+<tspan x="10" y="9850">                 retry: 0</tspan>
+
+<tspan x="10" y="9866">             }, onParallel);</tspan>
+
+<tspan x="10" y="9882">         }</tspan>
+
+<tspan x="10" y="9898">     };</tspan>
+
+<tspan x="10" y="9914">-    onParallel = local.onParallel(onError, onEach2, function (error, data) {</tspan>
+
+<tspan x="10" y="9930">-        if (error &amp;&amp; data &amp;&amp; data.retry &lt; option.retryLimit) {</tspan>
+
+<tspan x="10" y="9946">-            local.onErrorDefault(error);</tspan>
+
+<tspan x="10" y="9962">+    onParallel = local.onParallel(onError, onEach2, function (err, data) {</tspan>
+
+<tspan x="10" y="9978">+        if (err &amp;&amp; data &amp;&amp; data.retry &lt; opt.retryLimit) {</tspan>
+
+<tspan x="10" y="9994">+            local.onErrorDefault(err);</tspan>
+
+<tspan x="10" y="10010">             data.retry += 1;</tspan>
+
+<tspan x="10" y="10026">             setTimeout(function () {</tspan>
+
+<tspan x="10" y="10042">                 onParallel.counter -= 1;</tspan>
+
+<tspan x="10" y="10058">@@ -849,16 +841,16 @@</tspan>
+
+<tspan x="10" y="10074">             }, 1000);</tspan>
+
+<tspan x="10" y="10090">             return true;</tspan>
+
+<tspan x="10" y="10106">         }</tspan>
+
+<tspan x="10" y="10122">-        // restart if option.list has grown</tspan>
+
+<tspan x="10" y="10138">-        if (isListEnd &amp;&amp; (onParallel.ii + 1 &lt; option.list.length)) {</tspan>
+
+<tspan x="10" y="10154">+        // restart if opt.list has grown</tspan>
+
+<tspan x="10" y="10170">+        if (isListEnd &amp;&amp; (onParallel.ii + 1 &lt; opt.list.length)) {</tspan>
+
+<tspan x="10" y="10186">             isListEnd = null;</tspan>
+
+<tspan x="10" y="10202">             onEach2();</tspan>
+
+<tspan x="10" y="10218">         }</tspan>
+
+<tspan x="10" y="10234">     });</tspan>
+
+<tspan x="10" y="10250">     onParallel.ii = -1;</tspan>
+
+<tspan x="10" y="10266">-    option.rateLimit = Number(option.rateLimit) || 6;</tspan>
+
+<tspan x="10" y="10282">-    option.rateLimit = Math.max(option.rateLimit, 1);</tspan>
+
+<tspan x="10" y="10298">-    option.retryLimit = Number(option.retryLimit) || 2;</tspan>
+
+<tspan x="10" y="10314">+    opt.rateLimit = Number(opt.rateLimit) || 6;</tspan>
+
+<tspan x="10" y="10330">+    opt.rateLimit = Math.max(opt.rateLimit, 1);</tspan>
+
+<tspan x="10" y="10346">+    opt.retryLimit = Number(opt.retryLimit) || 2;</tspan>
+
+<tspan x="10" y="10362">     onParallel.counter += 1;</tspan>
+
+<tspan x="10" y="10378">     onEach2();</tspan>
+
+<tspan x="10" y="10394">     onParallel();</tspan>
+
+<tspan x="10" y="10410">@@ -869,30 +861,32 @@</tspan>
+
+<tspan x="10" y="10426"> </tspan>
+
+<tspan x="10" y="10442"> // run shared js-env code - function</tspan>
+
+<tspan x="10" y="10458"> (function () {</tspan>
+
+<tspan x="10" y="10474">-local.githubCrudAjax = function (option, onError) {</tspan>
+
+<tspan x="10" y="10490">+local.githubCrudAjax = function (opt, onError) {</tspan>
+
+<tspan x="10" y="10506"> /*</tspan>
+
+<tspan x="10" y="10522">  * this function will make a low-level content-request to github</tspan>
+
+<tspan x="10" y="10538">  * https://developer.github.com/v3/repos/contents/</tspan>
+
+<tspan x="10" y="10554">  */</tspan>
+
+<tspan x="10" y="10570">-    // init option</tspan>
+
+<tspan x="10" y="10586">-    option = {</tspan>
+
+<tspan x="10" y="10602">-        content: option.content,</tspan>
+
+<tspan x="10" y="10618">+    // init opt</tspan>
+
+<tspan x="10" y="10634">+    opt = {</tspan>
+
+<tspan x="10" y="10650">+        content: opt.content,</tspan>
+
+<tspan x="10" y="10666">         headers: Object.assign({</tspan>
+
+<tspan x="10" y="10682">             // github oauth authentication</tspan>
+
+<tspan x="10" y="10698">             Authorization: "token " + (</tspan>
+
+<tspan x="10" y="10714">-                typeof process === "object" &amp;&amp; process &amp;&amp; process.env.GITHUB_TOKEN</tspan>
+
+<tspan x="10" y="10730">+                typeof process === "object"</tspan>
+
+<tspan x="10" y="10746">+                &amp;&amp; process &amp;&amp; process.env.GITHUB_TOKEN</tspan>
+
+<tspan x="10" y="10762">             ),</tspan>
+
+<tspan x="10" y="10778">-            // bug-workaround - https://developer.github.com/v3/#user-agent-required</tspan>
+
+<tspan x="10" y="10794">+            // bug-workaround</tspan>
+
+<tspan x="10" y="10810">+            // https://developer.github.com/v3/#user-agent-required</tspan>
+
+<tspan x="10" y="10826">             "User-Agent": "undefined"</tspan>
+
+<tspan x="10" y="10842">-        }, option.headers),</tspan>
+
+<tspan x="10" y="10858">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="10874">-        message: option.message,</tspan>
+
+<tspan x="10" y="10890">-        method: option.method || "GET",</tspan>
+
+<tspan x="10" y="10906">+        }, opt.headers),</tspan>
+
+<tspan x="10" y="10922">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="10938">+        message: opt.message,</tspan>
+
+<tspan x="10" y="10954">+        method: opt.method || "GET",</tspan>
+
+<tspan x="10" y="10970">         responseJson: {},</tspan>
+
+<tspan x="10" y="10986">-        sha: option.sha,</tspan>
+
+<tspan x="10" y="11002">-        url: option.url</tspan>
+
+<tspan x="10" y="11018">+        sha: opt.sha,</tspan>
+
+<tspan x="10" y="11034">+        url: opt.url</tspan>
+
+<tspan x="10" y="11050">     };</tspan>
+
+<tspan x="10" y="11066">-    option.url = option.url</tspan>
+
+<tspan x="10" y="11082">+    opt.url = opt.url</tspan>
+
+<tspan x="10" y="11098"> /* jslint ignore:start */</tspan>
+
+<tspan x="10" y="11114"> // parse https://github.com/:owner/:repo/blob/:branch/:path</tspan>
+
+<tspan x="10" y="11130"> .replace(</tspan>
+
+<tspan x="10" y="11146">@@ -923,63 +917,63 @@</tspan>
+
+<tspan x="10" y="11162">     .replace((</tspan>
+
+<tspan x="10" y="11178">         /\?branch=(.*)/</tspan>
+
+<tspan x="10" y="11194">     ), function (match0, match1) {</tspan>
+
+<tspan x="10" y="11210">-        option.branch = match1;</tspan>
+
+<tspan x="10" y="11226">-        if (option.method === "GET") {</tspan>
+
+<tspan x="10" y="11242">+        opt.branch = match1;</tspan>
+
+<tspan x="10" y="11258">+        if (opt.method === "GET") {</tspan>
+
+<tspan x="10" y="11274">             match0 = match0.replace("branch", "ref");</tspan>
+
+<tspan x="10" y="11290">         }</tspan>
+
+<tspan x="10" y="11306">         return match0;</tspan>
+
+<tspan x="10" y="11322">     });</tspan>
+
+<tspan x="10" y="11338">     if ((</tspan>
+
+<tspan x="10" y="11354">         /^https:\/\/github\.com\/[^\/]+?\/[^\/]+?$/</tspan>
+
+<tspan x="10" y="11370">-    ).test(option.url)) {</tspan>
+
+<tspan x="10" y="11386">-        option.data = JSON.stringify({</tspan>
+
+<tspan x="10" y="11402">-            name: option.url.split("/")[4]</tspan>
+
+<tspan x="10" y="11418">+    ).test(opt.url)) {</tspan>
+
+<tspan x="10" y="11434">+        opt.data = JSON.stringify({</tspan>
+
+<tspan x="10" y="11450">+            name: opt.url.split("/")[4]</tspan>
+
+<tspan x="10" y="11466">         });</tspan>
+
+<tspan x="10" y="11482">-        switch (option.method) {</tspan>
+
+<tspan x="10" y="11498">+        switch (opt.method) {</tspan>
+
+<tspan x="10" y="11514">         case "DELETE":</tspan>
+
+<tspan x="10" y="11530">-            option.url = (</tspan>
+
+<tspan x="10" y="11546">+            opt.url = (</tspan>
+
+<tspan x="10" y="11562">                 "https://api.github.com/repos/"</tspan>
+
+<tspan x="10" y="11578">-                + option.url.split("/").slice(3).join("/")</tspan>
+
+<tspan x="10" y="11594">+                + opt.url.split("/").slice(3).join("/")</tspan>
+
+<tspan x="10" y="11610">             );</tspan>
+
+<tspan x="10" y="11626">             break;</tspan>
+
+<tspan x="10" y="11642">         case "POST_ORG":</tspan>
+
+<tspan x="10" y="11658">-            option.url = (</tspan>
+
+<tspan x="10" y="11674">+            opt.url = (</tspan>
+
+<tspan x="10" y="11690">                 "https://api.github.com/orgs/"</tspan>
+
+<tspan x="10" y="11706">-                + option.url.split("/")[3] + "/repos"</tspan>
+
+<tspan x="10" y="11722">+                + opt.url.split("/")[3] + "/repos"</tspan>
+
+<tspan x="10" y="11738">             );</tspan>
+
+<tspan x="10" y="11754">             break;</tspan>
+
+<tspan x="10" y="11770">         case "POST_USER":</tspan>
+
+<tspan x="10" y="11786">-            option.url = "https://api.github.com/user/repos";</tspan>
+
+<tspan x="10" y="11802">+            opt.url = "https://api.github.com/user/repos";</tspan>
+
+<tspan x="10" y="11818">             break;</tspan>
+
+<tspan x="10" y="11834">         }</tspan>
+
+<tspan x="10" y="11850">-        option.method = option.method.split("_")[0];</tspan>
+
+<tspan x="10" y="11866">+        opt.method = opt.method.split("_")[0];</tspan>
+
+<tspan x="10" y="11882">     } else {</tspan>
+
+<tspan x="10" y="11898">-        if (option.url.indexOf("https://api.github.com/repos/") !== 0) {</tspan>
+
+<tspan x="10" y="11914">-            console.error("githubCrud - invalid url " + option.url);</tspan>
+
+<tspan x="10" y="11930">-            onError(new Error("invalid url " + option.url));</tspan>
+
+<tspan x="10" y="11946">+        if (opt.url.indexOf("https://api.github.com/repos/") !== 0) {</tspan>
+
+<tspan x="10" y="11962">+            console.error("githubCrud - invalid url " + opt.url);</tspan>
+
+<tspan x="10" y="11978">+            onError(new Error("invalid url " + opt.url));</tspan>
+
+<tspan x="10" y="11994">             return;</tspan>
+
+<tspan x="10" y="12010">         }</tspan>
+
+<tspan x="10" y="12026">-        if (option.method !== "GET") {</tspan>
+
+<tspan x="10" y="12042">-            option.message = (</tspan>
+
+<tspan x="10" y="12058">-                option.message</tspan>
+
+<tspan x="10" y="12074">-                || "[ci skip] " + option.method + " file "</tspan>
+
+<tspan x="10" y="12090">-                + option.url.replace((</tspan>
+
+<tspan x="10" y="12106">+        if (opt.method !== "GET") {</tspan>
+
+<tspan x="10" y="12122">+            opt.message = (</tspan>
+
+<tspan x="10" y="12138">+                opt.message</tspan>
+
+<tspan x="10" y="12154">+                || "[ci skip] " + opt.method + " file "</tspan>
+
+<tspan x="10" y="12170">+                + opt.url.replace((</tspan>
+
+<tspan x="10" y="12186">                     /\?.*/</tspan>
+
+<tspan x="10" y="12202">                 ), "")</tspan>
+
+<tspan x="10" y="12218">             );</tspan>
+
+<tspan x="10" y="12234">-            option.url += "&amp;message=" + encodeURIComponent(option.message);</tspan>
+
+<tspan x="10" y="12250">-            if (option.sha) {</tspan>
+
+<tspan x="10" y="12266">-                option.url += "&amp;sha=" + option.sha;</tspan>
+
+<tspan x="10" y="12282">-            }</tspan>
+
+<tspan x="10" y="12298">-            option.data = JSON.stringify({</tspan>
+
+<tspan x="10" y="12314">-                branch: option.branch,</tspan>
+
+<tspan x="10" y="12330">-                content: Buffer.from(option.content || "").toString("base64"),</tspan>
+
+<tspan x="10" y="12346">-                message: option.message,</tspan>
+
+<tspan x="10" y="12362">-                sha: option.sha</tspan>
+
+<tspan x="10" y="12378">+            opt.url += "&amp;message=" + encodeURIComponent(opt.message);</tspan>
+
+<tspan x="10" y="12394">+            if (opt.sha) {</tspan>
+
+<tspan x="10" y="12410">+                opt.url += "&amp;sha=" + opt.sha;</tspan>
+
+<tspan x="10" y="12426">+            }</tspan>
+
+<tspan x="10" y="12442">+            opt.data = JSON.stringify({</tspan>
+
+<tspan x="10" y="12458">+                branch: opt.branch,</tspan>
+
+<tspan x="10" y="12474">+                content: Buffer.from(opt.content || "").toString("base64"),</tspan>
+
+<tspan x="10" y="12490">+                message: opt.message,</tspan>
+
+<tspan x="10" y="12506">+                sha: opt.sha</tspan>
+
+<tspan x="10" y="12522">             });</tspan>
+
+<tspan x="10" y="12538">         }</tspan>
+
+<tspan x="10" y="12554">     }</tspan>
+
+<tspan x="10" y="12570">-    local.ajax(option, function (error, xhr) {</tspan>
+
+<tspan x="10" y="12586">+    local.ajax(opt, function (error, xhr) {</tspan>
+
+<tspan x="10" y="12602">         console.error("serverLog - " + JSON.stringify({</tspan>
+
+<tspan x="10" y="12618">             time: new Date(xhr.timeStart).toISOString(),</tspan>
+
+<tspan x="10" y="12634">             type: "githubCrudResponse",</tspan>
+
+<tspan x="10" y="12650">@@ -995,44 +989,44 @@</tspan>
+
+<tspan x="10" y="12666">             &amp;&amp; ("githubCrud - " + xhr.responseText)</tspan>
+
+<tspan x="10" y="12682">         );</tspan>
+
+<tspan x="10" y="12698">         try {</tspan>
+
+<tspan x="10" y="12714">-            option.responseJson = JSON.parse(xhr.responseText);</tspan>
+
+<tspan x="10" y="12730">+            opt.responseJson = JSON.parse(xhr.responseText);</tspan>
+
+<tspan x="10" y="12746">         } catch (ignore) {}</tspan>
+
+<tspan x="10" y="12762">         onError(</tspan>
+
+<tspan x="10" y="12778">-            !(option.method === "DELETE" &amp;&amp; xhr.statusCode === 404) &amp;&amp; error,</tspan>
+
+<tspan x="10" y="12794">-            option.responseJson</tspan>
+
+<tspan x="10" y="12810">+            !(opt.method === "DELETE" &amp;&amp; xhr.statusCode === 404) &amp;&amp; error,</tspan>
+
+<tspan x="10" y="12826">+            opt.responseJson</tspan>
+
+<tspan x="10" y="12842">         );</tspan>
+
+<tspan x="10" y="12858">     });</tspan>
+
+<tspan x="10" y="12874"> };</tspan>
+
+<tspan x="10" y="12890"> </tspan>
+
+<tspan x="10" y="12906">-local.githubCrudContentDelete = function (option, onError) {</tspan>
+
+<tspan x="10" y="12922">+local.githubCrudContentDelete = function (opt, onError) {</tspan>
+
+<tspan x="10" y="12938"> /*</tspan>
+
+<tspan x="10" y="12954">- * this function will delete github-file &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="12970">+ * this function will delete github-file &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="12986">  * https://developer.github.com/v3/repos/contents/#delete-a-file</tspan>
+
+<tspan x="10" y="13002">  */</tspan>
+
+<tspan x="10" y="13018">-    option = {</tspan>
+
+<tspan x="10" y="13034">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="13050">-        message: option.message,</tspan>
+
+<tspan x="10" y="13066">-        url: option.url</tspan>
+
+<tspan x="10" y="13082">+    opt = {</tspan>
+
+<tspan x="10" y="13098">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="13114">+        message: opt.message,</tspan>
+
+<tspan x="10" y="13130">+        url: opt.url</tspan>
+
+<tspan x="10" y="13146">     };</tspan>
+
+<tspan x="10" y="13162">-    local.onNext(option, function (error, data) {</tspan>
+
+<tspan x="10" y="13178">-        switch (option.modeNext) {</tspan>
+
+<tspan x="10" y="13194">+    local.onNext(opt, function (error, data) {</tspan>
+
+<tspan x="10" y="13210">+        switch (opt.modeNext) {</tspan>
+
+<tspan x="10" y="13226">         case 1:</tspan>
+
+<tspan x="10" y="13242">             // get sha</tspan>
+
+<tspan x="10" y="13258">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="13274">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="13290">-                url: option.url</tspan>
+
+<tspan x="10" y="13306">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="13322">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="13338">+                url: opt.url</tspan>
+
+<tspan x="10" y="13354">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="13370">             break;</tspan>
+
+<tspan x="10" y="13386">         case 2:</tspan>
+
+<tspan x="10" y="13402">             // delete file with sha</tspan>
+
+<tspan x="10" y="13418">             if (!error &amp;&amp; data.sha) {</tspan>
+
+<tspan x="10" y="13434">                 local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="13450">-                    httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="13466">-                    message: option.message,</tspan>
+
+<tspan x="10" y="13482">+                    httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="13498">+                    message: opt.message,</tspan>
+
+<tspan x="10" y="13514">                     method: "DELETE",</tspan>
+
+<tspan x="10" y="13530">                     sha: data.sha,</tspan>
+
+<tspan x="10" y="13546">-                    url: option.url</tspan>
+
+<tspan x="10" y="13562">-                }, option.onNext);</tspan>
+
+<tspan x="10" y="13578">+                    url: opt.url</tspan>
+
+<tspan x="10" y="13594">+                }, opt.onNext);</tspan>
+
+<tspan x="10" y="13610">                 return;</tspan>
+
+<tspan x="10" y="13626">             }</tspan>
+
+<tspan x="10" y="13642">             // delete tree</tspan>
+
+<tspan x="10" y="13658">@@ -1042,260 +1036,260 @@</tspan>
+
+<tspan x="10" y="13674">                 onParallel.counter += 1;</tspan>
+
+<tspan x="10" y="13690">                 // recurse</tspan>
+
+<tspan x="10" y="13706">                 local.githubCrudContentDelete({</tspan>
+
+<tspan x="10" y="13722">-                    httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="13738">-                    message: option.message,</tspan>
+
+<tspan x="10" y="13754">-                    url: option2.element.url</tspan>
+
+<tspan x="10" y="13770">+                    httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="13786">+                    message: opt.message,</tspan>
+
+<tspan x="10" y="13802">+                    url: option2.elem.url</tspan>
+
+<tspan x="10" y="13818">                 }, onParallel);</tspan>
+
+<tspan x="10" y="13834">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="13850">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="13866">             break;</tspan>
+
+<tspan x="10" y="13882">         default:</tspan>
+
+<tspan x="10" y="13898">             onError(error, data);</tspan>
+
+<tspan x="10" y="13914">         }</tspan>
+
+<tspan x="10" y="13930">     });</tspan>
+
+<tspan x="10" y="13946">-    option.modeNext = 0;</tspan>
+
+<tspan x="10" y="13962">-    option.onNext();</tspan>
+
+<tspan x="10" y="13978">+    opt.modeNext = 0;</tspan>
+
+<tspan x="10" y="13994">+    opt.onNext();</tspan>
+
+<tspan x="10" y="14010"> };</tspan>
+
+<tspan x="10" y="14026"> </tspan>
+
+<tspan x="10" y="14042">-local.githubCrudContentGet = function (option, onError) {</tspan>
+
+<tspan x="10" y="14058">+local.githubCrudContentGet = function (opt, onError) {</tspan>
+
+<tspan x="10" y="14074"> /*</tspan>
+
+<tspan x="10" y="14090">- * this function will get github-file &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="14106">+ * this function will get github-file &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="14122">  * https://developer.github.com/v3/repos/contents/#get-contents</tspan>
+
+<tspan x="10" y="14138">  */</tspan>
+
+<tspan x="10" y="14154">-    option = {</tspan>
+
+<tspan x="10" y="14170">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="14186">-        url: option.url</tspan>
+
+<tspan x="10" y="14202">+    opt = {</tspan>
+
+<tspan x="10" y="14218">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="14234">+        url: opt.url</tspan>
+
+<tspan x="10" y="14250">     };</tspan>
+
+<tspan x="10" y="14266">-    local.onNext(option, function (error, data) {</tspan>
+
+<tspan x="10" y="14282">-        switch (option.modeNext) {</tspan>
+
+<tspan x="10" y="14298">+    local.onNext(opt, function (error, data) {</tspan>
+
+<tspan x="10" y="14314">+        switch (opt.modeNext) {</tspan>
+
+<tspan x="10" y="14330">         case 1:</tspan>
+
+<tspan x="10" y="14346">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="14362">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="14378">-                url: option.url</tspan>
+
+<tspan x="10" y="14394">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="14410">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="14426">+                url: opt.url</tspan>
+
+<tspan x="10" y="14442">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="14458">             break;</tspan>
+
+<tspan x="10" y="14474">         case 2:</tspan>
+
+<tspan x="10" y="14490">-            option.onNext(null, Buffer.from(data.content || "", "base64"));</tspan>
+
+<tspan x="10" y="14506">+            opt.onNext(null, Buffer.from(data.content || "", "base64"));</tspan>
+
+<tspan x="10" y="14522">             break;</tspan>
+
+<tspan x="10" y="14538">         default:</tspan>
+
+<tspan x="10" y="14554">             onError(error, !error &amp;&amp; data);</tspan>
+
+<tspan x="10" y="14570">         }</tspan>
+
+<tspan x="10" y="14586">     });</tspan>
+
+<tspan x="10" y="14602">-    option.modeNext = 0;</tspan>
+
+<tspan x="10" y="14618">-    option.onNext();</tspan>
+
+<tspan x="10" y="14634">+    opt.modeNext = 0;</tspan>
+
+<tspan x="10" y="14650">+    opt.onNext();</tspan>
+
+<tspan x="10" y="14666"> };</tspan>
+
+<tspan x="10" y="14682"> </tspan>
+
+<tspan x="10" y="14698">-local.githubCrudContentPut = function (option, onError) {</tspan>
+
+<tspan x="10" y="14714">+local.githubCrudContentPut = function (opt, onError) {</tspan>
+
+<tspan x="10" y="14730"> /*</tspan>
+
+<tspan x="10" y="14746">- * this function will put &lt;option&gt;.content to github-file &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="14762">+ * this function will put &lt;opt&gt;.content to github-file &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="14778">  * https://developer.github.com/v3/repos/contents/#create-a-file</tspan>
+
+<tspan x="10" y="14794">  * https://developer.github.com/v3/repos/contents/#update-a-file</tspan>
+
+<tspan x="10" y="14810">  */</tspan>
+
+<tspan x="10" y="14826">-    option = {</tspan>
+
+<tspan x="10" y="14842">-        content: option.content,</tspan>
+
+<tspan x="10" y="14858">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="14874">-        message: option.message,</tspan>
+
+<tspan x="10" y="14890">+    opt = {</tspan>
+
+<tspan x="10" y="14906">+        content: opt.content,</tspan>
+
+<tspan x="10" y="14922">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="14938">+        message: opt.message,</tspan>
+
+<tspan x="10" y="14954">         modeErrorIgnore: true,</tspan>
+
+<tspan x="10" y="14970">-        url: option.url</tspan>
+
+<tspan x="10" y="14986">+        url: opt.url</tspan>
+
+<tspan x="10" y="15002">     };</tspan>
+
+<tspan x="10" y="15018">-    local.onNext(option, function (error, data) {</tspan>
+
+<tspan x="10" y="15034">-        switch (option.modeNext) {</tspan>
+
+<tspan x="10" y="15050">+    local.onNext(opt, function (error, data) {</tspan>
+
+<tspan x="10" y="15066">+        switch (opt.modeNext) {</tspan>
+
+<tspan x="10" y="15082">         case 1:</tspan>
+
+<tspan x="10" y="15098">             // get sha</tspan>
+
+<tspan x="10" y="15114">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="15130">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="15146">-                url: option.url</tspan>
+
+<tspan x="10" y="15162">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="15178">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="15194">+                url: opt.url</tspan>
+
+<tspan x="10" y="15210">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="15226">             break;</tspan>
+
+<tspan x="10" y="15242">         case 2:</tspan>
+
+<tspan x="10" y="15258">             // put file with sha</tspan>
+
+<tspan x="10" y="15274">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="15290">-                content: option.content,</tspan>
+
+<tspan x="10" y="15306">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="15322">-                message: option.message,</tspan>
+
+<tspan x="10" y="15338">+                content: opt.content,</tspan>
+
+<tspan x="10" y="15354">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="15370">+                message: opt.message,</tspan>
+
+<tspan x="10" y="15386">                 method: "PUT",</tspan>
+
+<tspan x="10" y="15402">                 sha: data.sha,</tspan>
+
+<tspan x="10" y="15418">-                url: option.url</tspan>
+
+<tspan x="10" y="15434">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="15450">+                url: opt.url</tspan>
+
+<tspan x="10" y="15466">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="15482">             break;</tspan>
+
+<tspan x="10" y="15498">         default:</tspan>
+
+<tspan x="10" y="15514">             onError(error, data);</tspan>
+
+<tspan x="10" y="15530">         }</tspan>
+
+<tspan x="10" y="15546">     });</tspan>
+
+<tspan x="10" y="15562">-    option.modeNext = 0;</tspan>
+
+<tspan x="10" y="15578">-    option.onNext();</tspan>
+
+<tspan x="10" y="15594">+    opt.modeNext = 0;</tspan>
+
+<tspan x="10" y="15610">+    opt.onNext();</tspan>
+
+<tspan x="10" y="15626"> };</tspan>
+
+<tspan x="10" y="15642"> </tspan>
+
+<tspan x="10" y="15658">-local.githubCrudContentPutFile = function (option, onError) {</tspan>
+
+<tspan x="10" y="15674">+local.githubCrudContentPutFile = function (opt, onError) {</tspan>
+
+<tspan x="10" y="15690"> /*</tspan>
+
+<tspan x="10" y="15706">- * this function will put option.file to github-file &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="15722">+ * this function will put opt.file to github-file &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="15738">  * https://developer.github.com/v3/repos/contents/#update-a-file</tspan>
+
+<tspan x="10" y="15754">  */</tspan>
+
+<tspan x="10" y="15770">-    option = {</tspan>
+
+<tspan x="10" y="15786">-        file: option.file,</tspan>
+
+<tspan x="10" y="15802">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="15818">-        message: option.message,</tspan>
+
+<tspan x="10" y="15834">-        url: option.url</tspan>
+
+<tspan x="10" y="15850">+    opt = {</tspan>
+
+<tspan x="10" y="15866">+        file: opt.file,</tspan>
+
+<tspan x="10" y="15882">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="15898">+        message: opt.message,</tspan>
+
+<tspan x="10" y="15914">+        url: opt.url</tspan>
+
+<tspan x="10" y="15930">     };</tspan>
+
+<tspan x="10" y="15946">-    local.onNext(option, function (error, data) {</tspan>
+
+<tspan x="10" y="15962">-        switch (option.modeNext) {</tspan>
+
+<tspan x="10" y="15978">+    local.onNext(opt, function (error, data) {</tspan>
+
+<tspan x="10" y="15994">+        switch (opt.modeNext) {</tspan>
+
+<tspan x="10" y="16010">         case 1:</tspan>
+
+<tspan x="10" y="16026">             // get file from url</tspan>
+
+<tspan x="10" y="16042">             if ((</tspan>
+
+<tspan x="10" y="16058">                 /^(?:http|https):\/\//</tspan>
+
+<tspan x="10" y="16074">-            ).test(option.file)) {</tspan>
+
+<tspan x="10" y="16090">+            ).test(opt.file)) {</tspan>
+
+<tspan x="10" y="16106">                 local.ajax({</tspan>
+
+<tspan x="10" y="16122">-                    httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="16138">-                    url: option.file</tspan>
+
+<tspan x="10" y="16154">+                    httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="16170">+                    url: opt.file</tspan>
+
+<tspan x="10" y="16186">                 }, function (error, response) {</tspan>
+
+<tspan x="10" y="16202">-                    option.onNext(error, response &amp;&amp; response.data);</tspan>
+
+<tspan x="10" y="16218">+                    opt.onNext(error, response &amp;&amp; response.data);</tspan>
+
+<tspan x="10" y="16234">                 });</tspan>
+
+<tspan x="10" y="16250">                 return;</tspan>
+
+<tspan x="10" y="16266">             }</tspan>
+
+<tspan x="10" y="16282">             // get file</tspan>
+
+<tspan x="10" y="16298">-            local.fs.readFile(option.file, option.onNext);</tspan>
+
+<tspan x="10" y="16314">+            local.fs.readFile(opt.file, opt.onNext);</tspan>
+
+<tspan x="10" y="16330">             break;</tspan>
+
+<tspan x="10" y="16346">         case 2:</tspan>
+
+<tspan x="10" y="16362">             local.githubCrudContentPut({</tspan>
+
+<tspan x="10" y="16378">                 content: data,</tspan>
+
+<tspan x="10" y="16394">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="16410">-                message: option.message,</tspan>
+
+<tspan x="10" y="16426">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="16442">+                message: opt.message,</tspan>
+
+<tspan x="10" y="16458">                 // resolve file in url</tspan>
+
+<tspan x="10" y="16474">                 url: (</tspan>
+
+<tspan x="10" y="16490">-                    // ternary-condition</tspan>
+
+<tspan x="10" y="16506">+                    // ternary-operator</tspan>
+
+<tspan x="10" y="16522">                     (</tspan>
+
+<tspan x="10" y="16538">                         /\/$/</tspan>
+
+<tspan x="10" y="16554">-                    ).test(option.url)</tspan>
+
+<tspan x="10" y="16570">-                    ? option.url + local.path.basename(option.file)</tspan>
+
+<tspan x="10" y="16586">-                    : option.url</tspan>
+
+<tspan x="10" y="16602">+                    ).test(opt.url)</tspan>
+
+<tspan x="10" y="16618">+                    ? opt.url + local.path.basename(opt.file)</tspan>
+
+<tspan x="10" y="16634">+                    : opt.url</tspan>
+
+<tspan x="10" y="16650">                 )</tspan>
+
+<tspan x="10" y="16666">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="16682">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="16698">             break;</tspan>
+
+<tspan x="10" y="16714">         default:</tspan>
+
+<tspan x="10" y="16730">             onError(error, data);</tspan>
+
+<tspan x="10" y="16746">         }</tspan>
+
+<tspan x="10" y="16762">     });</tspan>
+
+<tspan x="10" y="16778">-    option.modeNext = 0;</tspan>
+
+<tspan x="10" y="16794">-    option.onNext();</tspan>
+
+<tspan x="10" y="16810">+    opt.modeNext = 0;</tspan>
+
+<tspan x="10" y="16826">+    opt.onNext();</tspan>
+
+<tspan x="10" y="16842"> };</tspan>
+
+<tspan x="10" y="16858"> </tspan>
+
+<tspan x="10" y="16874">-local.githubCrudContentTouch = function (option, onError) {</tspan>
+
+<tspan x="10" y="16890">+local.githubCrudContentTouch = function (opt, onError) {</tspan>
+
+<tspan x="10" y="16906"> /*</tspan>
+
+<tspan x="10" y="16922">- * this function will touch github-file &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="16938">+ * this function will touch github-file &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="16954">  * https://developer.github.com/v3/repos/contents/#update-a-file</tspan>
+
+<tspan x="10" y="16970">  */</tspan>
+
+<tspan x="10" y="16986">-    option = {</tspan>
+
+<tspan x="10" y="17002">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="17018">-        message: option.message,</tspan>
+
+<tspan x="10" y="17034">+    opt = {</tspan>
+
+<tspan x="10" y="17050">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="17066">+        message: opt.message,</tspan>
+
+<tspan x="10" y="17082">         modeErrorIgnore: true,</tspan>
+
+<tspan x="10" y="17098">-        url: option.url</tspan>
+
+<tspan x="10" y="17114">+        url: opt.url</tspan>
+
+<tspan x="10" y="17130">     };</tspan>
+
+<tspan x="10" y="17146">-    local.onNext(option, function (error, data) {</tspan>
+
+<tspan x="10" y="17162">-        switch (option.modeNext) {</tspan>
+
+<tspan x="10" y="17178">+    local.onNext(opt, function (error, data) {</tspan>
+
+<tspan x="10" y="17194">+        switch (opt.modeNext) {</tspan>
+
+<tspan x="10" y="17210">         case 1:</tspan>
+
+<tspan x="10" y="17226">             // get sha</tspan>
+
+<tspan x="10" y="17242">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="17258">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="17274">-                url: option.url</tspan>
+
+<tspan x="10" y="17290">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="17306">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="17322">+                url: opt.url</tspan>
+
+<tspan x="10" y="17338">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="17354">             break;</tspan>
+
+<tspan x="10" y="17370">         case 2:</tspan>
+
+<tspan x="10" y="17386">             // put file with sha</tspan>
+
+<tspan x="10" y="17402">             local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="17418">                 content: Buffer.from(data.content || "", "base64"),</tspan>
+
+<tspan x="10" y="17434">-                httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="17450">-                message: option.message,</tspan>
+
+<tspan x="10" y="17466">+                httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="17482">+                message: opt.message,</tspan>
+
+<tspan x="10" y="17498">                 method: "PUT",</tspan>
+
+<tspan x="10" y="17514">                 sha: data.sha,</tspan>
+
+<tspan x="10" y="17530">-                url: option.url</tspan>
+
+<tspan x="10" y="17546">-            }, option.onNext);</tspan>
+
+<tspan x="10" y="17562">+                url: opt.url</tspan>
+
+<tspan x="10" y="17578">+            }, opt.onNext);</tspan>
+
+<tspan x="10" y="17594">             break;</tspan>
+
+<tspan x="10" y="17610">         default:</tspan>
+
+<tspan x="10" y="17626">             onError(error, data);</tspan>
+
+<tspan x="10" y="17642">         }</tspan>
+
+<tspan x="10" y="17658">     });</tspan>
+
+<tspan x="10" y="17674">-    option.modeNext = 0;</tspan>
+
+<tspan x="10" y="17690">-    option.onNext();</tspan>
+
+<tspan x="10" y="17706">+    opt.modeNext = 0;</tspan>
+
+<tspan x="10" y="17722">+    opt.onNext();</tspan>
+
+<tspan x="10" y="17738"> };</tspan>
+
+<tspan x="10" y="17754"> </tspan>
+
+<tspan x="10" y="17770">-local.githubCrudContentTouchList = function (option, onError) {</tspan>
+
+<tspan x="10" y="17786">+local.githubCrudContentTouchList = function (opt, onError) {</tspan>
+
+<tspan x="10" y="17802"> /*</tspan>
+
+<tspan x="10" y="17818">- * this function will touch github-files &lt;option&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="17834">+ * this function will touch github-files &lt;opt&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="17850">  * https://developer.github.com/v3/repos/contents/#update-a-file</tspan>
+
+<tspan x="10" y="17866">  */</tspan>
+
+<tspan x="10" y="17882">     local.onParallelList({</tspan>
+
+<tspan x="10" y="17898">-        list: option.urlList</tspan>
+
+<tspan x="10" y="17914">+        list: opt.urlList</tspan>
+
+<tspan x="10" y="17930">     }, function (option2, onParallel) {</tspan>
+
+<tspan x="10" y="17946">         onParallel.counter += 1;</tspan>
+
+<tspan x="10" y="17962">         local.githubCrudContentTouch({</tspan>
+
+<tspan x="10" y="17978">-            httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="17994">-            message: option.message,</tspan>
+
+<tspan x="10" y="18010">-            url: option2.element</tspan>
+
+<tspan x="10" y="18026">+            httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="18042">+            message: opt.message,</tspan>
+
+<tspan x="10" y="18058">+            url: option2.elem</tspan>
+
+<tspan x="10" y="18074">         }, onParallel);</tspan>
+
+<tspan x="10" y="18090">     }, onError);</tspan>
+
+<tspan x="10" y="18106"> };</tspan>
+
+<tspan x="10" y="18122"> </tspan>
+
+<tspan x="10" y="18138">-local.githubCrudRepoCreate = function (option, onError) {</tspan>
+
+<tspan x="10" y="18154">+local.githubCrudRepoCreate = function (opt, onError) {</tspan>
+
+<tspan x="10" y="18170"> /*</tspan>
+
+<tspan x="10" y="18186">- * this function will create github-repo &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="18202">+ * this function will create github-repo &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="18218">  * https://developer.github.com/v3/repos/#create</tspan>
+
+<tspan x="10" y="18234">  */</tspan>
+
+<tspan x="10" y="18250">     local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="18266">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="18282">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="18298">         method: "POST_ORG",</tspan>
+
+<tspan x="10" y="18314">-        url: option.url</tspan>
+
+<tspan x="10" y="18330">+        url: opt.url</tspan>
+
+<tspan x="10" y="18346">     }, function (error, data) {</tspan>
+
+<tspan x="10" y="18362">         if (!(error &amp;&amp; error.statusCode === 404)) {</tspan>
+
+<tspan x="10" y="18378">             onError(error, data);</tspan>
+
+<tspan x="10" y="18394">             return;</tspan>
+
+<tspan x="10" y="18410">         }</tspan>
+
+<tspan x="10" y="18426">         local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="18442">-            httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="18458">+            httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="18474">             method: "POST_USER",</tspan>
+
+<tspan x="10" y="18490">-            url: option.url</tspan>
+
+<tspan x="10" y="18506">+            url: opt.url</tspan>
+
+<tspan x="10" y="18522">         }, onError);</tspan>
+
+<tspan x="10" y="18538">     });</tspan>
+
+<tspan x="10" y="18554"> };</tspan>
+
+<tspan x="10" y="18570"> </tspan>
+
+<tspan x="10" y="18586">-local.githubCrudRepoCreateList = function (option, onError) {</tspan>
+
+<tspan x="10" y="18602">+local.githubCrudRepoCreateList = function (opt, onError) {</tspan>
+
+<tspan x="10" y="18618"> /*</tspan>
+
+<tspan x="10" y="18634">- * this function will create github-repos &lt;option&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="18650">+ * this function will create github-repos &lt;opt&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="18666">  * https://developer.github.com/v3/repos/#create</tspan>
+
+<tspan x="10" y="18682">  */</tspan>
+
+<tspan x="10" y="18698">     local.onParallelList({</tspan>
+
+<tspan x="10" y="18714">-        list: option.urlList</tspan>
+
+<tspan x="10" y="18730">+        list: opt.urlList</tspan>
+
+<tspan x="10" y="18746">     }, function (option2, onParallel) {</tspan>
+
+<tspan x="10" y="18762">         onParallel.counter += 1;</tspan>
+
+<tspan x="10" y="18778">         local.githubCrudRepoCreate({</tspan>
+
+<tspan x="10" y="18794">-            httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="18810">-            url: option2.element</tspan>
+
+<tspan x="10" y="18826">+            httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="18842">+            url: option2.elem</tspan>
+
+<tspan x="10" y="18858">         }, onParallel);</tspan>
+
+<tspan x="10" y="18874">     }, onError);</tspan>
+
+<tspan x="10" y="18890"> };</tspan>
+
+<tspan x="10" y="18906"> </tspan>
+
+<tspan x="10" y="18922">-local.githubCrudRepoDelete = function (option, onError) {</tspan>
+
+<tspan x="10" y="18938">+local.githubCrudRepoDelete = function (opt, onError) {</tspan>
+
+<tspan x="10" y="18954"> /*</tspan>
+
+<tspan x="10" y="18970">- * this function will delete github-repo &lt;option&gt;.url</tspan>
+
+<tspan x="10" y="18986">+ * this function will delete github-repo &lt;opt&gt;.url</tspan>
+
+<tspan x="10" y="19002">  * https://developer.github.com/v3/repos/#delete-a-repository</tspan>
+
+<tspan x="10" y="19018">  */</tspan>
+
+<tspan x="10" y="19034">     local.githubCrudAjax({</tspan>
+
+<tspan x="10" y="19050">-        httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="19066">+        httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="19082">         method: "DELETE",</tspan>
+
+<tspan x="10" y="19098">-        url: option.url</tspan>
+
+<tspan x="10" y="19114">+        url: opt.url</tspan>
+
+<tspan x="10" y="19130">     }, onError);</tspan>
+
+<tspan x="10" y="19146"> };</tspan>
+
+<tspan x="10" y="19162"> </tspan>
+
+<tspan x="10" y="19178">-local.githubCrudRepoDeleteList = function (option, onError) {</tspan>
+
+<tspan x="10" y="19194">+local.githubCrudRepoDeleteList = function (opt, onError) {</tspan>
+
+<tspan x="10" y="19210"> /*</tspan>
+
+<tspan x="10" y="19226">- * this function will delete github-repos &lt;option&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="19242">+ * this function will delete github-repos &lt;opt&gt;.urlList in parallel</tspan>
+
+<tspan x="10" y="19258">  * https://developer.github.com/v3/repos/#delete-a-repository</tspan>
+
+<tspan x="10" y="19274">  */</tspan>
+
+<tspan x="10" y="19290">     local.onParallelList({</tspan>
+
+<tspan x="10" y="19306">-        list: option.urlList</tspan>
+
+<tspan x="10" y="19322">+        list: opt.urlList</tspan>
+
+<tspan x="10" y="19338">     }, function (option2, onParallel) {</tspan>
+
+<tspan x="10" y="19354">         onParallel.counter += 1;</tspan>
+
+<tspan x="10" y="19370">         local.githubCrudRepoDelete({</tspan>
+
+<tspan x="10" y="19386">-            httpRequest: option.httpRequest,</tspan>
+
+<tspan x="10" y="19402">-            url: option2.element</tspan>
+
+<tspan x="10" y="19418">+            httpRequest: opt.httpRequest,</tspan>
+
+<tspan x="10" y="19434">+            url: option2.elem</tspan>
+
+<tspan x="10" y="19450">         }, onParallel);</tspan>
+
+<tspan x="10" y="19466">     }, onError);</tspan>
+
+<tspan x="10" y="19482"> };</tspan>
+
+<tspan x="10" y="19498">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/github-crud/lib.gith\</tspan>
+<tspan x="10" y="19514">ub_crud.js</tspan>
+
+<tspan x="10" y="19530">jslint - 504ms /tmp/npmTestPublished/node_modules/github-crud/lib.github_crud.js</tspan>
+
+<tspan x="10" y="19546">jslint - 4ms /tmp/npmTestPublished/node_modules/github-crud/npm_scripts.sh</tspan>
+
+<tspan x="10" y="19562">jslint - 0ms /tmp/npmTestPublished/node_modules/github-crud/package.json</tspan>
+
+<tspan x="10" y="19578">--- /tmp/npmTestPublished/node_modules/github-crud/test.js.autofix.old	2019-08-04 06:10:37.46182\</tspan>
+<tspan x="10" y="19594">9912 +0000</tspan>
+
+<tspan x="10" y="19610">+++ /tmp/npmTestPublished/node_modules/github-crud/test.js	2019-08-04 06:10:37.461829912 +0000</tspan>
+
+<tspan x="10" y="19626">@@ -46,30 +46,30 @@</tspan>
+
+<tspan x="10" y="19642">     // init function</tspan>
+
+<tspan x="10" y="19658">     local.assertThrow = function (passed, message) {</tspan>
+
+<tspan x="10" y="19674">     /*</tspan>
+
+<tspan x="10" y="19690">-     * this function will throw error &lt;message&gt; if &lt;passed&gt; is falsy</tspan>
+
+<tspan x="10" y="19706">+     * this function will throw error-&lt;message&gt; if &lt;passed&gt; is falsy</tspan>
+
+<tspan x="10" y="19722">      */</tspan>
+
+<tspan x="10" y="19738">-        var error;</tspan>
+
+<tspan x="10" y="19754">+        var err;</tspan>
+
+<tspan x="10" y="19770">         if (passed) {</tspan>
+
+<tspan x="10" y="19786">             return;</tspan>
+
+<tspan x="10" y="19802">         }</tspan>
+
+<tspan x="10" y="19818">-        error = (</tspan>
+
+<tspan x="10" y="19834">-            // ternary-condition</tspan>
+
+<tspan x="10" y="19850">+        err = (</tspan>
+
+<tspan x="10" y="19866">+            // ternary-operator</tspan>
+
+<tspan x="10" y="19882">             (</tspan>
+
+<tspan x="10" y="19898">                 message</tspan>
+
+<tspan x="10" y="19914">                 &amp;&amp; typeof message.message === "string"</tspan>
+
+<tspan x="10" y="19930">                 &amp;&amp; typeof message.stack === "string"</tspan>
+
+<tspan x="10" y="19946">             )</tspan>
+
+<tspan x="10" y="19962">-            // if message is an error-object, then leave it as is</tspan>
+
+<tspan x="10" y="19978">+            // if message is error-object, then leave as is</tspan>
+
+<tspan x="10" y="19994">             ? message</tspan>
+
+<tspan x="10" y="20010">             : new Error(</tspan>
+
+<tspan x="10" y="20026">                 typeof message === "string"</tspan>
+
+<tspan x="10" y="20042">-                // if message is a string, then leave it as is</tspan>
+
+<tspan x="10" y="20058">+                // if message is a string, then leave as is</tspan>
+
+<tspan x="10" y="20074">                 ? message</tspan>
+
+<tspan x="10" y="20090">                 // else JSON.stringify message</tspan>
+
+<tspan x="10" y="20106">                 : JSON.stringify(message, null, 4)</tspan>
+
+<tspan x="10" y="20122">             )</tspan>
+
+<tspan x="10" y="20138">         );</tspan>
+
+<tspan x="10" y="20154">-        throw error;</tspan>
+
+<tspan x="10" y="20170">+        throw err;</tspan>
+
+<tspan x="10" y="20186">     };</tspan>
+
+<tspan x="10" y="20202">     local.functionOrNop = function (fnc) {</tspan>
+
+<tspan x="10" y="20218">     /*</tspan>
+
+<tspan x="10" y="20234">@@ -97,7 +97,8 @@</tspan>
+
+<tspan x="10" y="20250">      * null, undefined, or empty-string,</tspan>
+
+<tspan x="10" y="20266">      * then overwrite them with items from &lt;source&gt;</tspan>
+
+<tspan x="10" y="20282">      */</tspan>
+
+<tspan x="10" y="20298">-        Object.keys(source).forEach(function (key) {</tspan>
+
+<tspan x="10" y="20314">+        target = target || {};</tspan>
+
+<tspan x="10" y="20330">+        Object.keys(source || {}).forEach(function (key) {</tspan>
+
+<tspan x="10" y="20346">             if (</tspan>
+
+<tspan x="10" y="20362">                 target[key] === null</tspan>
+
+<tspan x="10" y="20378">                 || target[key] === undefined</tspan>
+
+<tspan x="10" y="20394">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/github-crud/test.js</tspan>
+
+<tspan x="10" y="20410">jslint /tmp/npmTestPublished/node_modules/github-crud/test.js</tspan>
+
+<tspan x="10" y="20426">  1 Unexpected ': httpRequest'. // line 199, column 20</tspan>
+
+<tspan x="10" y="20442">    httpRequest: httpRequest,</tspan>
+
+<tspan x="10" y="20458">{</tspan>
+
+<tspan x="10" y="20474">    "name": "JSLintError",</tspan>
+
+<tspan x="10" y="20490">    "column": 20,</tspan>
+
+<tspan x="10" y="20506">    "line": 199,</tspan>
+
+<tspan x="10" y="20522">    "code": "unexpected_a",</tspan>
+
+<tspan x="10" y="20538">    "a": ": httpRequest",</tspan>
+
+<tspan x="10" y="20554">    "d": {</tspan>
+
+<tspan x="10" y="20570">        "from": 19,</tspan>
+
+<tspan x="10" y="20586">        "id": ":",</tspan>
+
+<tspan x="10" y="20602">        "identifier": false,</tspan>
+
+<tspan x="10" y="20618">        "line": 198,</tspan>
+
+<tspan x="10" y="20634">        "nr": 845,</tspan>
+
+<tspan x="10" y="20650">        "thru": 20</tspan>
+
+<tspan x="10" y="20666">    },</tspan>
+
+<tspan x="10" y="20682">    "message": "Unexpected ': httpRequest'.",</tspan>
+
+<tspan x="10" y="20698">    "source": "        httpRequest: httpRequest,",</tspan>
+
+<tspan x="10" y="20714">    "ignore": null,</tspan>
+
+<tspan x="10" y="20730">    "c": {},</tspan>
+
+<tspan x="10" y="20746">    "option": {</tspan>
+
+<tspan x="10" y="20762">        "modeNext": 12,</tspan>
+
+<tspan x="10" y="20778">        "autofix": true,</tspan>
+
+<tspan x="10" y="20794">        "conditional": true,</tspan>
+
+<tspan x="10" y="20810">        "file": "/tmp/npmTestPublished/node_modules/github-crud/test.js",</tspan>
+
+<tspan x="10" y="20826">        "errorText": "",</tspan>
+
+<tspan x="10" y="20842">        "fileType": ".js",</tspan>
+
+<tspan x="10" y="20858">        "utility2": true,</tspan>
+
+<tspan x="10" y="20874">        "edition": "2019-01-31",</tspan>
+
+<tspan x="10" y="20890">        "id": "(JSLint)",</tspan>
+
+<tspan x="10" y="20906">        "json": false,</tspan>
+
+<tspan x="10" y="20922">        "module": false,</tspan>
+
+<tspan x="10" y="20938">        "ok": false,</tspan>
+
+<tspan x="10" y="20954">        "stop": false,</tspan>
+
+<tspan x="10" y="20970">        "bitwise": true,</tspan>
+
+<tspan x="10" y="20986">        "browser": true,</tspan>
+
+<tspan x="10" y="21002">        "node": true,</tspan>
+
+<tspan x="10" y="21018">        "this": true</tspan>
+
+<tspan x="10" y="21034">    },</tspan>
+
+<tspan x="10" y="21050">    "stack": null,</tspan>
+
+<tspan x="10" y="21066">    "evidence": "        httpRequest: httpRequest,"</tspan>
+
+<tspan x="10" y="21082">}</tspan>
+
+<tspan x="10" y="21098">Error</tspan>
+
+<tspan x="10" y="21114">    at warn_at_extra (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.j\</tspan>
+<tspan x="10" y="21130">slint.js:7157:42)</tspan>
+
+<tspan x="10" y="21146">    at warn_at (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.\</tspan>
+<tspan x="10" y="21162">js:2463:5)</tspan>
+
+<tspan x="10" y="21178">    at warn (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.js:\</tspan>
+<tspan x="10" y="21194">2486:29)</tspan>
+
+<tspan x="10" y="21210">    at member (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.j\</tspan>
+<tspan x="10" y="21226">s:5025:25)</tspan>
+
+<tspan x="10" y="21242">    at /tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.js:5043:1\</tspan>
+<tspan x="10" y="21258">0</tspan>
+
+<tspan x="10" y="21274">    at Object.the_symbol.nud (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utilit\</tspan>
+<tspan x="10" y="21290">y2/lib.jslint.js:4269:20)</tspan>
+
+<tspan x="10" y="21306">    at expression (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jsli\</tspan>
+<tspan x="10" y="21322">nt.js:3795:27)</tspan>
+
+<tspan x="10" y="21338">    at next (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.js:\</tspan>
+<tspan x="10" y="21354">4441:28)</tspan>
+
+<tspan x="10" y="21370">    at /tmp/npmTestPublished/node_modules/github-crud/node_modules/utility2/lib.jslint.js:4450:1\</tspan>
+<tspan x="10" y="21386">0</tspan>
+
+<tspan x="10" y="21402">    at Object.the_symbol.led (/tmp/npmTestPublished/node_modules/github-crud/node_modules/utilit\</tspan>
+<tspan x="10" y="21418">y2/lib.jslint.js:4209:20)</tspan>
+
+<tspan x="10" y="21434">  2 Unexpected ': httpRequest'. // line 244, column 24</tspan>
+
+<tspan x="10" y="21450">    httpRequest: httpRequest,</tspan>
+
+<tspan x="10" y="21466">  3 Unexpected ': httpRequest'. // line 296, column 24</tspan>
+
+<tspan x="10" y="21482">    httpRequest: httpRequest,</tspan>
+
+<tspan x="10" y="21498">  4 Unexpected ': httpRequest'. // line 343, column 24</tspan>
+
+<tspan x="10" y="21514">    httpRequest: httpRequest,</tspan>
+
+<tspan x="10" y="21530">jslint - 333ms /tmp/npmTestPublished/node_modules/github-crud/test.js</tspan>
+
+<tspan x="10" y="21546">testRunDefault - 620 ms - [node test-case 1 of 12 passed] - testCase_buildApidoc_default</tspan>
+
+<tspan x="10" y="21562">testRunDefault - 677 ms - [node test-case 2 of 12 passed] - testCase_buildLib_default</tspan>
+
+<tspan x="10" y="21578">testRunDefault - 687 ms - [node test-case 3 of 12 passed] - testCase_buildReadme_default</tspan>
+
+<tspan x="10" y="21594">testRunDefault - 688 ms - [node test-case 4 of 12 passed] - testCase_buildTest_default</tspan>
+
+<tspan x="10" y="21610">testRunDefault - 703 ms - [node test-case 5 of 12 passed] - testCase_githubCrudContentDelete_tre\</tspan>
+<tspan x="10" y="21626">e</tspan>
+
+<tspan x="10" y="21642">testRunDefault - 727 ms - [node test-case 6 of 12 passed] - testCase_githubCrudRepoXxx_error</tspan>
+
+<tspan x="10" y="21658">testRunDefault - 728 ms - [node test-case 7 of 12 passed] - testCase_nop_default</tspan>
+
+<tspan x="10" y="21674">testRunDefault - 1091 ms - [node test-case 8 of 12 passed] - testCase_githubCrudRepoXxxList_defa\</tspan>
+<tspan x="10" y="21690">ult</tspan>
+
+<tspan x="10" y="21706">testRunDefault - 1119 ms - [node test-case 9 of 12 passed] - testCase_githubCrudContentXxx_error</tspan>
+
+<tspan x="10" y="21722">testRunDefault - 1168 ms - [node test-case 10 of 12 passed] - testCase_githubCrudContentXxx_defa\</tspan>
+<tspan x="10" y="21738">ult</tspan>
+
+<tspan x="10" y="21754">http-server listening on port 37105</tspan>
+
+<tspan x="10" y="21770">Xlib:  extension "RANDR" missing on display ":99.0".</tspan>
+
+<tspan x="10" y="21786">[6563:0804/061039.186725:ERROR:bus.cc(395)] Failed to connect to the bus: Could not parse server\</tspan>
+<tspan x="10" y="21802"> address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")</tspan>
+
+<tspan x="10" y="21818">[6563:0804/061039.195869:ERROR:bus.cc(395)] Failed to connect to the bus: Could not parse server\</tspan>
+<tspan x="10" y="21834"> address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")</tspan>
+
+<tspan x="10" y="21850">[6625:0804/061039.364329:ERROR:sandbox_linux.cc(344)] InitializeSandbox() called with multiple t\</tspan>
+<tspan x="10" y="21866">hreads in process gpu-process.</tspan>
+
+<tspan x="10" y="21882">[6563:0804/061039.610881:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="21898">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="21914">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="21930">[6563:0804/061039.612291:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="21946">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="21962">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="21978">[6563:0804/061040.337059:INFO:CONSOLE(8)] "Uncaught ReferenceError: process is not defined", sou\</tspan>
+<tspan x="10" y="21994">rce: http://127.0.0.1:47339/assets.example.js (8)</tspan>
+
+<tspan x="10" y="22010">[6563:0804/061040.348214:INFO:CONSOLE(3202)] "db - dropping database ...", source: http://127.0.\</tspan>
+<tspan x="10" y="22026">0.1:47339/assets.utility2.rollup.js (3202)</tspan>
+
+<tspan x="10" y="22042">[6563:0804/061040.365422:INFO:CONSOLE(128)] "%cElectron Security Warning (Insecure Resources)", \</tspan>
+<tspan x="10" y="22058">source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/external/resou\</tspan>
+<tspan x="10" y="22074">rces/electron.asar/renderer/security-warnings.js (128)</tspan>
+
+<tspan x="10" y="22090">[6563:0804/061040.366119:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="22106">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="22122">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="22138">[6563:0804/061040.367454:WARNING:quota_manager.cc(1629)] No storage quota provided in QuotaSetti\</tspan>
+<tspan x="10" y="22154">ngs.</tspan>
+
+<tspan x="10" y="22170">[6563:0804/061040.400072:INFO:CONSOLE(25656)] "testRunDefault - 7 ms - [browser test-case 1 of 6\</tspan>
+<tspan x="10" y="22186"> passed] - testCase_githubCrudContentDelete_tree", source: http://127.0.0.1:47339/assets.utility\</tspan>
+<tspan x="10" y="22202">2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22218">[6563:0804/061040.403277:INFO:CONSOLE(25656)] "testRunDefault - 10 ms - [browser test-case 2 of \</tspan>
+<tspan x="10" y="22234">6 passed] - testCase_githubCrudContentXxx_default", source: http://127.0.0.1:47339/assets.utilit\</tspan>
+<tspan x="10" y="22250">y2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22266">[6563:0804/061040.407436:INFO:CONSOLE(25656)] "testRunDefault - 15 ms - [browser test-case 3 of \</tspan>
+<tspan x="10" y="22282">6 passed] - testCase_githubCrudContentXxx_error", source: http://127.0.0.1:47339/assets.utility2\</tspan>
+<tspan x="10" y="22298">.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22314">[6563:0804/061040.410089:INFO:CONSOLE(25656)] "testRunDefault - 17 ms - [browser test-case 4 of \</tspan>
+<tspan x="10" y="22330">6 passed] - testCase_githubCrudRepoXxxList_default", source: http://127.0.0.1:47339/assets.utili\</tspan>
+<tspan x="10" y="22346">ty2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22362">[6563:0804/061040.414049:INFO:CONSOLE(25656)] "testRunDefault - 21 ms - [browser test-case 5 of \</tspan>
+<tspan x="10" y="22378">6 passed] - testCase_githubCrudRepoXxx_error", source: http://127.0.0.1:47339/assets.utility2.ro\</tspan>
+<tspan x="10" y="22394">llup.js (25656)</tspan>
+
+<tspan x="10" y="22410">[6563:0804/061040.416654:INFO:CONSOLE(25656)] "testRunDefault - 24 ms - [browser test-case 6 of \</tspan>
+<tspan x="10" y="22426">6 passed] - testCase_nop_default", source: http://127.0.0.1:47339/assets.utility2.rollup.js (256\</tspan>
+<tspan x="10" y="22442">56)</tspan>
+
+<tspan x="10" y="22458">[6563:0804/061040.443882:INFO:CONSOLE(8)] "Uncaught ReferenceError: process is not defined", sou\</tspan>
+<tspan x="10" y="22474">rce: http://127.0.0.1:47339/assets.example.js (8)</tspan>
+
+<tspan x="10" y="22490">[6563:0804/061040.450986:INFO:CONSOLE(3202)] "db - dropping database ...", source: http://127.0.\</tspan>
+<tspan x="10" y="22506">0.1:47339/assets.utility2.rollup.js (3202)</tspan>
+
+<tspan x="10" y="22522">[6563:0804/061040.468414:INFO:CONSOLE(128)] "%cElectron Security Warning (Insecure Resources)", \</tspan>
+<tspan x="10" y="22538">source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/external/resou\</tspan>
+<tspan x="10" y="22554">rces/electron.asar/renderer/security-warnings.js (128)</tspan>
+
+<tspan x="10" y="22570">[6563:0804/061040.468964:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="22586">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="22602">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="22618">[6563:0804/061040.496477:INFO:CONSOLE(25656)] "testRunDefault - 7 ms - [browser test-case 1 of 6\</tspan>
+<tspan x="10" y="22634"> passed] - testCase_githubCrudContentDelete_tree", source: http://127.0.0.1:47339/assets.utility\</tspan>
+<tspan x="10" y="22650">2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22666">[6563:0804/061040.498518:INFO:CONSOLE(25656)] "testRunDefault - 10 ms - [browser test-case 2 of \</tspan>
+<tspan x="10" y="22682">6 passed] - testCase_githubCrudContentXxx_default", source: http://127.0.0.1:47339/assets.utilit\</tspan>
+<tspan x="10" y="22698">y2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22714">[6563:0804/061040.500177:INFO:CONSOLE(25656)] "testRunDefault - 11 ms - [browser test-case 3 of \</tspan>
+<tspan x="10" y="22730">6 passed] - testCase_githubCrudContentXxx_error", source: http://127.0.0.1:47339/assets.utility2\</tspan>
+<tspan x="10" y="22746">.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22762">[6563:0804/061040.501718:INFO:CONSOLE(25656)] "testRunDefault - 13 ms - [browser test-case 4 of \</tspan>
+<tspan x="10" y="22778">6 passed] - testCase_githubCrudRepoXxxList_default", source: http://127.0.0.1:47339/assets.utili\</tspan>
+<tspan x="10" y="22794">ty2.rollup.js (25656)</tspan>
+
+<tspan x="10" y="22810">[6563:0804/061040.503235:INFO:CONSOLE(25656)] "testRunDefault - 14 ms - [browser test-case 5 of \</tspan>
+<tspan x="10" y="22826">6 passed] - testCase_githubCrudRepoXxx_error", source: http://127.0.0.1:47339/assets.utility2.ro\</tspan>
+<tspan x="10" y="22842">llup.js (25656)</tspan>
+
+<tspan x="10" y="22858">[6563:0804/061040.504779:INFO:CONSOLE(25656)] "testRunDefault - 16 ms - [browser test-case 6 of \</tspan>
+<tspan x="10" y="22874">6 passed] - testCase_nop_default", source: http://127.0.0.1:47339/assets.utility2.rollup.js (256\</tspan>
+<tspan x="10" y="22890">56)</tspan>
+
+<tspan x="10" y="22906">[6563:0804/061041.425439:INFO:CONSOLE(8305)] "----------|-----------|-----------|-----------|---\</tspan>
+<tspan x="10" y="22922">--------|</tspan>
+
+<tspan x="10" y="22938">File      |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="22954">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="22970">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="22986">All files |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23002">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23018">", source: http://127.0.0.1:47339/assets.utility2.rollup.js (8305)</tspan>
+
+<tspan x="10" y="23034">[6563:0804/061041.431862:INFO:CONSOLE(5960)] "created coverage file /tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="23050">ex.html", source: http://127.0.0.1:47339/assets.utility2.rollup.js (5960)</tspan>
+
+<tspan x="10" y="23066">[6563:0804/061041.514972:INFO:CONSOLE(8305)] "----------|-----------|-----------|-----------|---\</tspan>
+<tspan x="10" y="23082">--------|</tspan>
+
+<tspan x="10" y="23098">File      |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="23114">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23130">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23146">All files |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23162">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23178">", source: http://127.0.0.1:47339/assets.utility2.rollup.js (8305)</tspan>
+
+<tspan x="10" y="23194">[6563:0804/061041.520679:INFO:CONSOLE(5960)] "created coverage file /tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="23210">ex.html", source: http://127.0.0.1:47339/assets.utility2.rollup.js (5960)</tspan>
+
+<tspan x="10" y="23226">testRunDefault - 5041 ms - testCase pending - testCase_buildApp_default, testCase_webpage_defaul\</tspan>
+<tspan x="10" y="23242">t ...</tspan>
+
+<tspan x="10" y="23258">testRunDefault - 6439 ms - [node test-case 11 of 12 passed] - testCase_buildApp_default</tspan>
+
+<tspan x="10" y="23274">[6563:0804/061045.446632:INFO:CONSOLE(135)] "null", source: fs.js (135)</tspan>
+
+<tspan x="10" y="23290">[6563:0804/061046.002597:INFO:CONSOLE(135)] "Error: ENOENT: no such file or directory, rename '/\</tspan>
+<tspan x="10" y="23306">tmp/npmTestPublished/node_modules/github-crud/tmp/electron.16c5b4052930.2b48b027b02c3.html' -&gt; '\</tspan>
+<tspan x="10" y="23322">/tmp/npmTestPublished/node_modules/github-crud/tmp/electron.html'", source: fs.js (135)</tspan>
+
+<tspan x="10" y="23338"></tspan>
+
+<tspan x="10" y="23354">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="23370">reenshot.npmTestPublished.browser.%2F.png</tspan>
+
+<tspan x="10" y="23386"></tspan>
+
+<tspan x="10" y="23402">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="23418">reenshot.npmTestPublished.browser.%2F.html</tspan>
+
+<tspan x="10" y="23434"></tspan>
+
+<tspan x="10" y="23450">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="23466">reenshot.npmTestPublished.browser.%2F.png</tspan>
+
+<tspan x="10" y="23482"></tspan>
+
+<tspan x="10" y="23498">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="23514">reenshot.npmTestPublished.browser.%2F.html</tspan>
+
+<tspan x="10" y="23530">testRunDefault - 9108 ms - [node test-case 12 of 12 passed] - testCase_webpage_default</tspan>
+
+<tspan x="10" y="23546">testRunDefault - 10050 ms - testCase pending -  ...</tspan>
+
+<tspan x="10" y="23562">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23578">File                     |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="23594">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23610">   github-crud/          |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23626">      example.js         |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23642">      lib.github_crud.js |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23658">      test.js            |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23674">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23690">All files                |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="23706">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="23722"></tspan>
+
+<tspan x="10" y="23738">created coverage file /tmp/npmTestPublished/node_modules/github-crud/tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="23754">ex.html</tspan>
+
+<tspan x="10" y="23770"></tspan>
+
+<tspan x="10" y="23786">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="23802">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="23818">.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Electron/2.0.18 Safari/537.36 - 2019-08-04T06:10:39\</tspan>
+<tspan x="10" y="23834">.902Z</tspan>
+
+<tspan x="10" y="23850">|    1006 ms            0 failed        6 passed      |</tspan>
+
+<tspan x="10" y="23866">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="23882">| test-report - npmTestPublished - node - linux v12.7.0 - 2019-08-04T06:10:36.394Z</tspan>
+
+<tspan x="10" y="23898">|    9109 ms            0 failed       12 passed      |</tspan>
+
+<tspan x="10" y="23914">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="23930"></tspan>
+
+<tspan x="10" y="23946">created test-report file /tmp/npmTestPublished/node_modules/github-crud/tmp/build/test-report.ht\</tspan>
+<tspan x="10" y="23962">ml</tspan>
+
+<tspan x="10" y="23978"></tspan>
+
+<tspan x="10" y="23994"></tspan>
+
+<tspan x="10" y="24010">npmTestPublished - 0 failed tests</tspan>
+
+<tspan x="10" y="24026"></tspan>
+
+<tspan x="10" y="24042"></tspan>
+
+<tspan x="10" y="24058">[MODE_BUILD=npmTestPublished] - 2019-08-04T06:10:47.458Z - EXIT_CODE - 0</tspan>
+
+</text>
+</svg>

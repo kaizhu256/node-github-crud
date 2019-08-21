@@ -1,0 +1,286 @@
+<svg height="2798" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="2798" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26"></tspan>
+
+<tspan x="10" y="42">[MODE_BUILD=npmTestPublished] - 2019-01-21T13:52:46.556Z - npm-testing /tmp/npmTestPublished/nod\</tspan>
+<tspan x="10" y="58">e_modules/github-crud</tspan>
+
+<tspan x="10" y="74"></tspan>
+
+<tspan x="10" y="90"></tspan>
+
+<tspan x="10" y="106">covering $ /home/travis/.nvm/versions/node/v11.7.0/bin/node /tmp/npmTestPublished/node_modules/g\</tspan>
+<tspan x="10" y="122">ithub-crud/test.js</tspan>
+
+<tspan x="10" y="138">&gt; jslint - 12ms /tmp/npmTestPublished/node_modules/github-crud/npm_scripts.sh</tspan>
+
+<tspan x="10" y="154">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/github-crud/package.\</tspan>
+<tspan x="10" y="170">json</tspan>
+
+<tspan x="10" y="186">jslint - 12ms /tmp/npmTestPublished/node_modules/github-crud/package.json</tspan>
+
+<tspan x="10" y="202">jslint - 43ms /tmp/npmTestPublished/node_modules/github-crud/README.md</tspan>
+
+<tspan x="10" y="218">server listening on http-port 43015</tspan>
+
+<tspan x="10" y="234">db - dropping database ...</tspan>
+
+<tspan x="10" y="250">jslint - 118ms /tmp/npmTestPublished/node_modules/github-crud/test.js</tspan>
+
+<tspan x="10" y="266">testRunDefault - 221 ms - [node test-case 1 of 12 passed] - testCase_buildApidoc_default</tspan>
+
+<tspan x="10" y="282">testRunDefault - 262 ms - [node test-case 2 of 12 passed] - testCase_buildLib_default</tspan>
+
+<tspan x="10" y="298">testRunDefault - 279 ms - [node test-case 3 of 12 passed] - testCase_buildReadme_default</tspan>
+
+<tspan x="10" y="314">testRunDefault - 284 ms - [node test-case 4 of 12 passed] - testCase_buildTest_default</tspan>
+
+<tspan x="10" y="330">testRunDefault - 300 ms - [node test-case 5 of 12 passed] - testCase_githubCrudContentDelete_tre\</tspan>
+<tspan x="10" y="346">e</tspan>
+
+<tspan x="10" y="362">testRunDefault - 326 ms - [node test-case 6 of 12 passed] - testCase_githubCrudRepoXxx_error</tspan>
+
+<tspan x="10" y="378">testRunDefault - 330 ms - [node test-case 7 of 12 passed] - testCase_nop_default</tspan>
+
+<tspan x="10" y="394">testRunDefault - 509 ms - [node test-case 8 of 12 passed] - testCase_githubCrudRepoXxxList_defau\</tspan>
+<tspan x="10" y="410">lt</tspan>
+
+<tspan x="10" y="426">jslint - 503ms /tmp/npmTestPublished/node_modules/github-crud/lib.github_crud.js</tspan>
+
+<tspan x="10" y="442">testRunDefault - 579 ms - [node test-case 9 of 12 passed] - testCase_githubCrudContentXxx_error</tspan>
+
+<tspan x="10" y="458">testRunDefault - 605 ms - [node test-case 10 of 12 passed] - testCase_githubCrudContentXxx_defau\</tspan>
+<tspan x="10" y="474">lt</tspan>
+
+<tspan x="10" y="490">server listening on http-port 54428</tspan>
+
+<tspan x="10" y="506">Xlib:  extension "RANDR" missing on display ":99.0".</tspan>
+
+<tspan x="10" y="522">[5507:0121/135249.022354:ERROR:bus.cc(395)] Failed to connect to the bus: Could not parse server\</tspan>
+<tspan x="10" y="538"> address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")</tspan>
+
+<tspan x="10" y="554">[5507:0121/135249.035599:ERROR:bus.cc(395)] Failed to connect to the bus: Could not parse server\</tspan>
+<tspan x="10" y="570"> address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")</tspan>
+
+<tspan x="10" y="586">[5574:0121/135249.190498:ERROR:sandbox_linux.cc(344)] InitializeSandbox() called with multiple t\</tspan>
+<tspan x="10" y="602">hreads in process gpu-process.</tspan>
+
+<tspan x="10" y="618">[5507:0121/135249.407952:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="634">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="650">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="666">[5507:0121/135249.441026:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="682">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="698">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="714">[5507:0121/135250.098341:INFO:CONSOLE(8)] "Uncaught ReferenceError: process is not defined", sou\</tspan>
+<tspan x="10" y="730">rce: http://127.0.0.1:43015/assets.example.js (8)</tspan>
+
+<tspan x="10" y="746">[5507:0121/135250.107685:INFO:CONSOLE(3217)] "db - dropping database ...", source: http://127.0.\</tspan>
+<tspan x="10" y="762">0.1:43015/assets.utility2.rollup.js (3217)</tspan>
+
+<tspan x="10" y="778">[5507:0121/135250.126677:INFO:CONSOLE(128)] "%cElectron Security Warning (Insecure Resources)", \</tspan>
+<tspan x="10" y="794">source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/external/resou\</tspan>
+<tspan x="10" y="810">rces/electron.asar/renderer/security-warnings.js (128)</tspan>
+
+<tspan x="10" y="826">[5507:0121/135250.128029:WARNING:quota_manager.cc(1629)] No storage quota provided in QuotaSetti\</tspan>
+<tspan x="10" y="842">ngs.</tspan>
+
+<tspan x="10" y="858">[5507:0121/135250.129958:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="874">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="890">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="906">[5507:0121/135250.162066:INFO:CONSOLE(8)] "Uncaught ReferenceError: process is not defined", sou\</tspan>
+<tspan x="10" y="922">rce: http://127.0.0.1:43015/assets.example.js (8)</tspan>
+
+<tspan x="10" y="938">[5507:0121/135250.162160:INFO:CONSOLE(26836)] "testRunDefault - 9 ms - [browser test-case 1 of 6\</tspan>
+<tspan x="10" y="954"> passed] - testCase_githubCrudContentDelete_tree", source: http://127.0.0.1:43015/assets.utility\</tspan>
+<tspan x="10" y="970">2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="986">[5507:0121/135250.164128:INFO:CONSOLE(26836)] "testRunDefault - 10 ms - [browser test-case 2 of \</tspan>
+<tspan x="10" y="1002">6 passed] - testCase_githubCrudContentXxx_default", source: http://127.0.0.1:43015/assets.utilit\</tspan>
+<tspan x="10" y="1018">y2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1034">[5507:0121/135250.168788:INFO:CONSOLE(26836)] "testRunDefault - 16 ms - [browser test-case 3 of \</tspan>
+<tspan x="10" y="1050">6 passed] - testCase_githubCrudContentXxx_error", source: http://127.0.0.1:43015/assets.utility2\</tspan>
+<tspan x="10" y="1066">.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1082">[5507:0121/135250.171254:INFO:CONSOLE(26836)] "testRunDefault - 18 ms - [browser test-case 4 of \</tspan>
+<tspan x="10" y="1098">6 passed] - testCase_githubCrudRepoXxxList_default", source: http://127.0.0.1:43015/assets.utili\</tspan>
+<tspan x="10" y="1114">ty2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1130">[5507:0121/135250.173232:INFO:CONSOLE(26836)] "testRunDefault - 19 ms - [browser test-case 5 of \</tspan>
+<tspan x="10" y="1146">6 passed] - testCase_githubCrudRepoXxx_error", source: http://127.0.0.1:43015/assets.utility2.ro\</tspan>
+<tspan x="10" y="1162">llup.js (26836)</tspan>
+
+<tspan x="10" y="1178">[5507:0121/135250.174653:INFO:CONSOLE(26836)] "testRunDefault - 21 ms - [browser test-case 6 of \</tspan>
+<tspan x="10" y="1194">6 passed] - testCase_nop_default", source: http://127.0.0.1:43015/assets.utility2.rollup.js (268\</tspan>
+<tspan x="10" y="1210">36)</tspan>
+
+<tspan x="10" y="1226">[5507:0121/135250.186165:INFO:CONSOLE(3217)] "db - dropping database ...", source: http://127.0.\</tspan>
+<tspan x="10" y="1242">0.1:43015/assets.utility2.rollup.js (3217)</tspan>
+
+<tspan x="10" y="1258">[5507:0121/135250.203897:INFO:CONSOLE(128)] "%cElectron Security Warning (Insecure Resources)", \</tspan>
+<tspan x="10" y="1274">source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/external/resou\</tspan>
+<tspan x="10" y="1290">rces/electron.asar/renderer/security-warnings.js (128)</tspan>
+
+<tspan x="10" y="1306">[5507:0121/135250.205753:INFO:CONSOLE(188)] "%cElectron Security Warning (Insecure Content-Secur\</tspan>
+<tspan x="10" y="1322">ity-Policy)", source: /tmp/npmTestPublished/node_modules/github-crud/node_modules/electron-lite/\</tspan>
+<tspan x="10" y="1338">external/resources/electron.asar/renderer/security-warnings.js (188)</tspan>
+
+<tspan x="10" y="1354">[5507:0121/135250.223850:INFO:CONSOLE(26836)] "testRunDefault - 6 ms - [browser test-case 1 of 6\</tspan>
+<tspan x="10" y="1370"> passed] - testCase_githubCrudContentDelete_tree", source: http://127.0.0.1:43015/assets.utility\</tspan>
+<tspan x="10" y="1386">2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1402">[5507:0121/135250.226530:INFO:CONSOLE(26836)] "testRunDefault - 9 ms - [browser test-case 2 of 6\</tspan>
+<tspan x="10" y="1418"> passed] - testCase_githubCrudContentXxx_default", source: http://127.0.0.1:43015/assets.utility\</tspan>
+<tspan x="10" y="1434">2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1450">[5507:0121/135250.228807:INFO:CONSOLE(26836)] "testRunDefault - 10 ms - [browser test-case 3 of \</tspan>
+<tspan x="10" y="1466">6 passed] - testCase_githubCrudContentXxx_error", source: http://127.0.0.1:43015/assets.utility2\</tspan>
+<tspan x="10" y="1482">.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1498">[5507:0121/135250.230313:INFO:CONSOLE(26836)] "testRunDefault - 13 ms - [browser test-case 4 of \</tspan>
+<tspan x="10" y="1514">6 passed] - testCase_githubCrudRepoXxxList_default", source: http://127.0.0.1:43015/assets.utili\</tspan>
+<tspan x="10" y="1530">ty2.rollup.js (26836)</tspan>
+
+<tspan x="10" y="1546">[5507:0121/135250.231983:INFO:CONSOLE(26836)] "testRunDefault - 14 ms - [browser test-case 5 of \</tspan>
+<tspan x="10" y="1562">6 passed] - testCase_githubCrudRepoXxx_error", source: http://127.0.0.1:43015/assets.utility2.ro\</tspan>
+<tspan x="10" y="1578">llup.js (26836)</tspan>
+
+<tspan x="10" y="1594">[5507:0121/135250.233888:INFO:CONSOLE(26836)] "testRunDefault - 16 ms - [browser test-case 6 of \</tspan>
+<tspan x="10" y="1610">6 passed] - testCase_nop_default", source: http://127.0.0.1:43015/assets.utility2.rollup.js (268\</tspan>
+<tspan x="10" y="1626">36)</tspan>
+
+<tspan x="10" y="1642">[5507:0121/135251.181360:INFO:CONSOLE(8357)] "----------|-----------|-----------|-----------|---\</tspan>
+<tspan x="10" y="1658">--------|</tspan>
+
+<tspan x="10" y="1674">File      |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="1690">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1706">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1722">All files |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="1738">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1754">", source: http://127.0.0.1:43015/assets.utility2.rollup.js (8357)</tspan>
+
+<tspan x="10" y="1770">[5507:0121/135251.186064:INFO:CONSOLE(5982)] "created coverage file /tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="1786">ex.html", source: http://127.0.0.1:43015/assets.utility2.rollup.js (5982)</tspan>
+
+<tspan x="10" y="1802">[5507:0121/135251.242682:INFO:CONSOLE(8357)] "----------|-----------|-----------|-----------|---\</tspan>
+<tspan x="10" y="1818">--------|</tspan>
+
+<tspan x="10" y="1834">File      |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="1850">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1866">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1882">All files |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="1898">----------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="1914">", source: http://127.0.0.1:43015/assets.utility2.rollup.js (8357)</tspan>
+
+<tspan x="10" y="1930">[5507:0121/135251.246666:INFO:CONSOLE(5982)] "created coverage file /tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="1946">ex.html", source: http://127.0.0.1:43015/assets.utility2.rollup.js (5982)</tspan>
+
+<tspan x="10" y="1962">testRunDefault - 5026 ms - testCase pending - testCase_buildApp_default, testCase_webpage_defaul\</tspan>
+<tspan x="10" y="1978">t ...</tspan>
+
+<tspan x="10" y="1994">testRunDefault - 5910 ms - [node test-case 11 of 12 passed] - testCase_buildApp_default</tspan>
+
+<tspan x="10" y="2010">[5507:0121/135255.129295:INFO:CONSOLE(135)] "null", source: fs.js (135)</tspan>
+
+<tspan x="10" y="2026">[5507:0121/135255.299404:INFO:CONSOLE(135)] "Error: ENOENT: no such file or directory, rename '/\</tspan>
+<tspan x="10" y="2042">tmp/npmTestPublished/node_modules/github-crud/tmp/electron.16870af5ea60.98ffabe792e6f.html' -&gt; '\</tspan>
+<tspan x="10" y="2058">/tmp/npmTestPublished/node_modules/github-crud/tmp/electron.html'", source: fs.js (135)</tspan>
+
+<tspan x="10" y="2074"></tspan>
+
+<tspan x="10" y="2090">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="2106">reenshot.npmTestPublished.browser.%2F.png</tspan>
+
+<tspan x="10" y="2122"></tspan>
+
+<tspan x="10" y="2138">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="2154">reenshot.npmTestPublished.browser.%2F.html</tspan>
+
+<tspan x="10" y="2170"></tspan>
+
+<tspan x="10" y="2186">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="2202">reenshot.npmTestPublished.browser.%2F.png</tspan>
+
+<tspan x="10" y="2218"></tspan>
+
+<tspan x="10" y="2234">browserTest - created screenshot file /home/travis/build/kaizhu256/node-github-crud/tmp/build/sc\</tspan>
+<tspan x="10" y="2250">reenshot.npmTestPublished.browser.%2F.html</tspan>
+
+<tspan x="10" y="2266">testRunDefault - 7932 ms - [node test-case 12 of 12 passed] - testCase_webpage_default</tspan>
+
+<tspan x="10" y="2282">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="2298">File                     |   % Stmts |% Branches |   % Funcs |   % Lines |</tspan>
+
+<tspan x="10" y="2314">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="2330">   github-crud/          |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="2346">      example.js         |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="2362">      lib.github_crud.js |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="2378">      test.js            |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="2394">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="2410">All files                |       100 |       100 |       100 |       100 |</tspan>
+
+<tspan x="10" y="2426">-------------------------|-----------|-----------|-----------|-----------|</tspan>
+
+<tspan x="10" y="2442"></tspan>
+
+<tspan x="10" y="2458">created coverage file /tmp/npmTestPublished/node_modules/github-crud/tmp/build/coverage.html/ind\</tspan>
+<tspan x="10" y="2474">ex.html</tspan>
+
+<tspan x="10" y="2490"></tspan>
+
+<tspan x="10" y="2506">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="2522">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="2538">.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Electron/2.0.16 Safari/537.36 - 2019-01-21T13:52:49\</tspan>
+<tspan x="10" y="2554">.687Z</tspan>
+
+<tspan x="10" y="2570">|    1008 ms            0 failed        6 passed      |</tspan>
+
+<tspan x="10" y="2586">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="2602">| test-report - npmTestPublished - node - linux v11.7.0 - 2019-01-21T13:52:46.809Z</tspan>
+
+<tspan x="10" y="2618">|    7933 ms            0 failed       12 passed      |</tspan>
+
+<tspan x="10" y="2634">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="2650"></tspan>
+
+<tspan x="10" y="2666">created test-report file /tmp/npmTestPublished/node_modules/github-crud/tmp/build/test-report.ht\</tspan>
+<tspan x="10" y="2682">ml</tspan>
+
+<tspan x="10" y="2698"></tspan>
+
+<tspan x="10" y="2714"></tspan>
+
+<tspan x="10" y="2730">npmTestPublished - 0 failed tests</tspan>
+
+<tspan x="10" y="2746"></tspan>
+
+<tspan x="10" y="2762"></tspan>
+
+<tspan x="10" y="2778">[MODE_BUILD=npmTestPublished] - 2019-01-21T13:52:57.205Z - EXIT_CODE - 0</tspan>
+
+</text>
+</svg>
