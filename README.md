@@ -149,17 +149,17 @@ process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || "xxxxxxxx";
 
 
 
+var gotoNext;
+var gotoState;
 var local;
-var modeNext;
-var onNext;
-modeNext = 0;
+gotoState = 0;
 /* istanbul ignore next */
-onNext = function (err, data) {
+gotoNext = function (err, data) {
     if (err) {
         console.error(err);
     }
-    modeNext += 1;
-    switch (modeNext) {
+    gotoState += 1;
+    switch (gotoState) {
     // init
     case 1:
         if (
@@ -176,7 +176,7 @@ onNext = function (err, data) {
         ) {
             return;
         }
-        onNext();
+        gotoNext();
         break;
     // test github-crud put
     case 2:
@@ -186,7 +186,7 @@ onNext = function (err, data) {
             message: "commit message 1",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud get
     case 3:
@@ -194,7 +194,7 @@ onNext = function (err, data) {
         local.githubCrudContentGet({
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud touch
     case 4:
@@ -204,7 +204,7 @@ onNext = function (err, data) {
             message: "commit message 2",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud delete
     case 5:
@@ -213,11 +213,11 @@ onNext = function (err, data) {
             message: "commit message 3",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     }
 };
-onNext();
+gotoNext();
 }());
 ```
 
@@ -272,14 +272,14 @@ onNext();
         "url": "https://github.com/kaizhu256/node-github-crud.git"
     },
     "scripts": {
-        "build-ci": "sh ./npm_scripts.sh",
+        "build-ci": "./npm_scripts.sh",
         "env": "env",
-        "eval": "sh ./npm_scripts.sh",
-        "heroku-postbuild": "sh ./npm_scripts.sh",
-        "postinstall": "sh ./npm_scripts.sh",
-        "start": "sh ./npm_scripts.sh",
-        "test": "sh ./npm_scripts.sh",
-        "utility2": "sh ./npm_scripts.sh"
+        "eval": "./npm_scripts.sh",
+        "heroku-postbuild": "./npm_scripts.sh",
+        "postinstall": "./npm_scripts.sh",
+        "start": "./npm_scripts.sh",
+        "test": "./npm_scripts.sh",
+        "utility2": "./npm_scripts.sh"
     },
     "version": "2019.1.21"
 }

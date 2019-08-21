@@ -245,7 +245,9 @@ local.testCase_githubCrudContentXxx_default = function (options, onError) {
             file: "https://github.com/:owner/:repo/blob/:branch/:path",
             httpReq,
             url: "https://github.com/:owner/:repo/blob/:branch/:path",
-            urlList: ["https://github.com/:owner/:repo/blob/:branch/:path"]
+            urlList: [
+                "https://github.com/:owner/:repo/blob/:branch/:path"
+            ]
         }, function (err) {
             // validate no err occurred
             local.assertThrow(!err, err);
@@ -297,7 +299,9 @@ local.testCase_githubCrudContentXxx_err = function (options, onError) {
             file: "package.json",
             httpReq,
             url: "https://github.com/:owner/:repo/blob/:branch/:path/",
-            urlList: ["error"]
+            urlList: [
+                "error"
+            ]
         }, function (err) {
             // validate err occurred
             local.assertThrow(err, opt2);
@@ -343,7 +347,9 @@ local.testCase_githubCrudRepoXxxList_default = function (options, onError) {
         };
         local[opt2.elem]({
             httpReq,
-            urlList: ["aa/bb"]
+            urlList: [
+                "aa/bb"
+            ]
         }, function (err) {
             // validate no err occurred
             local.assertThrow(!err, err);
@@ -368,7 +374,9 @@ local.testCase_githubCrudRepoXxx_err = function (options, onError) {
     }, function (opt2, onParallel) {
         onParallel.counter += 1;
         local[opt2.elem]({
-            urlList: ["undefined"]
+            urlList: [
+                "undefined"
+            ]
         }, function (err) {
             // validate err occurred
             local.assertThrow(err, err);
@@ -377,7 +385,4 @@ local.testCase_githubCrudRepoXxx_err = function (options, onError) {
     }, onError);
 };
 }());
-
-
-
 }());
