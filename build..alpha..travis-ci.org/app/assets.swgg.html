@@ -456,21 +456,21 @@ pre {
 /* validateLineSortedReset */
 /* @media */
 @media screen and (max-width: 640px) {
-    .swggUiContainer .operation {
-        font-size: small;
-    }
-    .swggUiContainer .resource > .thead > .td {
-        flex: 1;
-    }
-    .swggUiContainer > .thead {
-        display: block;
-        padding: 0;
-    }
-    .swggUiContainer > .thead > .td {
-        display: block;
-        margin: 0;
-        width: 100%;
-    }
+.swggUiContainer .operation {
+    font-size: small;
+}
+.swggUiContainer .resource > .thead > .td {
+    flex: 1;
+}
+.swggUiContainer > .thead {
+    display: block;
+    padding: 0;
+}
+.swggUiContainer > .thead > .td {
+    display: block;
+    margin: 0;
+    width: 100%;
+}
 }
 /* validateLineSortedReset */
 /* hover */
@@ -778,55 +778,57 @@ pre {
      */
         return value;
     };
-    window.domOnEventMediaHotkeys = function (event) {
+    window.domOnEventMediaHotkeys = function (evt) {
         var media;
-        if (event === "init") {
+        if (evt === "init") {
             Array.from(document.querySelectorAll(
                 ".domOnEventMediaHotkeysInit"
             )).forEach(function (media) {
                 media.classList.remove("domOnEventMediaHotkeysInit");
                 media.classList.add("domOnEventMediaHotkeys");
-                ["play", "pause", "seeking"].forEach(function (event) {
-                    media.addEventListener(event, onEvent);
+                [
+                    "play", "pause", "seeking"
+                ].forEach(function (evt) {
+                    media.addEventListener(evt, onEvent);
                 });
             });
             return;
         }
-        if (event.currentTarget.classList.contains("domOnEventMediaHotkeys")) {
-            currentTarget = event.currentTarget;
+        if (evt.currentTarget.classList.contains("domOnEventMediaHotkeys")) {
+            currentTarget = evt.currentTarget;
             input.focus();
             return;
         }
         media = currentTarget;
         try {
-            switch (event.key || event.type) {
+            switch (evt.key || evt.type) {
             case ",":
             case ".":
                 media.currentTime += (
-                    event.key === "," && identity(-0.03125)
+                    evt.key === "," && identity(-0.03125)
                 ) || 0.03125;
                 break;
             case "<":
             case ">":
                 media.playbackRate *= (
-                    event.key === "<" && identity(0.5)
+                    evt.key === "<" && identity(0.5)
                 ) || 2;
                 break;
             case "ArrowDown":
             case "ArrowUp":
                 media.volume += (
-                    event.key === "ArrowDown" && identity(-0.05)
+                    evt.key === "ArrowDown" && identity(-0.05)
                 ) || 0.05;
                 break;
             case "ArrowLeft":
             case "ArrowRight":
                 media.currentTime += (
-                    event.key === "ArrowLeft" && identity(-5)
+                    evt.key === "ArrowLeft" && identity(-5)
                 ) || 5;
                 break;
             case "j":
             case "l":
-                media.currentTime += (event.key === "j" && identity(-10)) || 10;
+                media.currentTime += (evt.key === "j" && identity(-10)) || 10;
                 break;
             case "k":
             case " ":
@@ -840,14 +842,14 @@ pre {
                 media.muted = !media.muted;
                 break;
             default:
-                if (event.key >= 0) {
-                    media.currentTime = 0.1 * event.key * media.duration;
+                if (evt.key >= 0) {
+                    media.currentTime = 0.1 * evt.key * media.duration;
                     break;
                 }
                 return;
             }
         } catch (ignore) {}
-        event.preventDefault();
+        evt.preventDefault();
     };
     onEvent = window.domOnEventMediaHotkeys;
     input = document.createElement("button");

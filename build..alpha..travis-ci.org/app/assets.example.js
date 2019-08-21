@@ -149,17 +149,17 @@ process.env.GITHUB_TOKEN = process.env.GITHUB_TOKEN || "xxxxxxxx";
 
 
 
+var gotoNext;
+var gotoState;
 var local;
-var modeNext;
-var onNext;
-modeNext = 0;
+gotoState = 0;
 /* istanbul ignore next */
-onNext = function (err, data) {
+gotoNext = function (err, data) {
     if (err) {
         console.error(err);
     }
-    modeNext += 1;
-    switch (modeNext) {
+    gotoState += 1;
+    switch (gotoState) {
     // init
     case 1:
         if (
@@ -176,7 +176,7 @@ onNext = function (err, data) {
         ) {
             return;
         }
-        onNext();
+        gotoNext();
         break;
     // test github-crud put
     case 2:
@@ -186,7 +186,7 @@ onNext = function (err, data) {
             message: "commit message 1",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud get
     case 3:
@@ -194,7 +194,7 @@ onNext = function (err, data) {
         local.githubCrudContentGet({
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud touch
     case 4:
@@ -204,7 +204,7 @@ onNext = function (err, data) {
             message: "commit message 2",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     // test github-crud delete
     case 5:
@@ -213,9 +213,9 @@ onNext = function (err, data) {
             message: "commit message 3",
             url: "https://github.com/" + process.env.GITHUB_REPO + "/blob/"
             + process.env.BRANCH + "/foo/bar/hello.txt"
-        }, onNext);
+        }, gotoNext);
         break;
     }
 };
-onNext();
+gotoNext();
 }());
