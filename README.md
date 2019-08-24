@@ -53,10 +53,10 @@ this zero-dependency package will provide a simple cli-tool to PUT / GET / DELET
 - add web-demo
 - none
 
-#### changelog 2019.1.21
-- npm publish 2019.1.21
-- add functions githubRepoCreateList, githubRepoDeleteList
-- rename functions githubBranchCreate -> githubRepoCreate, githubBranchDelete -> githubRepoDelete
+#### changelog 2019.8.24
+- npm publish 2019.8.24
+- jslint - remove ternary-operator/newline comment preceding bra
+- update build
 - none
 
 #### this package requires
@@ -281,7 +281,7 @@ gotoNext();
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.1.21"
+    "version": "2019.8.24"
 }
 ```
 
