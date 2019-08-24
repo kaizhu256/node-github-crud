@@ -1,0 +1,115 @@
+<svg height="1038" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="1038" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26"></tspan>
+
+<tspan x="10" y="42">&gt; github-crud@2019.1.21 postinstall /tmp/app/node_modules/github-crud</tspan>
+
+<tspan x="10" y="58">&gt; ./npm_scripts.sh</tspan>
+
+<tspan x="10" y="74"></tspan>
+
+<tspan x="10" y="90">running command 'npm run postinstall kaizhu256/node-github-crud#alpha' ...</tspan>
+
+<tspan x="10" y="106">... finished running command 'npm run postinstall kaizhu256/node-github-crud#alpha'</tspan>
+
+<tspan x="10" y="122">npm WARN saveError ENOENT: no such file or directory, open '/tmp/app/package.json'</tspan>
+
+<tspan x="10" y="138">npm notice created a lockfile as package-lock.json. You should commit this file.</tspan>
+
+<tspan x="10" y="154">npm WARN enoent ENOENT: no such file or directory, open '/tmp/app/package.json'</tspan>
+
+<tspan x="10" y="170">npm WARN app No description</tspan>
+
+<tspan x="10" y="186">npm WARN app No repository field.</tspan>
+
+<tspan x="10" y="202">npm WARN app No README data</tspan>
+
+<tspan x="10" y="218">npm WARN app No license field.</tspan>
+
+<tspan x="10" y="234"></tspan>
+
+<tspan x="10" y="250">+ github-crud@2019.1.21</tspan>
+
+<tspan x="10" y="266">added 1 package from 1 contributor and audited 1 package in 0.742s</tspan>
+
+<tspan x="10" y="282">found 0 vulnerabilities</tspan>
+
+<tspan x="10" y="298"></tspan>
+
+<tspan x="10" y="314"></tspan>
+
+<tspan x="10" y="330"></tspan>
+
+<tspan x="10" y="346"></tspan>
+
+<tspan x="10" y="362">github-crud put /foo/bar/hello.txt</tspan>
+
+<tspan x="10" y="378"></tspan>
+
+<tspan x="10" y="394">serverLog - {"time":"2019-08-24T01:23:29.371Z","type":"githubCrudResponse","method":"GET","url":\</tspan>
+<tspan x="10" y="410">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?ref=gh-pages\</tspan>
+<tspan x="10" y="426">","statusCode":404,"timeElapsed":160}</tspan>
+
+<tspan x="10" y="442">serverLog - {"time":"2019-08-24T01:23:29.536Z","type":"githubCrudResponse","method":"PUT","url":\</tspan>
+<tspan x="10" y="458">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?branch=gh-pa\</tspan>
+<tspan x="10" y="474">ges&amp;message=commit%20message%201","statusCode":201,"timeElapsed":892}</tspan>
+
+<tspan x="10" y="490"></tspan>
+
+<tspan x="10" y="506"></tspan>
+
+<tspan x="10" y="522"></tspan>
+
+<tspan x="10" y="538">github-crud get /foo/bar/hello.txt</tspan>
+
+<tspan x="10" y="554"></tspan>
+
+<tspan x="10" y="570">serverLog - {"time":"2019-08-24T01:23:30.430Z","type":"githubCrudResponse","method":"GET","url":\</tspan>
+<tspan x="10" y="586">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?ref=gh-pages\</tspan>
+<tspan x="10" y="602">","statusCode":200,"timeElapsed":201}</tspan>
+
+<tspan x="10" y="618">hello world</tspan>
+
+<tspan x="10" y="634"></tspan>
+
+<tspan x="10" y="650"></tspan>
+
+<tspan x="10" y="666"></tspan>
+
+<tspan x="10" y="682"></tspan>
+
+<tspan x="10" y="698">github-crud touch /foo/bar/hello.txt</tspan>
+
+<tspan x="10" y="714"></tspan>
+
+<tspan x="10" y="730">serverLog - {"time":"2019-08-24T01:23:30.635Z","type":"githubCrudResponse","method":"GET","url":\</tspan>
+<tspan x="10" y="746">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?ref=gh-pages\</tspan>
+<tspan x="10" y="762">","statusCode":200,"timeElapsed":156}</tspan>
+
+<tspan x="10" y="778">serverLog - {"time":"2019-08-24T01:23:30.794Z","type":"githubCrudResponse","method":"PUT","url":\</tspan>
+<tspan x="10" y="794">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?branch=gh-pa\</tspan>
+<tspan x="10" y="810">ges&amp;message=commit%20message%202&amp;sha=3b18e512dba79e4c8300dd08aeb37f8e728b8dad","statusCode":200,\</tspan>
+<tspan x="10" y="826">"timeElapsed":839}</tspan>
+
+<tspan x="10" y="842"></tspan>
+
+<tspan x="10" y="858"></tspan>
+
+<tspan x="10" y="874"></tspan>
+
+<tspan x="10" y="890">github-crud delete /foo/bar/hello.txt</tspan>
+
+<tspan x="10" y="906"></tspan>
+
+<tspan x="10" y="922">serverLog - {"time":"2019-08-24T01:23:31.635Z","type":"githubCrudResponse","method":"GET","url":\</tspan>
+<tspan x="10" y="938">"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?ref=gh-pages\</tspan>
+<tspan x="10" y="954">","statusCode":200,"timeElapsed":177}</tspan>
+
+<tspan x="10" y="970">serverLog - {"time":"2019-08-24T01:23:31.814Z","type":"githubCrudResponse","method":"DELETE","ur\</tspan>
+<tspan x="10" y="986">l":"https://api.github.com/repos/kaizhu256/node-github-crud/contents/foo/bar/hello.txt?branch=gh\</tspan>
+<tspan x="10" y="1002">-pages&amp;message=commit%20message%203&amp;sha=3b18e512dba79e4c8300dd08aeb37f8e728b8dad","statusCode":2\</tspan>
+<tspan x="10" y="1018">00,"timeElapsed":830}</tspan>
+
+</text>
+</svg>

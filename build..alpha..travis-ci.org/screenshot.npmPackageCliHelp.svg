@@ -1,0 +1,99 @@
+<svg height="782" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="782" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">github-crud (2019.1.21)</tspan>
+
+<tspan x="10" y="42"></tspan>
+
+<tspan x="10" y="58">usage:</tspan>
+
+<tspan x="10" y="74">  lib.github_crud.js  &lt;arg1&gt;  &lt;arg2&gt;  ...</tspan>
+
+<tspan x="10" y="90"></tspan>
+
+<tspan x="10" y="106">example:</tspan>
+
+<tspan x="10" y="122">  lib.github_crud.js  --eval  'console.log("hello world")'</tspan>
+
+<tspan x="10" y="138"></tspan>
+
+<tspan x="10" y="154"># COMMAND --eval</tspan>
+
+<tspan x="10" y="170"># will eval &lt;code&gt;</tspan>
+
+<tspan x="10" y="186">  lib.github_crud.js  --eval|-e  &lt;code&gt;</tspan>
+
+<tspan x="10" y="202"></tspan>
+
+<tspan x="10" y="218"># COMMAND --help</tspan>
+
+<tspan x="10" y="234"># will print help</tspan>
+
+<tspan x="10" y="250">  lib.github_crud.js  --help|-h|help  </tspan>
+
+<tspan x="10" y="266"></tspan>
+
+<tspan x="10" y="282"># COMMAND --interactive</tspan>
+
+<tspan x="10" y="298"># will start interactive-mode</tspan>
+
+<tspan x="10" y="314">  lib.github_crud.js  --interactive|-i  </tspan>
+
+<tspan x="10" y="330"></tspan>
+
+<tspan x="10" y="346"># COMMAND --version</tspan>
+
+<tspan x="10" y="362"># will print version</tspan>
+
+<tspan x="10" y="378">  lib.github_crud.js  --version|-v  </tspan>
+
+<tspan x="10" y="394"></tspan>
+
+<tspan x="10" y="410"># COMMAND delete</tspan>
+
+<tspan x="10" y="426"># will delete from github &lt;fileRemote|dirRemote&gt;</tspan>
+
+<tspan x="10" y="442">  lib.github_crud.js  delete  &lt;fileRemote|dirRemote&gt;  &lt;commitMessage&gt;</tspan>
+
+<tspan x="10" y="458"></tspan>
+
+<tspan x="10" y="474"># COMMAND get</tspan>
+
+<tspan x="10" y="490"># will get from github &lt;fileRemote&gt;</tspan>
+
+<tspan x="10" y="506">  lib.github_crud.js  get  &lt;fileRemote&gt;</tspan>
+
+<tspan x="10" y="522"></tspan>
+
+<tspan x="10" y="538"># COMMAND put</tspan>
+
+<tspan x="10" y="554"># will put on github &lt;fileRemote&gt; to &lt;fileLocal&gt;</tspan>
+
+<tspan x="10" y="570">  lib.github_crud.js  put  &lt;fileRemote&gt;  &lt;fileLocal&gt;  &lt;commitMessage&gt;</tspan>
+
+<tspan x="10" y="586"></tspan>
+
+<tspan x="10" y="602"># COMMAND repo_create</tspan>
+
+<tspan x="10" y="618"># will create on github in parallel, comma-separated &lt;repoList&gt;</tspan>
+
+<tspan x="10" y="634">  lib.github_crud.js  repo_create  &lt;repoList&gt;</tspan>
+
+<tspan x="10" y="650"></tspan>
+
+<tspan x="10" y="666"># COMMAND repo_delete</tspan>
+
+<tspan x="10" y="682"># will delete from github in parallel, comma-separated &lt;repoList&gt;</tspan>
+
+<tspan x="10" y="698">  lib.github_crud.js  repo_delete  &lt;repoList&gt;</tspan>
+
+<tspan x="10" y="714"></tspan>
+
+<tspan x="10" y="730"># COMMAND touch</tspan>
+
+<tspan x="10" y="746"># will touch on github in parallel, comma-separated &lt;fileRemoteList&gt;</tspan>
+
+<tspan x="10" y="762">  lib.github_crud.js  touch  &lt;fileRemoteList&gt;  &lt;commitMessage&gt;</tspan>
+
+</text>
+</svg>

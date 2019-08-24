@@ -1,0 +1,2004 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    overflow-wrap: break-word;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/kaizhu256/node-github-crud"
+
+    >github-crud (2019.1.21)</a>
+</h1>
+<h4>this zero-dependency package will provide a simple cli-tool to PUT / GET / DELETE github files</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.github-crud">module github-crud</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.ajax">
+            function <span class="apidocSignatureSpan">github-crud.</span>ajax
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.assertThrow">
+            function <span class="apidocSignatureSpan">github-crud.</span>assertThrow
+            <span class="apidocSignatureSpan">(passed, message)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliRun">
+            function <span class="apidocSignatureSpan">github-crud.</span>cliRun
+            <span class="apidocSignatureSpan">(opt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.functionOrNop">
+            function <span class="apidocSignatureSpan">github-crud.</span>functionOrNop
+            <span class="apidocSignatureSpan">(fnc)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudAjax">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudAjax
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentDelete">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentDelete
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentGet">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentGet
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentPut">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentPut
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentPutFile">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentPutFile
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentTouch">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentTouch
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudContentTouchList">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentTouchList
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudRepoCreate">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoCreate
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudRepoCreateList">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoCreateList
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudRepoDelete">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoDelete
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.githubCrudRepoDeleteList">
+            function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoDeleteList
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.gotoNext">
+            function <span class="apidocSignatureSpan">github-crud.</span>gotoNext
+            <span class="apidocSignatureSpan">(opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.identity">
+            function <span class="apidocSignatureSpan">github-crud.</span>identity
+            <span class="apidocSignatureSpan">(value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.nop">
+            function <span class="apidocSignatureSpan">github-crud.</span>nop
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.objectAssignDefault">
+            function <span class="apidocSignatureSpan">github-crud.</span>objectAssignDefault
+            <span class="apidocSignatureSpan">(target, source)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.onErrorDefault">
+            function <span class="apidocSignatureSpan">github-crud.</span>onErrorDefault
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.onErrorWithStack">
+            function <span class="apidocSignatureSpan">github-crud.</span>onErrorWithStack
+            <span class="apidocSignatureSpan">(onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.onParallel">
+            function <span class="apidocSignatureSpan">github-crud.</span>onParallel
+            <span class="apidocSignatureSpan">(onError, onEach, onRetry)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.onParallelList">
+            function <span class="apidocSignatureSpan">github-crud.</span>onParallelList
+            <span class="apidocSignatureSpan">(opt, onEach, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">github-crud.</span>timeExit</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">github-crud.</span>cliDict</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">github-crud.</span>github_crud</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">github-crud.</span>local</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">github-crud.</span>__dirname</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.github-crud.cliDict">module github-crud.cliDict</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.delete">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>delete
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.get">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>get
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.put">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>put
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.repo_create">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>repo_create
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.repo_delete">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>repo_delete
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.github-crud.cliDict.touch">
+            function <span class="apidocSignatureSpan">github-crud.cliDict.</span>touch
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.github-crud" id="apidoc.module.github-crud">module github-crud</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.ajax" id="apidoc.elem.github-crud.ajax">
+        function <span class="apidocSignatureSpan">github-crud.</span>ajax
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">ajax = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will send an ajax-req
+ * with given &lt;opt&gt;.url and callback &lt;onError&gt;
+ * with err and timeout handling
+ * example usage:
+    local.ajax({
+        data: &quot;hello world&quot;,
+        header: {&quot;x-header-hello&quot;: &quot;world&quot;},
+        method: &quot;POST&quot;,
+        url: &quot;/index.html&quot;
+    }, function (err, xhr) {
+        console.log(xhr.statusCode);
+        console.log(xhr.responseText);
+    });
+ */
+</span>    var ajaxProgressUpdate;
+    var bufferValidateAndCoerce;
+    var isDone;
+    var local2;
+    var onError2;
+    var onEvent;
+    var stack;
+    var streamCleanup;
+    var timeout;
+    var tmp;
+    var xhr;
+    var xhrInit;
+    // init local2
+    local2 = opt.local2 || local.utility2 || {};
+    // init function
+    ajaxProgressUpdate = local2.ajaxProgressUpdate || local.nop;
+    bufferValidateAndCoerce = local2.bufferValidateAndCoerce || function (
+        bff,
+        mode
+    ) {
+    /*
+     * this function will validate and coerce/convert &lt;bff&gt; -&gt; Buffer
+     * (or String if &lt;mode&gt; = &quot;string&quot;)
+     */
+        // coerce ArrayBuffer -&gt; Buffer
+        if (Object.prototype.toString.call(bff) === &quot;[object ArrayBuffer]&quot;) {
+            bff = new Uint8Array(bff);
+        }
+        // convert Buffer -&gt; utf8
+        if (mode === &quot;string&quot; &amp;&amp; typeof bff !== &quot;string&quot;) {
+            bff = String(bff);
+        }
+        return bff;
+    };
+    onEvent = function (evt) {
+    /*
+     * this function will handle events
+     */
+        if (Object.prototype.toString.call(evt) === &quot;[object Error]&quot;) {
+            xhr.err = xhr.err || evt;
+            xhr.onEvent({
+                type: &quot;error&quot;
+            });
+            return;
+        }
+        // init statusCode
+        xhr.statusCode = (xhr.statusCode || xhr.status) | 0;
+        switch (evt.type) {
+        case &quot;abort&quot;:
+        case &quot;error&quot;:
+        case &quot;load&quot;:
+            if (isDone) {
+                return;
+            }
+            isDone = true;
+            // decrement ajaxProgressCounter
+            local2.ajaxProgressCounter = Math.max(
+                local2.ajaxProgressCounter - 1,
+                0
+            );
+            ajaxProgressUpdate();
+            // handle abort or err event
+            switch (!xhr.err &amp;&amp; evt.type) {
+            case &quot;abort&quot;:
+            case &quot;error&quot;:
+                xhr.err = new Error(&quot;ajax - event &quot; + evt.type);
+                break;
+            case &quot;load&quot;:
+                if (xhr.statusCode &gt;= 400) {
+                    xhr.err = new Error(
+                        &quot;ajax - statusCode &quot; + xhr.statusCode
+                    );
+                }
+                break;
+            }
+            // debug statusCode / method / url
+            if (xhr.err) {
+                xhr.statusCode = xhr.statusCode || 500;
+                xhr.err.statusCode = xhr.statusCode;
+                tmp = (
+                    (
+                        local.isBrowser
+                        ? &quot;browser&quot;
+                        : &quot;node&quot;
+                    )
+                    + &quot; - &quot; + xhr.statusCode + &quot; &quot; + xhr.method + &quot; &quot; + xhr.url
+                    + &quot;\n&quot;
+                );
+                xhr.err.message = tmp + xhr.err.message;
+                xhr.err.stack = tmp + xhr.err.stack;
+            }
+            // update resHeaders
+            // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/getAllResponseHeaders
+            if (xhr.getAllResponseHeaders) {
+                xhr.getAllResponseHeaders().replace((
+                    /(.*?):\u0020*(.*?)\r\n/g
+                ), function (ignore, match1, match2) {
+                    xhr.resHeaders[match1.toLowerCase()] = match2;
+                });
+            }
+            // debug ajaxResponse
+            xhr.resContentLength = (...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+/* validateLineSortedReset */
+local.ajax = function (opt, onError) {
+/*
+* this function will send an ajax-req
+* with given &lt;opt&gt;.url and callback &lt;onError&gt;
+* with err and timeout handling
+* example usage:
+   local.<span class="apidocCodeKeywordSpan">ajax</span>({
+       data: &quot;hello world&quot;,
+       header: {&quot;x-header-hello&quot;: &quot;world&quot;},
+       method: &quot;POST&quot;,
+       url: &quot;/index.html&quot;
+   }, function (err, xhr) {
+       console.log(xhr.statusCode);
+       console.log(xhr.responseText);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.assertThrow" id="apidoc.elem.github-crud.assertThrow">
+        function <span class="apidocSignatureSpan">github-crud.</span>assertThrow
+        <span class="apidocSignatureSpan">(passed, message)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">assertThrow = function (passed, message) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will throw err.&lt;message&gt; if &lt;passed&gt; is falsy
+ */
+</span>    var err;
+    if (passed) {
+        return;
+    }
+    err = (
+        (
+            message
+            &amp;&amp; typeof message.message === &quot;string&quot;
+            &amp;&amp; typeof message.stack === &quot;string&quot;
+        )
+        // if message is errObj, then leave as is
+        ? message
+        : new Error(
+            typeof message === &quot;string&quot;
+            // if message is a string, then leave as is
+            ? message
+            // else JSON.stringify message
+            : JSON.stringify(message, null, 4)
+        )
+    );
+    throw err;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        argList: (commandList[ii][1] || &quot;&quot;).trim(),
+        command: [
+            key
+        ],
+        description: commandList[ii][2]
+    };
+} catch (ignore) {
+    local.<span class="apidocCodeKeywordSpan">assertThrow</span>(null, new Error(
+        &quot;cliRun - cannot parse comment in COMMAND &quot;
+        + key
+        + &quot;:\nnew RegExp(&quot;
+        + JSON.stringify(opt.rgxComment.source)
+        + &quot;).exec(&quot; + JSON.stringify(text).replace((
+            /\\\\/g
+        ), &quot;\u0000&quot;).replace((
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliRun" id="apidoc.elem.github-crud.cliRun">
+        function <span class="apidocSignatureSpan">github-crud.</span>cliRun
+        <span class="apidocSignatureSpan">(opt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">cliRun = function (opt) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will run the cli with given &lt;opt&gt;
+ */
+</span>    local.cliDict._eval = local.cliDict._eval || function () {
+    /*
+     * &lt;code&gt;
+     * will eval &lt;code&gt;
+     */
+        globalThis.local = local;
+        local.vm.runInThisContext(process.argv[3]);
+    };
+    local.cliDict[&quot;--eval&quot;] = local.cliDict[&quot;--eval&quot;] || local.cliDict._eval;
+    local.cliDict[&quot;-e&quot;] = local.cliDict[&quot;-e&quot;] || local.cliDict._eval;
+    local.cliDict._help = local.cliDict._help || function () {
+    /*
+     *
+     * will print help
+     */
+        var commandList;
+        var file;
+        var packageJson;
+        var text;
+        var textDict;
+        commandList = [
+            {
+                argList: &quot;&lt;arg2&gt;  ...&quot;,
+                description: &quot;usage:&quot;,
+                command: [
+                    &quot;&lt;arg1&gt;&quot;
+                ]
+            }, {
+                argList: &quot;&apos;console.log(\&quot;hello world\&quot;)&apos;&quot;,
+                description: &quot;example:&quot;,
+                command: [
+                    &quot;--eval&quot;
+                ]
+            }
+        ];
+        file = __filename.replace((
+            /.*\//
+        ), &quot;&quot;);
+        opt = Object.assign({}, opt);
+        packageJson = require(&quot;./package.json&quot;);
+        // validate comment
+        opt.rgxComment = opt.rgxComment || (
+            /\)\u0020\{\n(?:|\u0020{4})\/\*\n(?:\u0020|\u0020{5})\*((?:\u0020&lt;[^&gt;]*?&gt;|\u0020\.\.\.)*?)\n(?:\u0020|\u0020{5})\*\u0020
+(will\u0020.*?\S)\n(?:\u0020|\u0020{5})\*\/\n(?:\u0020{4}|\u0020{8})\S/
+        );
+        textDict = {};
+        Object.keys(local.cliDict).sort().forEach(function (key, ii) {
+            if (key[0] === &quot;_&quot; &amp;&amp; key !== &quot;_default&quot;) {
+                return;
+            }
+            text = String(local.cliDict[key]);
+            if (key === &quot;_default&quot;) {
+                key = &quot;&quot;;
+            }
+            textDict[text] = textDict[text] || (ii + 2);
+            ii = textDict[text];
+            if (commandList[ii]) {
+                commandList[ii].command.push(key);
+                return;
+            }
+            try {
+                commandList[ii] = opt.rgxComment.exec(text);
+                commandList[ii] = {
+                    argList: (commandList[ii][1] || &quot;&quot;).trim(),
+                    command: [
+                        key
+                    ],
+                    description: commandList[ii][2]
+                };
+            } catch (ignore) {
+                local.assertThrow(null, new Error(
+                    &quot;cliRun - cannot parse comment in COMMAND &quot;
+                    + key
+                    + &quot;:\nnew RegExp(&quot;
+                    + JSON.stringify(opt.rgxComment.source)
+                    + &quot;).exec(&quot; + JSON.stringify(text).replace((
+                        /\\\\/g
+                    ), &quot;\u0000&quot;).replace((
+                        /\\n/g
+                    ), &quot;\\n\\\n&quot;).replace((
+                        /\u0000/g
+                    ), &quot;\\\\&quot;) + &quot;);&quot;
+                ));
+            }
+        });
+        text = &quot;&quot;;
+        text += packageJson.name + &quot; (&quot; + packageJson.version + &quot;)\n\n&quot;;
+        text += commandList.filter(function (elem) {
+            return elem;
+        }).map(function (elem, ii) {
+            elem.command = elem.command.filter(function (elem) {
+                return elem;
+            });
+            switch (ii) {
+            case 0:
+            case 1:
+                elem.argList = [
+                    elem.argList
+                ];
+                break;
+            default:
+                elem.argList = elem.argList.split(&quot; &quot;);
+                elem.description = (
+                    &quot;# COMMAND &quot;
+                    + (elem.command[0] || &quot;&lt;none&gt;&quot;) + &quot;\n# &...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+};
+
+// run the cli
+if (module === require.main &amp;&amp; !globalThis.utility2_rollup) {
+    local.<span class="apidocCodeKeywordSpan">cliRun</span>();
+}
+}());
+}());
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.functionOrNop" id="apidoc.elem.github-crud.functionOrNop">
+        function <span class="apidocSignatureSpan">github-crud.</span>functionOrNop
+        <span class="apidocSignatureSpan">(fnc)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">functionOrNop = function (fnc) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will if &lt;fnc&gt; exists,
+ * them return &lt;fnc&gt;,
+ * else return &lt;nop&gt;
+ */
+</span>    return fnc || local.nop;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+xhr.addEventListener(&quot;loadstart&quot;, ajaxProgressUpdate);
+xhr.addEventListener(&quot;progress&quot;, ajaxProgressUpdate);
+// https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/upload
+if (xhr.upload &amp;&amp; xhr.upload.addEventListener) {
+    xhr.upload.addEventListener(&quot;progress&quot;, ajaxProgressUpdate);
+}
+// open url - corsForwardProxyHost
+if (local.<span class="apidocCodeKeywordSpan">functionOrNop</span>(local2.corsForwardProxyHostIfNeeded)(xhr)) {
+    xhr.open(xhr.method, local2.corsForwardProxyHostIfNeeded(xhr));
+    xhr.setRequestHeader(
+        &quot;forward-proxy-headers&quot;,
+        JSON.stringify(xhr.headers)
+    );
+    xhr.setRequestHeader(&quot;forward-proxy-url&quot;, xhr.url);
+// open url - default
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudAjax" id="apidoc.elem.github-crud.githubCrudAjax">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudAjax
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudAjax = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will make a low-level content-req to github
+ * https://developer.github.com/v3/repos/contents/
+ */
+</span>    // init opt
+    opt = {
+        content: opt.content,
+        headers: Object.assign({
+            // github oauth authentication
+            Authorization: &quot;token &quot; + (
+                typeof process === &quot;object&quot;
+                &amp;&amp; process &amp;&amp; process.env.GITHUB_TOKEN
+            ),
+            // bug-workaround
+            // https://developer.github.com/v3/#user-agent-required
+            &quot;User-Agent&quot;: &quot;undefined&quot;
+        }, opt.headers),
+        httpReq: opt.httpReq,
+        message: opt.message,
+        method: opt.method || &quot;GET&quot;,
+        responseJson: {},
+        sha: opt.sha,
+        url: opt.url
+    };
+    // parse https://github.com/:owner/:repo/blob/:branch/:path
+    opt.url = opt.url.replace((
+        /^https:\/\/github.com\/([^\/]+?\/[^\/]+?)\/blob\/([^\/]+?)\/(.+)/
+    ), &quot;https://api.github.com/repos/$1/contents/$3?branch=$2&quot;);
+    // parse https://github.com/:owner/:repo/tree/:branch/:path
+    opt.url = opt.url.replace((
+        /^https:\/\/github.com\/([^\/]+?\/[^\/]+?)\/tree\/([^\/]+?)\/(.+)/
+    ), &quot;https://api.github.com/repos/$1/contents/$3?branch=$2&quot;);
+    // parse https://raw.githubusercontent.com/:owner/:repo/:branch/:path
+    opt.url = opt.url.replace((
+        /^https:\/\/raw.githubusercontent.com\/([^\/]+?\/[^\/]+?)\/([^\/]+?)\/(.+)/
+    ), &quot;https://api.github.com/repos/$1/contents/$3?branch=$2&quot;);
+    // parse https://:owner.github.io/:repo/:path
+    opt.url = opt.url.replace((
+        /^https:\/\/([^.]+?)\.github\.io\/([^\/]+?)\/(.+)/
+    ), &quot;https://api.github.com/repos/$1/$2/contents/$3?branch=gh-pages&quot;);
+    // parse :owner/:repo
+    opt.url = opt.url.replace((
+        /^([^\/]+?\/[^\/]+?)$/
+    ), &quot;https://github.com/$1&quot;);
+    opt.url = opt.url.replace((
+        /\?branch=(.*)/
+    ), function (match0, match1) {
+        opt.branch = match1;
+        if (opt.method === &quot;GET&quot;) {
+            match0 = match0.replace(&quot;branch&quot;, &quot;ref&quot;);
+        }
+        return match0;
+    });
+    if ((
+        /^https:\/\/github\.com\/[^\/]+?\/[^\/]+?$/
+    ).test(opt.url)) {
+        opt.data = JSON.stringify({
+            name: opt.url.split(&quot;/&quot;)[4]
+        });
+        switch (opt.method) {
+        case &quot;DELETE&quot;:
+            opt.url = (
+                &quot;https://api.github.com/repos/&quot;
+                + opt.url.split(&quot;/&quot;).slice(3).join(&quot;/&quot;)
+            );
+            break;
+        case &quot;POST_ORG&quot;:
+            opt.url = (
+                &quot;https://api.github.com/orgs/&quot;
+                + opt.url.split(&quot;/&quot;)[3] + &quot;/repos&quot;
+            );
+            break;
+        case &quot;POST_USER&quot;:
+            opt.url = &quot;https://api.github.com/user/repos&quot;;
+            break;
+        }
+        opt.method = opt.method.split(&quot;_&quot;)[0];
+    } else {
+        if (opt.url.indexOf(&quot;https://api.github.com/repos/&quot;) !== 0) {
+            console.error(&quot;githubCrud - invalid url &quot; + opt.url);
+            onError(new Error(&quot;invalid url &quot; + opt.url));
+            return;
+        }
+        if (opt.method !== &quot;GET&quot;) {
+            opt.message = (
+                opt.message
+                || &quot;[ci skip] &quot; + opt.method + &quot; file &quot;
+                + opt.url.replace((
+                    /\?.*/
+                ), &quot;&quot;)
+            );
+            opt.url += &quot;&amp;message=&quot; + encodeURIComponent(opt.message);
+            if (opt.sha) {
+                opt.url += &quot;&amp;sha=&quot; + opt.sha;
+            }
+            opt.data = JSON.stringify({
+                branch: opt.branch,
+                content: Buffer.from(opt.content || &quot;&quot;).toString(&quot;base64&quot;),
+                message: opt.message,...</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    message: opt.message,
+    url: opt.url
+};
+local.gotoNext(opt, function (err, data) {
+    switch (opt.gotoState) {
+    case 1:
+        // get sha
+        local.<span class="apidocCodeKeywordSpan">githubCrudAjax</span>({
+            httpReq: opt.httpReq,
+            url: opt.url
+        }, opt.gotoNext);
+        break;
+    case 2:
+        // delete file with sha
+        if (!err &amp;&amp; data.sha) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentDelete" id="apidoc.elem.github-crud.githubCrudContentDelete">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentDelete
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentDelete = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will delete github-file &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/contents/#delete-a-file
+ */
+</span>    opt = {
+        httpReq: opt.httpReq,
+        message: opt.message,
+        url: opt.url
+    };
+    local.gotoNext(opt, function (err, data) {
+        switch (opt.gotoState) {
+        case 1:
+            // get sha
+            local.githubCrudAjax({
+                httpReq: opt.httpReq,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        case 2:
+            // delete file with sha
+            if (!err &amp;&amp; data.sha) {
+                local.githubCrudAjax({
+                    httpReq: opt.httpReq,
+                    message: opt.message,
+                    method: &quot;DELETE&quot;,
+                    sha: data.sha,
+                    url: opt.url
+                }, opt.gotoNext);
+                return;
+            }
+            // delete tree
+            local.onParallelList({
+                list: data
+            }, function (option2, onParallel) {
+                onParallel.counter += 1;
+                // recurse
+                local.githubCrudContentDelete({
+                    httpReq: opt.httpReq,
+                    message: opt.message,
+                    url: option2.elem.url
+                }, onParallel);
+            }, opt.gotoNext);
+            break;
+        default:
+            onError(err, data);
+        }
+    });
+    opt.gotoState = 0;
+    opt.gotoNext();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    }
+    // delete tree
+    local.onParallelList({
+        list: data
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        // recurse
+        local.<span class="apidocCodeKeywordSpan">githubCrudContentDelete</span>({
+            httpReq: opt.httpReq,
+            message: opt.message,
+            url: option2.elem.url
+        }, onParallel);
+    }, opt.gotoNext);
+    break;
+default:
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentGet" id="apidoc.elem.github-crud.githubCrudContentGet">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentGet
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentGet = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will get github-file &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/contents/#get-contents
+ */
+</span>    opt = {
+        httpReq: opt.httpReq,
+        url: opt.url
+    };
+    local.gotoNext(opt, function (err, data) {
+        switch (opt.gotoState) {
+        case 1:
+            local.githubCrudAjax({
+                httpReq: opt.httpReq,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        case 2:
+            opt.gotoNext(null, Buffer.from(data.content || &quot;&quot;, &quot;base64&quot;));
+            break;
+        default:
+            onError(err, !err &amp;&amp; data);
+        }
+    });
+    opt.gotoState = 0;
+    opt.gotoNext();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.cliDict.get = function () {
+/*
+* &lt;fileRemote&gt;
+* will get from github &lt;fileRemote&gt;
+*/
+   local.github_crud.<span class="apidocCodeKeywordSpan">githubCrudContentGet</span>({
+       url: process.argv[3]
+   }, function (err, data) {
+       try {
+           process.stdout.write(data);
+       } catch (ignore) {}
+       process.exit(Boolean(err));
+   });
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentPut" id="apidoc.elem.github-crud.githubCrudContentPut">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentPut
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentPut = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will put &lt;opt&gt;.content to github-file &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/contents/#create-a-file
+ * https://developer.github.com/v3/repos/contents/#update-a-file
+ */
+</span>    opt = {
+        content: opt.content,
+        httpReq: opt.httpReq,
+        message: opt.message,
+        modeErrorIgnore: true,
+        url: opt.url
+    };
+    local.gotoNext(opt, function (err, data) {
+        switch (opt.gotoState) {
+        case 1:
+            // get sha
+            local.githubCrudAjax({
+                httpReq: opt.httpReq,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        case 2:
+            // put file with sha
+            local.githubCrudAjax({
+                content: opt.content,
+                httpReq: opt.httpReq,
+                message: opt.message,
+                method: &quot;PUT&quot;,
+                sha: data.sha,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        default:
+            onError(err, data);
+        }
+    });
+    opt.gotoState = 0;
+    opt.gotoNext();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        });
+        return;
+    }
+    // get file
+    local.fs.readFile(opt.file, opt.gotoNext);
+    break;
+case 2:
+    local.<span class="apidocCodeKeywordSpan">githubCrudContentPut</span>({
+        content: data,
+        httpReq: opt.httpReq,
+        message: opt.message,
+        // resolve file in url
+        url: (
+            (
+                /\/$/
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentPutFile" id="apidoc.elem.github-crud.githubCrudContentPutFile">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentPutFile
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentPutFile = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will put opt.file to github-file &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/contents/#update-a-file
+ */
+</span>    opt = {
+        file: opt.file,
+        httpReq: opt.httpReq,
+        message: opt.message,
+        url: opt.url
+    };
+    local.gotoNext(opt, function (err, data) {
+        switch (opt.gotoState) {
+        case 1:
+            // get file from url
+            if ((
+                /^(?:http|https):\/\//
+            ).test(opt.file)) {
+                local.ajax({
+                    httpReq: opt.httpReq,
+                    url: opt.file
+                }, function (err, res) {
+                    opt.gotoNext(err, res &amp;&amp; res.data);
+                });
+                return;
+            }
+            // get file
+            local.fs.readFile(opt.file, opt.gotoNext);
+            break;
+        case 2:
+            local.githubCrudContentPut({
+                content: data,
+                httpReq: opt.httpReq,
+                message: opt.message,
+                // resolve file in url
+                url: (
+                    (
+                        /\/$/
+                    ).test(opt.url)
+                    ? opt.url + local.path.basename(opt.file)
+                    : opt.url
+                )
+            }, opt.gotoNext);
+            break;
+        default:
+            onError(err, data);
+        }
+    });
+    opt.gotoState = 0;
+    opt.gotoNext();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.cliDict.put = function () {
+/*
+ * &lt;fileRemote&gt; &lt;fileLocal&gt; &lt;commitMessage&gt;
+ * will put on github &lt;fileRemote&gt; to &lt;fileLocal&gt;
+ */
+    local.github_crud.<span class="apidocCodeKeywordSpan">githubCrudContentPutFile</span>({
+        message: process.argv[5],
+        url: process.argv[3],
+        file: process.argv[4]
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentTouch" id="apidoc.elem.github-crud.githubCrudContentTouch">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentTouch
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentTouch = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will touch github-file &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/contents/#update-a-file
+ */
+</span>    opt = {
+        httpReq: opt.httpReq,
+        message: opt.message,
+        modeErrorIgnore: true,
+        url: opt.url
+    };
+    local.gotoNext(opt, function (err, data) {
+        switch (opt.gotoState) {
+        case 1:
+            // get sha
+            local.githubCrudAjax({
+                httpReq: opt.httpReq,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        case 2:
+            // put file with sha
+            local.githubCrudAjax({
+                content: Buffer.from(data.content || &quot;&quot;, &quot;base64&quot;),
+                httpReq: opt.httpReq,
+                message: opt.message,
+                method: &quot;PUT&quot;,
+                sha: data.sha,
+                url: opt.url
+            }, opt.gotoNext);
+            break;
+        default:
+            onError(err, data);
+        }
+    });
+    opt.gotoState = 0;
+    opt.gotoNext();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * this function will touch github-files &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/contents/#update-a-file
+ */
+    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.<span class="apidocCodeKeywordSpan">githubCrudContentTouch</span>({
+            httpReq: opt.httpReq,
+            message: opt.message,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudContentTouchList" id="apidoc.elem.github-crud.githubCrudContentTouchList">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudContentTouchList
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudContentTouchList = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will touch github-files &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/contents/#update-a-file
+ */
+</span>    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.githubCrudContentTouch({
+            httpReq: opt.httpReq,
+            message: opt.message,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.cliDict.touch = function () {
+/*
+* &lt;fileRemoteList&gt; &lt;commitMessage&gt;
+* will touch on github in parallel, comma-separated &lt;fileRemoteList&gt;
+*/
+   local.github_crud.<span class="apidocCodeKeywordSpan">githubCrudContentTouchList</span>({
+       message: process.argv[4],
+       urlList: process.argv[3].split(
+           /[,\s]/g
+       ).filter(local.identity)
+   }, function (err) {
+       process.exit(Boolean(err));
+   });
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudRepoCreate" id="apidoc.elem.github-crud.githubCrudRepoCreate">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoCreate
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudRepoCreate = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will create github-repo &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/#create
+ */
+</span>    local.githubCrudAjax({
+        httpReq: opt.httpReq,
+        method: &quot;POST_ORG&quot;,
+        url: opt.url
+    }, function (err, data) {
+        if (!(err &amp;&amp; err.statusCode === 404)) {
+            onError(err, data);
+            return;
+        }
+        local.githubCrudAjax({
+            httpReq: opt.httpReq,
+            method: &quot;POST_USER&quot;,
+            url: opt.url
+        }, onError);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * this function will create github-repos &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/#create
+ */
+    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.<span class="apidocCodeKeywordSpan">githubCrudRepoCreate</span>({
+            httpReq: opt.httpReq,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+};
+
+local.githubCrudRepoDelete = function (opt, onError) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudRepoCreateList" id="apidoc.elem.github-crud.githubCrudRepoCreateList">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoCreateList
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudRepoCreateList = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will create github-repos &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/#create
+ */
+</span>    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.githubCrudRepoCreate({
+            httpReq: opt.httpReq,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.cliDict.repo_create = function () {
+/*
+ * &lt;repoList&gt;
+ * will create on github in parallel, comma-separated &lt;repoList&gt;
+ */
+    local.github_crud.<span class="apidocCodeKeywordSpan">githubCrudRepoCreateList</span>({
+        urlList: process.argv[3].split(
+            /[,\s]/g
+        ).filter(local.identity)
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudRepoDelete" id="apidoc.elem.github-crud.githubCrudRepoDelete">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoDelete
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudRepoDelete = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will delete github-repo &lt;opt&gt;.url
+ * https://developer.github.com/v3/repos/#delete-a-repository
+ */
+</span>    local.githubCrudAjax({
+        httpReq: opt.httpReq,
+        method: &quot;DELETE&quot;,
+        url: opt.url
+    }, onError);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+ * this function will delete github-repos &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/#delete-a-repository
+ */
+    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.<span class="apidocCodeKeywordSpan">githubCrudRepoDelete</span>({
+            httpReq: opt.httpReq,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+};
+}());
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.githubCrudRepoDeleteList" id="apidoc.elem.github-crud.githubCrudRepoDeleteList">
+        function <span class="apidocSignatureSpan">github-crud.</span>githubCrudRepoDeleteList
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">githubCrudRepoDeleteList = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will delete github-repos &lt;opt&gt;.urlList in parallel
+ * https://developer.github.com/v3/repos/#delete-a-repository
+ */
+</span>    local.onParallelList({
+        list: opt.urlList
+    }, function (option2, onParallel) {
+        onParallel.counter += 1;
+        local.githubCrudRepoDelete({
+            httpReq: opt.httpReq,
+            url: option2.elem
+        }, onParallel);
+    }, onError);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.cliDict.repo_delete = function () {
+/*
+ * &lt;repoList&gt;
+ * will delete from github in parallel, comma-separated &lt;repoList&gt;
+ */
+    local.github_crud.<span class="apidocCodeKeywordSpan">githubCrudRepoDeleteList</span>({
+        urlList: process.argv[3].split(
+            /[,\s]/g
+        ).filter(local.identity)
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+};
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.gotoNext" id="apidoc.elem.github-crud.gotoNext">
+        function <span class="apidocSignatureSpan">github-crud.</span>gotoNext
+        <span class="apidocSignatureSpan">(opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">gotoNext = function (opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will wrap onError inside recursive-function &lt;opt&gt;.gotoNext,
+ * and append the current-stack to any err
+ */
+</span>    opt.gotoNext = local.onErrorWithStack(function (err, data, meta) {
+        try {
+            opt.gotoState += (
+                (err &amp;&amp; !opt.modeErrorIgnore)
+                ? 1000
+                : 1
+            );
+            if (opt.modeDebug) {
+                console.error(&quot;gotoNext - &quot; + JSON.stringify({
+                    gotoState: opt.gotoState,
+                    errorMessage: err &amp;&amp; err.message
+                }));
+                if (err &amp;&amp; err.stack) {
+                    console.error(err.stack);
+                }
+            }
+            onError(err, data, meta);
+        } catch (errCaught) {
+            // throw errCaught to break infinite recursion-loop
+            if (opt.errCaught) {
+                local.assertThrow(null, opt.errCaught);
+            }
+            opt.errCaught = errCaught;
+            opt.gotoNext(errCaught, data, meta);
+        }
+    });
+    return opt;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+            onError(err, data, meta);
+        } catch (errCaught) {
+            // throw errCaught to break infinite recursion-loop
+            if (opt.errCaught) {
+                local.assertThrow(null, opt.errCaught);
+            }
+            opt.errCaught = errCaught;
+            opt.<span class="apidocCodeKeywordSpan">gotoNext</span>(errCaught, data, meta);
+        }
+    });
+    return opt;
+};
+
+local.onErrorDefault = function (err) {
+/*
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.identity" id="apidoc.elem.github-crud.identity">
+        function <span class="apidocSignatureSpan">github-crud.</span>identity
+        <span class="apidocSignatureSpan">(value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">identity = function (value) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will return &lt;value&gt;
+ */
+</span>    return value;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    local.isBrowser
+    &amp;&amp; !opt.httpReq
+    &amp;&amp; !(local2.serverLocalUrlTest &amp;&amp; local2.serverLocalUrlTest(opt.url))
+    &amp;&amp; new XMLHttpRequest()
+);
+// init xhr - http.request
+if (!xhr) {
+    xhr = local.<span class="apidocCodeKeywordSpan">identity</span>(local2.urlParse || require(&quot;url&quot;).parse)(opt.url);
+    // init xhr
+    xhrInit();
+    // init xhr - http.request
+    xhr = local.identity(
+        opt.httpReq
+        || (local.isBrowser &amp;&amp; local2.http.request)
+        || require(xhr.protocol.slice(0, -1)).request
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.nop" id="apidoc.elem.github-crud.nop">
+        function <span class="apidocSignatureSpan">github-crud.</span>nop
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nop = function () {
+<span class="apidocCodeCommentSpan">/*
+ * this function will do nothing
+ */
+</span>    return;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.objectAssignDefault" id="apidoc.elem.github-crud.objectAssignDefault">
+        function <span class="apidocSignatureSpan">github-crud.</span>objectAssignDefault
+        <span class="apidocSignatureSpan">(target, source)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">objectAssignDefault = function (target, source) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will if items from &lt;target&gt; are
+ * null, undefined, or empty-string,
+ * then overwrite them with items from &lt;source&gt;
+ */
+</span>    target = target || {};
+    Object.keys(source || {}).forEach(function (key) {
+        if (
+            target[key] === null
+            || target[key] === undefined
+            || target[key] === &quot;&quot;
+        ) {
+            target[key] = target[key] || source[key];
+        }
+    });
+    return target;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+    if (key[0] !== &quot;_&quot;) {
+        xhr[key] = opt[key];
+    }
+});
+// init timeout
+timeout = xhr.timeout || local2.timeoutDefault || 30000;
+// init default
+local.<span class="apidocCodeKeywordSpan">objectAssignDefault</span>(xhr, {
+    corsForwardProxyHost: local2.corsForwardProxyHost,
+    headers: {},
+    location: (local.isBrowser &amp;&amp; location) || {},
+    method: &quot;GET&quot;,
+    responseType: &quot;&quot;
+});
+// init headers
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.onErrorDefault" id="apidoc.elem.github-crud.onErrorDefault">
+        function <span class="apidocSignatureSpan">github-crud.</span>onErrorDefault
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onErrorDefault = function (err) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will if &lt;err&gt; exists, then print it to stderr
+ */
+</span>    if (err) {
+        console.error(err);
+    }
+    return err;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+            list: opt.list,
+            retry: 0
+        }, onParallel);
+    }
+};
+onParallel = local.onParallel(onError, onEach2, function (err, data) {
+    if (err &amp;&amp; data &amp;&amp; data.retry &lt; opt.retryLimit) {
+        local.<span class="apidocCodeKeywordSpan">onErrorDefault</span>(err);
+        data.retry += 1;
+        setTimeout(function () {
+            onParallel.counter -= 1;
+            onEach(data, onParallel);
+        }, 1000);
+        return true;
+    }
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.onErrorWithStack" id="apidoc.elem.github-crud.onErrorWithStack">
+        function <span class="apidocSignatureSpan">github-crud.</span>onErrorWithStack
+        <span class="apidocSignatureSpan">(onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onErrorWithStack = function (onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will create wrapper around &lt;onError&gt;
+ * that will append current-stack to err.stack
+ */
+</span>    var onError2;
+    var stack;
+    stack = new Error().stack.replace((
+        /(.*?)\n.*?$/m
+    ), &quot;$1&quot;);
+    onError2 = function (err, data, meta) {
+        // append current-stack to err.stack
+        if (
+            err
+            &amp;&amp; typeof err.stack === &quot;string&quot;
+            &amp;&amp; err !== local.errDefault
+            &amp;&amp; String(err.stack).indexOf(stack.split(&quot;\n&quot;)[2]) &lt; 0
+        ) {
+            err.stack += &quot;\n&quot; + stack;
+        }
+        onError(err, data, meta);
+    };
+    // debug onError
+    onError2.toString = function () {
+        return String(onError);
+    };
+    return onError2;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+};
+
+local.gotoNext = function (opt, onError) {
+/*
+* this function will wrap onError inside recursive-function &lt;opt&gt;.gotoNext,
+* and append the current-stack to any err
+*/
+   opt.gotoNext = local.<span class="apidocCodeKeywordSpan">onErrorWithStack</span>(function (err, data, meta) {
+       try {
+           opt.gotoState += (
+               (err &amp;&amp; !opt.modeErrorIgnore)
+               ? 1000
+               : 1
+           );
+           if (opt.modeDebug) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.onParallel" id="apidoc.elem.github-crud.onParallel">
+        function <span class="apidocSignatureSpan">github-crud.</span>onParallel
+        <span class="apidocSignatureSpan">(onError, onEach, onRetry)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onParallel = function (onError, onEach, onRetry) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will create a function that will
+ * 1. run async tasks in parallel
+ * 2. if counter === 0 or err occurred, then call onError(err)
+ */
+</span>    var onParallel;
+    onError = local.onErrorWithStack(onError);
+    onEach = onEach || local.nop;
+    onRetry = onRetry || local.nop;
+    onParallel = function (err, data) {
+        if (onRetry(err, data)) {
+            return;
+        }
+        // decrement counter
+        onParallel.counter -= 1;
+        // validate counter
+        if (!(onParallel.counter &gt;= 0 || err || onParallel.err)) {
+            err = new Error(
+                &quot;invalid onParallel.counter = &quot; + onParallel.counter
+            );
+        // ensure onError is run only once
+        } else if (onParallel.counter &lt; 0) {
+            return;
+        }
+        // handle err
+        if (err) {
+            onParallel.err = err;
+            // ensure counter &lt;= 0
+            onParallel.counter = -Math.abs(onParallel.counter);
+        }
+        // call onError when isDone
+        if (onParallel.counter &lt;= 0) {
+            onError(err, data);
+            return;
+        }
+        onEach();
+    };
+    // init counter
+    onParallel.counter = 0;
+    // return callback
+    return onParallel;
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+            elem: opt.list[onParallel.ii],
+            ii: onParallel.ii,
+            list: opt.list,
+            retry: 0
+        }, onParallel);
+    }
+};
+onParallel = local.<span class="apidocCodeKeywordSpan">onParallel</span>(onError, onEach2, function (err, data) {
+    if (err &amp;&amp; data &amp;&amp; data.retry &lt; opt.retryLimit) {
+        local.onErrorDefault(err);
+        data.retry += 1;
+        setTimeout(function () {
+            onParallel.counter -= 1;
+            onEach(data, onParallel);
+        }, 1000);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.onParallelList" id="apidoc.elem.github-crud.onParallelList">
+        function <span class="apidocSignatureSpan">github-crud.</span>onParallelList
+        <span class="apidocSignatureSpan">(opt, onEach, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onParallelList = function (opt, onEach, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will
+ * 1. async-run onEach in parallel,
+ *    with given &lt;opt&gt;.rateLimit and &lt;opt&gt;.retryLimit
+ * 2. call &lt;onError&gt; when onParallel.ii + 1 === &lt;opt&gt;.list.length
+ */
+</span>    var isListEnd;
+    var onEach2;
+    var onParallel;
+    opt.list = opt.list || [];
+    onEach2 = function () {
+        while (true) {
+            if (!(onParallel.ii + 1 &lt; opt.list.length)) {
+                isListEnd = true;
+                return;
+            }
+            if (!(onParallel.counter &lt; opt.rateLimit + 1)) {
+                return;
+            }
+            onParallel.ii += 1;
+            onEach({
+                elem: opt.list[onParallel.ii],
+                ii: onParallel.ii,
+                list: opt.list,
+                retry: 0
+            }, onParallel);
+        }
+    };
+    onParallel = local.onParallel(onError, onEach2, function (err, data) {
+        if (err &amp;&amp; data &amp;&amp; data.retry &lt; opt.retryLimit) {
+            local.onErrorDefault(err);
+            data.retry += 1;
+            setTimeout(function () {
+                onParallel.counter -= 1;
+                onEach(data, onParallel);
+            }, 1000);
+            return true;
+        }
+        // restart if opt.list has grown
+        if (isListEnd &amp;&amp; (onParallel.ii + 1 &lt; opt.list.length)) {
+            isListEnd = null;
+            onEach2();
+        }
+    });
+    onParallel.ii = -1;
+    opt.rateLimit = Number(opt.rateLimit) || 6;
+    opt.rateLimit = Math.max(opt.rateLimit, 1);
+    opt.retryLimit = Number(opt.retryLimit) || 2;
+    onParallel.counter += 1;
+    onEach2();
+    onParallel();
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        method: &quot;DELETE&quot;,
+        sha: data.sha,
+        url: opt.url
+    }, opt.gotoNext);
+    return;
+}
+// delete tree
+local.<span class="apidocCodeKeywordSpan">onParallelList</span>({
+    list: data
+}, function (option2, onParallel) {
+    onParallel.counter += 1;
+    // recurse
+    local.githubCrudContentDelete({
+        httpReq: opt.httpReq,
+        message: opt.message,
+...</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.github-crud.cliDict" id="apidoc.module.github-crud.cliDict">module github-crud.cliDict</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.delete" id="apidoc.elem.github-crud.cliDict.delete">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>delete
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">delete = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;fileRemote|dirRemote&gt; &lt;commitMessage&gt;
+ * will delete from github &lt;fileRemote|dirRemote&gt;
+ */
+</span>    local.github_crud.githubCrudContentDelete({
+        message: process.argv[4],
+        url: process.argv[3]
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.get" id="apidoc.elem.github-crud.cliDict.get">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>get
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">get = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;fileRemote&gt;
+ * will get from github &lt;fileRemote&gt;
+ */
+</span>    local.github_crud.githubCrudContentGet({
+        url: process.argv[3]
+    }, function (err, data) {
+        try {
+            process.stdout.write(data);
+        } catch (ignore) {}
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.put" id="apidoc.elem.github-crud.cliDict.put">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>put
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">put = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;fileRemote&gt; &lt;fileLocal&gt; &lt;commitMessage&gt;
+ * will put on github &lt;fileRemote&gt; to &lt;fileLocal&gt;
+ */
+</span>    local.github_crud.githubCrudContentPutFile({
+        message: process.argv[5],
+        url: process.argv[3],
+        file: process.argv[4]
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.repo_create" id="apidoc.elem.github-crud.cliDict.repo_create">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>repo_create
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">repo_create = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;repoList&gt;
+ * will create on github in parallel, comma-separated &lt;repoList&gt;
+ */
+</span>    local.github_crud.githubCrudRepoCreateList({
+        urlList: process.argv[3].split(
+            /[,\s]/g
+        ).filter(local.identity)
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.repo_delete" id="apidoc.elem.github-crud.cliDict.repo_delete">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>repo_delete
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">repo_delete = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;repoList&gt;
+ * will delete from github in parallel, comma-separated &lt;repoList&gt;
+ */
+</span>    local.github_crud.githubCrudRepoDeleteList({
+        urlList: process.argv[3].split(
+            /[,\s]/g
+        ).filter(local.identity)
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.github-crud.cliDict.touch" id="apidoc.elem.github-crud.cliDict.touch">
+        function <span class="apidocSignatureSpan">github-crud.cliDict.</span>touch
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">touch = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;fileRemoteList&gt; &lt;commitMessage&gt;
+ * will touch on github in parallel, comma-separated &lt;fileRemoteList&gt;
+ */
+</span>    local.github_crud.githubCrudContentTouchList({
+        message: process.argv[4],
+        urlList: process.argv[3].split(
+            /[,\s]/g
+        ).filter(local.identity)
+    }, function (err) {
+        process.exit(Boolean(err));
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
