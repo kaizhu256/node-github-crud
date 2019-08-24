@@ -1,6 +1,6 @@
 // usr/bin/env node
 /*
- * lib.github_crud.js (2019.1.21)
+ * lib.github_crud.js (2019.8.24)
  * https://github.com/kaizhu256/node-github-crud
  * this zero-dependency package will provide a simple cli-tool to PUT / GET / DELETE github files
  *
