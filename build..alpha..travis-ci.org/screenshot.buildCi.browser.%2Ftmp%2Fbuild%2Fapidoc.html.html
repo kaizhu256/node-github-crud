@@ -461,7 +461,6 @@
                 xhr.statusCode = xhr.statusCode || 500;
                 xhr.err.statusCode = xhr.statusCode;
                 tmp = (
-                    // ternary-operator
                     (
                         local.isBrowser
                         ? "browser"
@@ -482,7 +481,8 @@
                     xhr.resHeaders[match1.toLowerCase()] = match2;
                 });
             }
-            // debug ajaxRespon...</pre></li>
+            // debug ajaxResponse
+            xhr.resContentLength = (...</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 /* validateLineSortedReset */
 local.ajax = function (opt, onError) {
@@ -520,7 +520,6 @@ local.ajax = function (opt, onError) {
         return;
     }
     err = (
-        // ternary-operator
         (
             message
             &amp;&amp; typeof message.message === "string"
@@ -1051,8 +1050,8 @@ case 2:
         message: opt.message,
         // resolve file in url
         url: (
-            // ternary-operator
             (
+                /\/$/
 ...</pre></li>
     </ul>
 
@@ -1101,7 +1100,6 @@ case 2:
                 message: opt.message,
                 // resolve file in url
                 url: (
-                    // ternary-operator
                     (
                         /\/$/
                     ).test(opt.url)

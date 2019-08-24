@@ -3,7 +3,7 @@
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2019-08-21T07:14:53.802Z - npm-testing /home/travis/bu\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2019-08-24T01:23:58.834Z - npm-testing /home/travis/bu\</tspan>
 <tspan x="10" y="58">ild/kaizhu256/node-github-crud</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -13,7 +13,7 @@
 <tspan x="10" y="106">buildApidoc - merged test-report from file /home/travis/build/kaizhu256/node-github-crud/tmp/bui\</tspan>
 <tspan x="10" y="122">ld/test-report.json</tspan>
 
-<tspan x="10" y="138">&gt; http-server listening on port 63155</tspan>
+<tspan x="10" y="138">&gt; http-server listening on port 56679</tspan>
 
 <tspan x="10" y="154">db - dropping database ...</tspan>
 
@@ -46,21 +46,21 @@
 <tspan x="10" y="378">buildApidoc - merged test-report from file /home/travis/build/kaizhu256/node-github-crud/tmp/bui\</tspan>
 <tspan x="10" y="394">ld/test-report.json</tspan>
 
-<tspan x="10" y="410">created apidoc file /home/travis/build/kaizhu256/node-github-crud/apidoc.html</tspan>
+<tspan x="10" y="410">jslint - 29ms /home/travis/build/kaizhu256/node-github-crud/README.md</tspan>
 
-<tspan x="10" y="426"></tspan>
+<tspan x="10" y="426">created apidoc file /home/travis/build/kaizhu256/node-github-crud/apidoc.html</tspan>
 
-<tspan x="10" y="442">testRunDefault - 201 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="442"></tspan>
 
-<tspan x="10" y="458">jslint - 30ms /home/travis/build/kaizhu256/node-github-crud/README.md</tspan>
+<tspan x="10" y="458">testRunDefault - 235 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
 
-<tspan x="10" y="474">jslint - 169ms /home/travis/build/kaizhu256/node-github-crud/lib.github_crud.js</tspan>
+<tspan x="10" y="474">jslint - 199ms /home/travis/build/kaizhu256/node-github-crud/lib.github_crud.js</tspan>
 
 <tspan x="10" y="490">jslint - 1ms /home/travis/build/kaizhu256/node-github-crud/npm_scripts.sh</tspan>
 
-<tspan x="10" y="506">jslint - 0ms /home/travis/build/kaizhu256/node-github-crud/package.json</tspan>
+<tspan x="10" y="506">jslint - 1ms /home/travis/build/kaizhu256/node-github-crud/package.json</tspan>
 
-<tspan x="10" y="522">jslint - 44ms /home/travis/build/kaizhu256/node-github-crud/test.js</tspan>
+<tspan x="10" y="522">jslint - 40ms /home/travis/build/kaizhu256/node-github-crud/test.js</tspan>
 
 <tspan x="10" y="538"></tspan>
 
@@ -71,22 +71,22 @@
 
 <tspan x="10" y="602">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="618">| test-report - buildApidoc - node - linux v12.9.0 - 2019-08-21T07:14:53.916Z</tspan>
+<tspan x="10" y="618">| test-report - buildApidoc - node - linux v12.9.0 - 2019-08-24T01:23:58.947Z</tspan>
 
-<tspan x="10" y="634">|     205 ms            0 failed        1 passed      |</tspan>
+<tspan x="10" y="634">|     239 ms            0 failed        1 passed      |</tspan>
 
 <tspan x="10" y="650">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="666">| test-report - npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM\</tspan>
-<tspan x="10" y="682">L, like Gecko) Chrome/61.0.3163.100 Electron/2.0.18 Safari/537.36 - 2019-08-21T07:14:46.035Z</tspan>
+<tspan x="10" y="682">L, like Gecko) Chrome/61.0.3163.100 Electron/2.0.18 Safari/537.36 - 2019-08-24T01:23:51.124Z</tspan>
 
-<tspan x="10" y="698">|    1007 ms            0 failed        6 passed      |</tspan>
+<tspan x="10" y="698">|    1006 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="714">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="730">| test-report - npmTest - node - linux v12.9.0 - 2019-08-21T07:14:43.385Z</tspan>
+<tspan x="10" y="730">| test-report - npmTest - node - linux v12.9.0 - 2019-08-24T01:23:48.717Z</tspan>
 
-<tspan x="10" y="746">|    7781 ms            0 failed       12 passed      |</tspan>
+<tspan x="10" y="746">|    7566 ms            0 failed       12 passed      |</tspan>
 
 <tspan x="10" y="762">-------------------------------------------------------</tspan>
 
@@ -105,7 +105,7 @@
 
 <tspan x="10" y="890"></tspan>
 
-<tspan x="10" y="906">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2019-08-21T07:14:55.401Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="906">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2019-08-24T01:24:00.460Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
